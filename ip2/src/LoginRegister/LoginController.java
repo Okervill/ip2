@@ -5,12 +5,16 @@
  */
 package LoginRegister;
 
+import SQL.SQLHandler;
+import ip2.Shaker;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
@@ -35,13 +39,33 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-    
+
     @FXML
     private void login(ActionEvent event) throws SQLException {
         String username = inputUser.getText();
         String password = inputPass.getText();
-        
-        //Check details match with users table in DB
+
+        if (username.isEmpty() || password.isEmpty()) {
+            return;
+        }
+
+        SQLHandler sql = new SQLHandler();
+        //Get all users
+        ArrayList<String> user = sql.searchUsersTable(username);
+
+        if (user.size() < 5) {
+            loginFailed();
+        } else if (password.equals(user.get(3))) {
+            System.out.print("\nSuccess");
+        } else {
+            loginFailed();
+        }
     }
-    
+
+    public void loginFailed() {
+        Shaker shaker = new Shaker(loginButton);
+        shaker.shake();
+        inputUser.requestFocus();
+    }
+
 }
