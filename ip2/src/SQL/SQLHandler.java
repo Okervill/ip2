@@ -50,18 +50,21 @@ public class SQLHandler {
     //-----------------------------//
     // ADD NEW DATA TO LOGIN TABLE //
     //-----------------------------//
-    public void createUser(String firstname, String surname, String username, String password) throws SQLException {
+    public void createUser(String firstname, String surname, String username, String password, String admin) throws SQLException {
 
-        String sql = "INSERT INTO login (firstname, surname, username, password) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO login (userid, firstname, surname, username, password, admin) VALUES(?,?,?,?,?,?)";
         Hash h = new Hash();
         query = conn.prepareStatement(sql);
 
         password = h.hash(password);
+        String userid = String.valueOf(getAllUsers().size() + 1);
         
-        query.setString(1, firstname);
-        query.setString(2, surname);
-        query.setString(3, username);
-        query.setString(4, password);
+        query.setString(1, userid);
+        query.setString(2, firstname);
+        query.setString(3, surname);
+        query.setString(4, username);
+        query.setString(5, password);
+        query.setString(6, admin);
 
         query.executeUpdate();
         query.close();
@@ -88,10 +91,11 @@ public class SQLHandler {
     public ArrayList searchUsersTable(String searchQuery) throws SQLException {
         
         ArrayList<String> output = new ArrayList<>();
-        String sql = "SELECT firstname, surname, username, password, admin FROM users WHERE username = \"" + searchQuery + "\"";
+        String sql = "SELECT userid, firstname, surname, username, password, admin FROM users WHERE username = \"" + searchQuery + "\"";
         query = conn.prepareStatement(sql);
         ResultSet rs = query.executeQuery();
         while (rs.next()) {
+            output.add((rs.getString("userid")));
             output.add((rs.getString("firstname")));
             output.add((rs.getString("surname")));
             output.add((rs.getString("username")));

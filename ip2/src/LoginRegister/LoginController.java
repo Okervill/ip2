@@ -31,6 +31,8 @@ public class LoginController implements Initializable {
     private TextField inputPass;
     @FXML
     private Button loginButton;
+    @FXML
+    private Button registerButton;
 
     /**
      * Initializes the controller class.
@@ -55,7 +57,7 @@ public class LoginController implements Initializable {
 
         if (user.size() < 5) {
             loginFailed();
-        } else if (password.equals(user.get(3))) {
+        } else if (password.equals(user.get(4))) {
             System.out.print("\nSuccess");
         } else {
             loginFailed();
@@ -66,6 +68,10 @@ public class LoginController implements Initializable {
         Shaker shaker = new Shaker(loginButton);
         shaker.shake();
         inputUser.requestFocus();
+    }
+
+    @FXML
+    private void loadRegister(ActionEvent event) {
     }
 
 }
