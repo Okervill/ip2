@@ -5,6 +5,7 @@
  */
 package ip2;
 
+import SQL.SQLHandler;
 import java.io.IOException;
 import java.sql.SQLException;
 import javafx.application.Application;
@@ -29,6 +30,9 @@ public class Ip2 extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("Login");
         primaryStage.show();
+        
+        SQLHandler sql = new SQLHandler();
+        System.out.print(sql.getAllUsers());
     }
 
     public static void main(String[] args) {
