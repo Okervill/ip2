@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package LoginRegister;
+package UserHomePage;
 
+import ip2.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,21 +16,34 @@ import javafx.stage.Stage;
  *
  * @author Patrick
  */
-public class Login extends Application {
+public class UserHome extends Application{
     
+    User currentUser;
+
+    @Override
     public void start(Stage stage) throws Exception {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserHomePage/UserHome.fxml"));
+        Parent root = (Parent) loader.load();
         
-        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+        UserHomeController controller = loader.getController();
+        
+        controller.setData(currentUser);
         
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
-        stage.setTitle("Login");
-        stage.show();        
+        stage.setTitle("Home");
+
+        stage.show();
         stage.centerOnScreen();
+
+    }
+
+    public UserHome() {
     }
     
-    public Login(){
-        
+    public UserHome(User user){
+        currentUser = user;
     }
 }

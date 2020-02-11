@@ -15,21 +15,21 @@ import javafx.stage.Stage;
  *
  * @author Patrick
  */
-public class Login extends Application {
+public class RegisterUser extends Application{
     
-    public void start(Stage stage) throws Exception {
+        public void start(Stage stage) throws Exception {
         
-        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Register.fxml"));
         
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
-        stage.setTitle("Login");
+        stage.setTitle("Register");
         stage.show();        
         stage.centerOnScreen();
     }
     
-    public Login(){
+    public RegisterUser(){
         
     }
 }

@@ -5,8 +5,13 @@
  */
 package LoginRegister;
 
+import AdminHomePage.AdminHome;
 import SQL.SQLHandler;
+import UserHomePage.UserHome;
+import ip2.Hash;
 import ip2.Shaker;
+import ip2.SwitchWindow;
+import ip2.User;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,9 +19,9 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -51,27 +56,44 @@ public class LoginController implements Initializable {
             return;
         }
 
+        Hash h = new Hash();
         SQLHandler sql = new SQLHandler();
-        //Get all users
         ArrayList<String> user = sql.searchUsersTable(username);
 
-        if (user.size() < 5) {
+        if (user.size() < 6) {
             loginFailed();
-        } else if (password.equals(user.get(4))) {
-            System.out.print("\nSuccess");
+        } else if (!h.verifyHash(password, user.get(4))) {
+            loginFailed();
         } else {
-            loginFailed();
+            login(username);
         }
     }
 
     public void loginFailed() {
         Shaker shaker = new Shaker(loginButton);
         shaker.shake();
+        inputPass.setText("");
         inputUser.requestFocus();
+    }
+    
+    public void login(String user) throws SQLException{
+        User currentUser = new User(user);
+        String userType = currentUser.getUserType();
+        if(userType.equals("true")){
+            SwitchWindow.switchWindow((Stage) loginButton.getScene().getWindow(), new AdminHome(currentUser));
+        } else {
+            SwitchWindow.switchWindow((Stage) loginButton.getScene().getWindow(), new UserHome(currentUser));
+        }
     }
 
     @FXML
     private void loadRegister(ActionEvent event) {
+            SwitchWindow.switchWindow((Stage) registerButton.getScene().getWindow(), new RegisterUser());
+    }
+
+    @FXML
+    private void swapFocusPassword(ActionEvent event) {
+        inputPass.requestFocus();
     }
 
 }

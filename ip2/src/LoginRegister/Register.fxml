@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<SplitPane dividerPositions="0.613933236574746" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="465.0" prefWidth="691.0" stylesheets="@../../OneDrive/Desktop/test.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginRegister.RegisterController">
+  <items>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="463.0" prefWidth="432.0" style="-fx-background-color: e8a87c;">
+         <children>
+            <Label layoutX="159.0" layoutY="35.0" prefHeight="36.0" prefWidth="97.0" text="Register" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <Label layoutX="121.0" layoutY="91.0" text="First Name" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="getFirstname" layoutX="119.0" layoutY="111.0" onAction="#swapFocusSurname" prefHeight="25.0" prefWidth="178.0" promptText="Please enter your first name" />
+            <TextField fx:id="getSurname" layoutX="119.0" layoutY="181.0" onAction="#swapFocusUsername" prefHeight="25.0" prefWidth="178.0" promptText="Please enter your surname" />
+            <TextField fx:id="getUsername" layoutX="119.0" layoutY="254.0" onAction="#swapFocusPassword" prefHeight="25.0" prefWidth="178.0" promptText="Please pick a username" />
+            <PasswordField fx:id="getPassword" layoutX="121.0" layoutY="331.0" onAction="#register" prefHeight="25.0" prefWidth="178.0" promptText="Please create a password" />
+            <Button fx:id="registerButton" layoutX="150.0" layoutY="386.0" mnemonicParsing="false" onAction="#register" prefHeight="42.0" prefWidth="116.0" style="-fx-background-radius: 100; -fx-background-color: a8d6c9;" text="Register" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <effect>
+                  <DropShadow color="#727272" />
+               </effect>
+            </Button>
+            <Label layoutX="121.0" layoutY="303.0" text="Password" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="121.0" layoutY="228.0" text="Pick a username!" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="121.0" layoutY="155.0" text="Surname" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Line endX="78.0" layoutX="355.0" layoutY="53.0" startX="-85.0" stroke="#a8d6c9" strokeWidth="1.3" />
+            <Line endX="78.0" layoutX="71.0" layoutY="53.0" startX="-85.0" stroke="#a8d6c9" strokeWidth="1.3" />
+         </children>
+      </AnchorPane>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="463.0" prefWidth="254.0" SplitPane.resizableWithParent="false">
+         <children>
+            <Label layoutX="63.0" layoutY="208.0" text="Already a member?" textFill="#605959">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="62.0" fitWidth="125.0" layoutX="69.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@new.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="loginButton" layoutX="69.0" layoutY="245.0" mnemonicParsing="false" onAction="#loadLoginPage" prefHeight="42.0" prefWidth="116.0" style="-fx-background-radius: 100; -fx-background-color: a8d6c9;" text="Login" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <effect>
+                  <DropShadow color="#727272" />
+               </effect>
+            </Button>
+         </children></AnchorPane>
+  </items>
+</SplitPane>
