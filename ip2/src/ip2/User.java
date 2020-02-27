@@ -51,12 +51,12 @@ public class User {
         CompetitiveBankID = userInfo.get(1);
         CasualBankID = userInfo.get(2);
         CategoriesAnsweredID = userInfo.get(3);
-        firstname = userInfo.get(5);
-        surname = userInfo.get(6);
-        username = userInfo.get(7);
-        password = userInfo.get(8);
-        admin = userInfo.get(9);
-        userscore = userInfo.get(10);
+        firstname = userInfo.get(4);
+        surname = userInfo.get(5);
+        username = userInfo.get(6);
+        password = userInfo.get(7);
+        admin = userInfo.get(8);
+        userscore = userInfo.get(9);
     }
 
     public void createUser(User user) throws SQLException {
