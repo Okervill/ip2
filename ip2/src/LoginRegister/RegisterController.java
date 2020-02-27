@@ -75,7 +75,7 @@ public class RegisterController implements Initializable {
         } else {
             Hash h = new Hash();
             password = h.hash(password);
-            User newUser = new User(firstname, surname, username, password, "false");
+            User newUser = new User(firstname, surname, username, password, "false", "0");
             newUser.createUser(newUser);
             SwitchWindow.switchWindow((Stage) registerButton.getScene().getWindow(), new Login());
         }

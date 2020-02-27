@@ -14,61 +14,93 @@ import java.util.ArrayList;
  * @author Patrick
  */
 public class User {
-    
+
+    private final String userid;
+    private final String CompetitiveBankID;
+    private final String CasualBankID;
+    private final String CategoriesAnsweredID;
     private final String firstname;
     private final String surname;
     private final String username;
     private final String password;
-    private final String userid;
     private final String admin;
-    
-    public User(String first, String sur, String user, String pass, String isAdmin) throws SQLException{
-        
+    private final String userscore;
+
+    public User(String first, String sur, String user, String pass, String isAdmin, String usrscore) throws SQLException {
+
         SQLHandler sql = new SQLHandler();
         int usercount = sql.getAllUsers().size();
-        
+
         userid = String.valueOf(usercount++);
+        CompetitiveBankID = userid;
+        CasualBankID = userid;
+        CategoriesAnsweredID = userid;
         firstname = first;
         surname = sur;
         username = user;
         password = pass;
         admin = isAdmin;
+        userscore = usrscore;
     }
-    
-    public User(String user) throws SQLException{
+
+    public User(String user) throws SQLException {
         SQLHandler sql = new SQLHandler();
         ArrayList<String> userInfo = sql.searchUsersTable(user);
-        
+
         userid = userInfo.get(0);
-        firstname = userInfo.get(1);
-        surname = userInfo.get(2);
-        username = userInfo.get(3);
-        password = userInfo.get(4);
-        admin = userInfo.get(5);
+        CompetitiveBankID = userInfo.get(1);
+        CasualBankID = userInfo.get(2);
+        CategoriesAnsweredID = userInfo.get(3);
+        firstname = userInfo.get(5);
+        surname = userInfo.get(6);
+        username = userInfo.get(7);
+        password = userInfo.get(8);
+        admin = userInfo.get(9);
+        userscore = userInfo.get(10);
     }
-    
-    public void createUser(User user) throws SQLException{
+
+    public void createUser(User user) throws SQLException {
         SQLHandler sql = new SQLHandler();
-        sql.createUser(user.getUserID(), user.getFirstname(), user.getSurname(), user.getUsername(), user.getPassword(), user.getUserType());
+        sql.createUser(user.getUserID(), user.getCompetitiveBankID(), user.getCasualBankID(), user.getCategoriesAnsweredID(), user.getFirstname(), user.getSurname(), user.getUsername(), user.getPassword(), user.getUserType(), user.getUserScore());
     }
-    
-    public String getFirstname(){
-        return this.firstname;
-    }
-    public String getSurname(){
-        return this.surname;
-    }
-    public String getUsername(){
-        return this.username;
-    }
-    public String getPassword(){
-        return this.password;
-    }
-    public String getUserID(){
+
+    public String getUserID() {
         return this.userid;
     }
-    public String getUserType(){
+
+    public String getCompetitiveBankID() {
+        return this.CompetitiveBankID;
+    }
+
+    public String getCasualBankID() {
+        return this.CasualBankID;
+    }
+
+    public String getCategoriesAnsweredID() {
+        return this.CategoriesAnsweredID;
+    }
+
+    public String getFirstname() {
+        return this.firstname;
+    }
+
+    public String getSurname() {
+        return this.surname;
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public String getUserType() {
         return this.admin;
     }
-    
+
+    public String getUserScore(){
+        return this.userscore;
+    }
 }

@@ -41,6 +41,8 @@ public class LoginController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -62,7 +64,7 @@ public class LoginController implements Initializable {
 
         if (user.size() < 6) {
             loginFailed();
-        } else if (!h.verifyHash(password, user.get(4))) {
+        } else if (!h.verifyHash(password, user.get(6))) {
             loginFailed();
         } else {
             login(username);

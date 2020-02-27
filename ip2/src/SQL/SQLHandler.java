@@ -50,17 +50,21 @@ public class SQLHandler {
     //-----------------------------//
     // ADD NEW DATA TO LOGIN TABLE //
     //-----------------------------//
-    public void createUser(String userid, String firstname, String surname, String username, String password, String admin) throws SQLException {
+    public void createUser(String userid, String CompetitiveBankID, String CasualBankID, String CategoriesAnsweredID, String firstname, String surname, String username, String password, String admin, String userscore) throws SQLException {
 
-        String sql = "INSERT INTO users (userid, firstname, surname, username, password, isadmin) VALUES(?,?,?,?,?,?)";
+        String sql = "INSERT INTO Users (UserID, CompetitiveBankID, CasualBankID, CategoriesAnsweredID, FirstName, Surname, Username, Password, isAdmin, UserScore) VALUES(?,?,?,?,?,?,?,?,?,?)";
         query = conn.prepareStatement(sql);
         
         query.setString(1, userid);
-        query.setString(2, firstname);
-        query.setString(3, surname);
-        query.setString(4, username);
-        query.setString(5, password);
-        query.setString(6, admin);
+        query.setString(2, CompetitiveBankID);
+        query.setString(3, CasualBankID);
+        query.setString(4, CategoriesAnsweredID);
+        query.setString(5, firstname);
+        query.setString(6, surname);
+        query.setString(7, username);
+        query.setString(8, password);
+        query.setString(9, admin);
+        query.setString(10, userscore);
 
         query.executeUpdate();
         query.close();
@@ -72,12 +76,12 @@ public class SQLHandler {
     public ArrayList getAllUsers() throws SQLException {
 
         ArrayList<String> output = new ArrayList<>();
-        String sql = "SELECT username FROM users";
+        String sql = "SELECT username FROM Users";
         query = conn.prepareStatement(sql);
         ResultSet rs = query.executeQuery();
 
         while (rs.next()) {
-            output.add(rs.getString("username"));
+            output.add(rs.getString("Username"));
         }
 
         query.close();
@@ -87,17 +91,22 @@ public class SQLHandler {
     public ArrayList searchUsersTable(String searchQuery) throws SQLException {
         
         ArrayList<String> output = new ArrayList<>();
-        String sql = "SELECT userid, firstname, surname, username, password, isadmin FROM users WHERE username = \"" + searchQuery + "\"";
+        String sql = "SELECT UserID, CompetitiveBankID, CasualBankID, CategoriesAnsweredID, FirstName, Surname, Username, Password, isAdmin, UserScore FROM Users WHERE Username = \"" + searchQuery + "\"";
         query = conn.prepareStatement(sql);
         ResultSet rs = query.executeQuery();
         while (rs.next()) {
-            output.add((rs.getString("userid")));
-            output.add((rs.getString("firstname")));
-            output.add((rs.getString("surname")));
-            output.add((rs.getString("username")));
-            output.add((rs.getString("password")));
-            output.add((rs.getString("isadmin")));
+            output.add((rs.getString("UserID")));
+            output.add((rs.getString("CompetitiveBankID")));
+            output.add((rs.getString("CasualBankID")));
+            output.add((rs.getString("CategoriesAnsweredID")));
+            output.add((rs.getString("Firstname")));
+            output.add((rs.getString("Surname")));
+            output.add((rs.getString("Username")));
+            output.add((rs.getString("Password")));
+            output.add((rs.getString("isAdmin")));
+            output.add((rs.getString("UserScore")));
         }
         return output;
     }
+  
 }
