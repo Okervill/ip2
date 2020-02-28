@@ -6,14 +6,20 @@
 package AdminHomePage;
 
 import ip2.User;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListView;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -24,24 +30,32 @@ public class AdminHomeController implements Initializable {
 
     User currentUser;
 
-    @FXML
-    private ListView<String> userDisplay;
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
 
-            ObservableList<String> u = FXCollections.observableArrayList();
-            u.add(currentUser.getUserID());
-            u.add(currentUser.getFirstname());
-            u.add(currentUser.getSurname());
-            u.add(currentUser.getUsername());
-
-            userDisplay.setItems(u);
         });
+    }
+    
+    @FXML
+    public void logoutButton(ActionEvent event) throws IOException {
+        Parent root;
+        root = FXMLLoader.load(getClass().getResource("/LoginRegister/Login.fxml"));
+
+        Scene scene = new Scene(root);
+        Stage reg = new Stage(StageStyle.DECORATED);
+        reg.setTitle("Home");
+        reg.setScene(scene);
+
+        reg.show();
+        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+
     }
 
     public void setData(User user) {
