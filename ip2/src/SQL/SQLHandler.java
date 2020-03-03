@@ -87,6 +87,24 @@ public class SQLHandler {
         query.close();
         return output;
     }
+    
+    
+    
+    
+    public ArrayList getAllQuestions() throws SQLException {
+
+        ArrayList<String> output = new ArrayList<>();
+        String sql = "SELECT question FROM Questions";
+        query = conn.prepareStatement(sql);
+        ResultSet rs = query.executeQuery();
+
+        while (rs.next()) {
+            output.add(rs.getString("Question"));
+        }
+
+        query.close();
+        return output;
+    }
 
     public ArrayList searchUsersTable(String searchQuery) throws SQLException {
         
