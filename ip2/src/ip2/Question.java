@@ -15,10 +15,10 @@ import java.util.ArrayList;
  */
 public class Question {
 
-    private final String QuestionId;
-    private final String CategoryId;
-    private final String userQuestion;
-    private final String correctAns;
+    private final String QuestionID;
+    private final String CategoryID;
+    private final String question;
+    private final String answer;
     private final String wrongAns1;
     private final String wrongAns2;
     private final String wrongAns3;
@@ -29,12 +29,12 @@ public class Question {
         int questionCount = sql.getAllQuestions().size();
 
         QuestionId = String.valueOf(questionCount++);
-        CategoryId = QuestionId;
+        CategoryId = catID;
         userQuestion = quest;
-        correctAns = catID;
-        wrongAns1 = correct;
-        wrongAns2 = wrong1;
-        wrongAns3 = wrong2;
+        correctAns = correct;
+        wrongAns1 = wrong1;
+        wrongAns2 = wrong2;
+        wrongAns3 = wrong3;
     
     }
     
@@ -55,6 +55,36 @@ public class Question {
     
      public void createQuestion(Question question) throws SQLException {
         SQLHandler sql = new SQLHandler();
-        sql.createUser(question.getQuestionId(), question.getCategoryId(), question.getUserQuestion(), question.getCorrectAnswer(), question.getWrongAnswer1(), question.getWrongAnswer2(), question.getUsername());
+        sql.createQuestion(question.getQuestionId(), question.getCategoryId(), question.getUserQuestion(), question.getCorrectAnswer(), question.getWrongAnswer1(), question.getWrongAnswer2(), question.getWrongAnswer3());
     }
+     
+      public String getQuestionId() {
+        return this.QuestionId;
+    }
+
+    public String getCategoryId() {
+        return this.CategoryId;
+    }
+
+    public String getUserQuestion() {
+        return this.userQuestion;
+    }
+
+    public String getCorrectAnswer() {
+        return this.correctAns;
+    }
+
+    public String getWrongAnswer1() {
+        return this.wrongAns1;
+    }
+
+    public String getWrongAnswer2() {
+        return this.wrongAns2;
+    }
+
+    public String getWrongAnswer3() {
+        return this.wrongAns3;
+    }
+
+   
 }

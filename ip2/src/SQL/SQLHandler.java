@@ -54,7 +54,7 @@ public class SQLHandler {
 
         String sql = "INSERT INTO Users (UserID, CompetitiveBankID, CasualBankID, CategoriesAnsweredID, FirstName, Surname, Username, Password, isAdmin, UserScore) VALUES(?,?,?,?,?,?,?,?,?,?)";
         query = conn.prepareStatement(sql);
-        
+
         query.setString(1, userid);
         query.setString(2, CompetitiveBankID);
         query.setString(3, CasualBankID);
@@ -87,10 +87,30 @@ public class SQLHandler {
         query.close();
         return output;
     }
-    
-    
-    
-    
+
+    //-----------------------------//
+    // ADD NEW DATA TO QUESTION TABLE //
+    //-----------------------------//
+    public void createQuestion(String QuestionId, String CategoryId, String userQuestion, String correctAns, String wrongAns1, String wrongAns2, String wrongAns3) throws SQLException {
+
+        String sql = "INSERT INTO Question (QuestionId, CategoryId, CasualBankID, userQuestion, FirstName, Surname, Username, Password, isAdmin, UserScore) VALUES(?,?,?,?,?,?,?,?,?,?)";
+        query = conn.prepareStatement(sql);
+
+        query.setString(1, QuestionId);
+        query.setString(2, CategoryId);
+        query.setString(3, userQuestion);
+        query.setString(4, correctAns);
+        query.setString(5, wrongAns1);
+        query.setString(6, wrongAns2);
+        query.setString(7, wrongAns3);
+
+        query.executeUpdate();
+        query.close();
+    }
+
+    //------------------------------------//
+    // GET ALL QUESTIONS FROM QUESTION TABLE //
+    //------------------------------------//
     public ArrayList getAllQuestions() throws SQLException {
 
         ArrayList<String> output = new ArrayList<>();
@@ -107,7 +127,7 @@ public class SQLHandler {
     }
 
     public ArrayList searchUsersTable(String searchQuery) throws SQLException {
-        
+
         ArrayList<String> output = new ArrayList<>();
         String sql = "SELECT UserID, CompetitiveBankID, CasualBankID, CategoriesAnsweredID, FirstName, Surname, Username, Password, isAdmin, UserScore FROM Users WHERE Username = \"" + searchQuery + "\"";
         query = conn.prepareStatement(sql);
@@ -126,5 +146,5 @@ public class SQLHandler {
         }
         return output;
     }
-  
+
 }
