@@ -179,7 +179,7 @@ public class SQLHandler {
        public ArrayList searchCategoriesTable(String searchQuery) throws SQLException {
         
         ArrayList<String> output = new ArrayList<>();
-        String sql = "SELECT CategoryID, CategoryName FROM Categories WHERE CategoryID = \"" + searchQuery + "\"";
+        String sql = "SELECT CategoryID, CategoryName FROM Categories WHERE CategoryName = \"" + searchQuery + "\"";
         query = conn.prepareStatement(sql);
         ResultSet rs = query.executeQuery();
         while (rs.next()) {
@@ -188,6 +188,14 @@ public class SQLHandler {
             
         }
         return output;
+    }
+
+    public void deleteCategory(String categoryName)throws SQLException {
+        String sql = " DELETE FROM Categories WHERE CategoryName=?";
+        query = conn.prepareStatement(sql);
+        query.setString(1, categoryName);
+        query.executeUpdate();
+        query.close();
     }
 
 }

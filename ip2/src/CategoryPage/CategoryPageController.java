@@ -56,9 +56,38 @@ public class CategoryPageController implements Initializable {
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
 
     }
+    
+     @FXML
+    public void addCategoryButton(ActionEvent event) throws IOException {
+        Parent root;
+        root = FXMLLoader.load(getClass().getResource("/CategoryPage/AddCategory.fxml"));
+
+        Scene scene = new Scene(root);
+        Stage reg = new Stage(StageStyle.DECORATED);
+        reg.setTitle("Home");
+        reg.setScene(scene);
+
+        reg.show();
+        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+
+    }
 
     public void setData(User user) {
         currentUser = user;
+    }
+    @FXML
+    public void deleteCategoryButton(ActionEvent event) throws IOException {
+        Parent root;
+        root = FXMLLoader.load(getClass().getResource("/CategoryPage/DeleteCategory.fxml"));
+
+        Scene scene = new Scene(root);
+        Stage reg = new Stage(StageStyle.DECORATED);
+        reg.setTitle("Home");
+        reg.setScene(scene);
+
+        reg.show();
+        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+
     }
 
 }
