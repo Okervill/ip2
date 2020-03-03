@@ -30,17 +30,7 @@ public class QuestionPageController implements Initializable {
     User currentUser;
 
 
-    /**
-     * Initializes the controller class.
-     * @param url
-     * @param rb
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        Platform.runLater(() -> {
-
-        });
-    }
+    
     
     @FXML
     public void backButton(ActionEvent event) throws IOException {
@@ -55,6 +45,18 @@ public class QuestionPageController implements Initializable {
         reg.show();
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
 
+    }
+    
+    /**
+     * Initializes the controller class.
+     * @param url
+     * @param rb
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        Platform.runLater(() -> {
+
+        });
     }
 
     public void setData(User user) {
