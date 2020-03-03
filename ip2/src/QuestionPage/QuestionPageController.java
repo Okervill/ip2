@@ -35,12 +35,7 @@ public class QuestionPageController implements Initializable {
      * @param url
      * @param rb
      */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        Platform.runLater(() -> {
-
-        });
-    }
+    
     
     @FXML
     public void backButton(ActionEvent event) throws IOException {
@@ -59,6 +54,12 @@ public class QuestionPageController implements Initializable {
 
     public void setData(User user) {
         currentUser = user;
+    }
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        Platform.runLater(() -> {
+
+        });
     }
 
 }
