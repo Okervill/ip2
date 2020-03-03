@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CategoryPage;
+package QuestionPage;
 
+import CategoryPage.*;
 import AdminHomePage.*;
 import ip2.User;
 import javafx.application.Application;
@@ -17,14 +18,14 @@ import javafx.stage.Stage;
  *
  * @author Patrick
  */
-public class CategoryPage extends Application {
+public class QuestionPage extends Application {
 
     User currentUser;
 
     @Override
     public void start(Stage stage) throws Exception {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/CategoryPage/CategoryPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/QuestionPage/QuestionPage.fxml"));
         Parent root = (Parent) loader.load();
 
         AdminHomeController controller = loader.getController();
@@ -41,10 +42,10 @@ public class CategoryPage extends Application {
 
     }
 
-    public CategoryPage() {
+    public QuestionPage() {
     }
 
-    public CategoryPage(User user) {
+    public QuestionPage(User user) {
         currentUser = user;
     }
 }

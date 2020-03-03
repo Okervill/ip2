@@ -5,7 +5,6 @@
  */
 package CategoryPage;
 
-import AdminHomePage.*;
 import ip2.User;
 import java.io.IOException;
 import java.net.URL;
@@ -44,9 +43,9 @@ public class CategoryPageController implements Initializable {
     }
     
     @FXML
-    public void logoutButton(ActionEvent event) throws IOException {
+    public void backButton(ActionEvent event) throws IOException {
         Parent root;
-        root = FXMLLoader.load(getClass().getResource("/LoginRegister/Login.fxml"));
+        root = FXMLLoader.load(getClass().getResource("/AdminHomePage/AdminHome.fxml"));
 
         Scene scene = new Scene(root);
         Stage reg = new Stage(StageStyle.DECORATED);

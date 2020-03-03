@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package AdminHomePage;
+package QuestionPage;
 
 import ip2.User;
 import java.io.IOException;
@@ -25,7 +25,7 @@ import javafx.stage.StageStyle;
  *
  * @author Patrick
  */
-public class AdminHomeController implements Initializable {
+public class QuestionPageController implements Initializable {
 
     User currentUser;
 
@@ -43,39 +43,9 @@ public class AdminHomeController implements Initializable {
     }
     
     @FXML
-    public void logoutButton(ActionEvent event) throws IOException {
+    public void backButton(ActionEvent event) throws IOException {
         Parent root;
-        root = FXMLLoader.load(getClass().getResource("/LoginRegister/Login.fxml"));
-
-        Scene scene = new Scene(root);
-        Stage reg = new Stage(StageStyle.DECORATED);
-        reg.setTitle("Home");
-        reg.setScene(scene);
-
-        reg.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
-
-    }
-    
-    @FXML
-    public void categoryPage(ActionEvent event) throws IOException {
-        Parent root;
-        root = FXMLLoader.load(getClass().getResource("/CategoryPage/CategoryPage.fxml"));
-
-        Scene scene = new Scene(root);
-        Stage reg = new Stage(StageStyle.DECORATED);
-        reg.setTitle("Home");
-        reg.setScene(scene);
-
-        reg.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
-
-    }
-    
-    @FXML
-    public void questionPage(ActionEvent event) throws IOException {
-        Parent root;
-        root = FXMLLoader.load(getClass().getResource("/QuestionPage/QuestionPage.fxml"));
+        root = FXMLLoader.load(getClass().getResource("/AdminHomePage/AdminHome.fxml"));
 
         Scene scene = new Scene(root);
         Stage reg = new Stage(StageStyle.DECORATED);
