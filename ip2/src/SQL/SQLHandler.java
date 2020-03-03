@@ -87,24 +87,6 @@ public class SQLHandler {
         query.close();
         return output;
     }
-    
-    
-    
-    
-    public ArrayList getAllQuestions() throws SQLException {
-
-        ArrayList<String> output = new ArrayList<>();
-        String sql = "SELECT question FROM Questions";
-        query = conn.prepareStatement(sql);
-        ResultSet rs = query.executeQuery();
-
-        while (rs.next()) {
-            output.add(rs.getString("Question"));
-        }
-
-        query.close();
-        return output;
-    }
 
     public ArrayList searchUsersTable(String searchQuery) throws SQLException {
         
@@ -126,5 +108,44 @@ public class SQLHandler {
         }
         return output;
     }
-  
+
+       public void createCategory(String categoryId, String categoryName)throws SQLException{
+        String sql = "INSERT INTO Categories (CategoryID, CategoryName) VALUES(?,?)";
+        query = conn.prepareStatement(sql);
+        query.setString(1, categoryId);
+        query.setString(2, categoryName);
+        query.executeUpdate();
+        query.close();
+    }
+    //------------------------------------//
+    // GET ALL CATEGORY NAMES FROM CATEGORIES TABLE //
+    //------------------------------------//
+       public ArrayList getAllCategories() throws SQLException {
+
+        ArrayList<String> output = new ArrayList<>();
+        String sql = "SELECT CategoryName FROM Categories";
+        query = conn.prepareStatement(sql);
+        ResultSet rs = query.executeQuery();
+
+        while (rs.next()) {
+            output.add(rs.getString("CategoryName"));
+        }
+        
+        query.close();
+        return output;
+    }
+       
+       public ArrayList searchCategoriesTable(String searchQuery) throws SQLException {
+        
+        ArrayList<String> output = new ArrayList<>();
+        String sql = "SELECT CategoryID, CategoryName FROM Categories WHERE CategoryID = \"" + searchQuery + "\"";
+        query = conn.prepareStatement(sql);
+        ResultSet rs = query.executeQuery();
+        while (rs.next()) {
+            output.add((rs.getString("CategoryID")));
+            output.add((rs.getString("CategoryName")));
+            
+        }
+        return output;
+    }
 }
