@@ -18,7 +18,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane dividerPositions="0.6086956521739131" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../OneDrive/Desktop/test.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginRegister.LoginController">
+<SplitPane dividerPositions="0.6086956521739131" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginRegister.LoginController">
   <items>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="334.0" style="-fx-background-color: e8a87c;">
          <children>

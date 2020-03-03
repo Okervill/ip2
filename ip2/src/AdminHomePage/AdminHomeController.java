@@ -58,7 +58,7 @@ public class AdminHomeController implements Initializable {
     }
     
     @FXML
-    public void categoryButton(ActionEvent event) throws IOException {
+    public void categoryPage(ActionEvent event) throws IOException {
         Parent root;
         root = FXMLLoader.load(getClass().getResource("/CategoryPage/CategoryPage.fxml"));
 

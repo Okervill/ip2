@@ -15,14 +15,12 @@
    <children>
       <HBox alignment="CENTER_LEFT" layoutX="116.0" layoutY="108.0" prefHeight="58.0" prefWidth="255.0" style="-fx-background-color: ecb693;">
          <children>
-            <Button fx:id="AddCategory" mnemonicParsing="false" prefHeight="56.0" prefWidth="260.0" style="-fx-background-color: ecb693;" text="Add Category" textAlignment="CENTER" textFill="WHITE">
-               <graphic>
-                  <ImageView fitHeight="41.0" fitWidth="47.0" opacity="0.49" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@category.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
+            <ImageView fitHeight="41.0" fitWidth="47.0" opacity="0.49" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@category.png" />
+               </image>
+            </ImageView>
+            <Button mnemonicParsing="false" prefHeight="56.0" prefWidth="260.0" style="-fx-background-color: ecb693;" text="Add Category" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -46,17 +44,19 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="DeleteCategory" layoutX="114.0" layoutY="217.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="260.0" style="-fx-background-color: ecb693;" text="Delete Category" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font size="16.0" />
-         </font>
-         <graphic>
+      <HBox alignment="CENTER_LEFT" layoutX="116.0" layoutY="205.0" prefHeight="58.0" prefWidth="255.0" style="-fx-background-color: ecb693;">
+         <children>
             <ImageView fitHeight="41.0" fitWidth="47.0" opacity="0.49" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@category.png" />
                </image>
             </ImageView>
-         </graphic>
-      </Button>
+            <Button mnemonicParsing="false" prefHeight="56.0" prefWidth="260.0" style="-fx-background-color: ecb693;" text="Delete Category" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
    </children>
 </Pane>
