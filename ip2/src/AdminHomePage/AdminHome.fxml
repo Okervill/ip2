@@ -34,7 +34,7 @@
          <graphic>
             <ImageView fitHeight="75.0" fitWidth="262.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../OneDrive%20-%20GLASGOW%20CALEDONIAN%20UNIVERSITY/IP2%20COURSEWORK/button.JPG" />
+                  <Image url="@button.JPG" />
                </image>
                <effect>
                   <DropShadow color="#8f7f7f" offsetX="-2.0" />
@@ -46,7 +46,7 @@
          <graphic>
             <ImageView fitHeight="75.0" fitWidth="262.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../OneDrive%20-%20GLASGOW%20CALEDONIAN%20UNIVERSITY/IP2%20COURSEWORK/button%202.JPG" />
+                  <Image url="@button%202.JPG" />
                </image>
                <effect>
                   <DropShadow color="#8f7f7f" offsetX="-2.0" />
