@@ -28,10 +28,10 @@ public class Question {
         SQLHandler sql = new SQLHandler();
         int questionCount = sql.getAllQuestions().size();
 
-        QuestionId = String.valueOf(questionCount++);
-        CategoryId = catID;
-        userQuestion = quest;
-        correctAns = correct;
+        QuestionID = String.valueOf(questionCount++);
+        CategoryID = catID;
+        question = quest;
+        answer = correct;
         wrongAns1 = wrong1;
         wrongAns2 = wrong2;
         wrongAns3 = wrong3;
@@ -43,10 +43,10 @@ public class Question {
         ArrayList<String> questioninfo = sql.searchUsersTable(question);
 
         
-        QuestionId = questioninfo.get(0);
-        CategoryId = questioninfo.get(1);
-        userQuestion = questioninfo.get(2);
-        correctAns = questioninfo.get(3);
+        QuestionID = questioninfo.get(0);
+        CategoryID = questioninfo.get(1);
+        this.question = questioninfo.get(2);
+        answer = questioninfo.get(3);
         wrongAns1 = questioninfo.get(4);
         wrongAns2 = questioninfo.get(5);
         wrongAns3 = questioninfo.get(6);
@@ -59,19 +59,19 @@ public class Question {
     }
      
       public String getQuestionId() {
-        return this.QuestionId;
+        return this.QuestionID;
     }
 
     public String getCategoryId() {
-        return this.CategoryId;
+        return this.CategoryID;
     }
 
     public String getUserQuestion() {
-        return this.userQuestion;
+        return this.question;
     }
 
     public String getCorrectAnswer() {
-        return this.correctAns;
+        return this.answer;
     }
 
     public String getWrongAnswer1() {

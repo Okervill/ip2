@@ -91,15 +91,15 @@ public class SQLHandler {
     //-----------------------------//
     // ADD NEW DATA TO QUESTION TABLE //
     //-----------------------------//
-    public void createQuestion(String QuestionId, String CategoryId, String userQuestion, String correctAns, String wrongAns1, String wrongAns2, String wrongAns3) throws SQLException {
+    public void createQuestion(String QuestionId, String CategoryId, String question, String answer, String wrongAns1, String wrongAns2, String wrongAns3) throws SQLException {
 
-        String sql = "INSERT INTO Question (QuestionId, CategoryId, CasualBankID, userQuestion, FirstName, Surname, Username, Password, isAdmin, UserScore) VALUES(?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Question (QuestionId, CategoryId, Question, Answer, wrongAns1, wrongAns2, wrongAns3) VALUES(?,?,?,?,?,?,?)";
         query = conn.prepareStatement(sql);
 
         query.setString(1, QuestionId);
         query.setString(2, CategoryId);
-        query.setString(3, userQuestion);
-        query.setString(4, correctAns);
+        query.setString(3, question);
+        query.setString(4, answer);
         query.setString(5, wrongAns1);
         query.setString(6, wrongAns2);
         query.setString(7, wrongAns3);
