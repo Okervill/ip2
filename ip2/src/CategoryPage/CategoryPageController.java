@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package AdminHomePage;
+package CategoryPage;
 
+import AdminHomePage.*;
 import ip2.User;
 import java.io.IOException;
 import java.net.URL;
@@ -25,7 +26,7 @@ import javafx.stage.StageStyle;
  *
  * @author Patrick
  */
-public class AdminHomeController implements Initializable {
+public class CategoryPageController implements Initializable {
 
     User currentUser;
 
@@ -46,21 +47,6 @@ public class AdminHomeController implements Initializable {
     public void logoutButton(ActionEvent event) throws IOException {
         Parent root;
         root = FXMLLoader.load(getClass().getResource("/LoginRegister/Login.fxml"));
-
-        Scene scene = new Scene(root);
-        Stage reg = new Stage(StageStyle.DECORATED);
-        reg.setTitle("Home");
-        reg.setScene(scene);
-
-        reg.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
-
-    }
-    
-    @FXML
-    public void categoryButton(ActionEvent event) throws IOException {
-        Parent root;
-        root = FXMLLoader.load(getClass().getResource("/CategoryPage/CategoryPage.fxml"));
 
         Scene scene = new Scene(root);
         Stage reg = new Stage(StageStyle.DECORATED);

@@ -11,11 +11,11 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="337.0" prefWidth="463.0" style="-fx-background-color: e8a87c;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AdminHomePage.AdminHomeController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="337.0" prefWidth="463.0" style="-fx-background-color: e8a87c;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CategoryPage.CategoryPageController">
    <children>
       <HBox alignment="CENTER_LEFT" layoutX="116.0" layoutY="108.0" prefHeight="58.0" prefWidth="255.0" style="-fx-background-color: ecb693;">
          <children>
-            <Button mnemonicParsing="false" onAction="#logoutButton" prefHeight="56.0" prefWidth="149.0" style="-fx-background-color: ecb693;" text="Categories" textAlignment="CENTER" textFill="WHITE">
+            <Button fx:id="AddCategory" mnemonicParsing="false" prefHeight="56.0" prefWidth="260.0" style="-fx-background-color: ecb693;" text="Add Category" textAlignment="CENTER" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="41.0" fitWidth="47.0" opacity="0.49" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -28,9 +28,6 @@
                </font>
             </Button>
          </children>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
       </HBox>
       <Label layoutY="7.0" text="Welcome, Admin" textFill="WHITE">
          <font>
@@ -40,30 +37,6 @@
             <Insets left="10.0" />
          </padding>
       </Label>
-      <HBox alignment="CENTER_LEFT" layoutX="116.0" layoutY="192.0" prefHeight="58.0" prefWidth="255.0" style="-fx-background-color: ecb693;">
-         <children>
-            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="68.0" style="-fx-background-color: ecb693;" textFill="WHITE">
-               <graphic>
-                  <ImageView fitHeight="41.0" fitWidth="47.0" opacity="0.49" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@question.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Label text="Questions" textFill="WHITE">
-               <font>
-                  <Font size="15.0" />
-               </font>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </Label>
-         </children>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </HBox>
       <Line endX="35.350006103515625" layoutX="207.0" layoutY="44.0" startX="-206.5" stroke="#a8d6c9" strokeWidth="1.3" />
       <Button layoutX="375.0" layoutY="6.0" mnemonicParsing="false" onAction="#logoutButton" style="-fx-background-color: transparent;" text="Sign Out" textFill="WHITE" underline="true">
          <font>
@@ -72,6 +45,18 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+      </Button>
+      <Button fx:id="DeleteCategory" layoutX="114.0" layoutY="217.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="260.0" style="-fx-background-color: ecb693;" text="Delete Category" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="41.0" fitWidth="47.0" opacity="0.49" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@category.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Button>
    </children>
 </Pane>
