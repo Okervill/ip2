@@ -100,7 +100,7 @@ public class User {
         return this.admin;
     }
 
-    public String getUserScore(){
+    public String getUserScore() {
         return this.userscore;
     }
 }
