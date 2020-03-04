@@ -18,7 +18,7 @@ public class Category {
     private final String categoryId;
     private final String categoryName;
     
-    public Category(String categoryId, String categoryName) throws SQLException {
+    public Category(String categoryName) throws SQLException {
 
         SQLHandler sql = new SQLHandler();
         int catcount = sql.getAllCategories().size();
@@ -27,12 +27,9 @@ public class Category {
         this.categoryName=categoryName;
     }
     
-     public Category(String category) throws SQLException {
-        SQLHandler sql = new SQLHandler();
-        ArrayList<String> categoryInfo = sql.searchUsersTable(category);
-
-        categoryId = categoryInfo.get(0);
-        categoryName=categoryInfo.get(1);
+     public Category(String categoryId, String categoryName){
+        this.categoryId=categoryId;
+        this.categoryName=categoryName;
        
     }
     
@@ -47,5 +44,15 @@ public class Category {
      public void createCategory(Category category) throws SQLException {
         SQLHandler sql = new SQLHandler();
         sql.createCategory(category.getCategoryId(), category.getCategoryName());
+    }
+     
+    /**
+     *
+     * @param category
+     * @throws SQLException
+     */
+    public void deleteCategory(Category category)throws SQLException {
+        SQLHandler sql = new SQLHandler();
+        sql.deleteCategory(category.getCategoryName());
     }
 }
