@@ -11,49 +11,49 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="337.0" prefWidth="463.0" style="-fx-background-color: e8a87c;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AdminHomePage.AdminHomeController">
-   <children>
-      <Label layoutY="7.0" text="Welcome, Admin" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="19.0" />
-         </font>
-         <padding>
-            <Insets left="10.0" />
-         </padding>
-      </Label>
-      <Line endX="35.350006103515625" layoutX="207.0" layoutY="44.0" startX="-206.5" stroke="#a8d6c9" strokeWidth="1.3" />
-      <Button layoutX="375.0" layoutY="6.0" mnemonicParsing="false" onAction="#logoutButton" style="-fx-background-color: transparent;" text="Sign Out" textFill="WHITE" underline="true">
-         <font>
-            <Font size="15.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <Button layoutX="93.0" layoutY="101.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
-         <graphic>
-            <ImageView fitHeight="75.0" fitWidth="262.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@button.JPG" />
-               </image>
-               <effect>
-                  <DropShadow color="#8f7f7f" offsetX="-2.0" />
-               </effect>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Button layoutX="93.0" layoutY="202.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
-         <graphic>
-            <ImageView fitHeight="75.0" fitWidth="262.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@button%202.JPG" />
-               </image>
-               <effect>
-                  <DropShadow color="#8f7f7f" offsetX="-2.0" />
-               </effect>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Button layoutX="206.0" layoutY="76.0" mnemonicParsing="false" onAction="#categoryPage" text="Categories" />
-   </children>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="337.0" prefWidth="463.0" style="-fx-background-color: e8a87c;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AdminHomePage.AdminHomeController">
+    <children>
+        <Label layoutY="7.0" text="Welcome, Admin" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="19.0" />
+            </font>
+            <padding>
+                <Insets left="10.0" />
+            </padding>
+        </Label>
+        <Line endX="35.350006103515625" layoutX="207.0" layoutY="44.0" startX="-206.5" stroke="#a8d6c9" strokeWidth="1.3" />
+        <Button layoutX="375.0" layoutY="6.0" mnemonicParsing="false" onAction="#logoutButton" style="-fx-background-color: transparent;" text="Sign Out" textFill="WHITE" underline="true">
+            <font>
+                <Font size="15.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </Button>
+        <Button  onAction="#categoryPage" layoutX="93.0" layoutY="101.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
+            <graphic>
+                <ImageView  fx:id="categories" fitHeight="75.0" fitWidth="262.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@button.JPG" />
+                    </image>
+                    <effect>
+                        <DropShadow color="#8f7f7f" offsetX="-2.0" />
+                    </effect>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button onAction="#questionPage" fx:id="questions" layoutX="93.0" layoutY="202.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
+            <graphic>
+                <ImageView  fitHeight="75.0" fitWidth="262.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@button%202.JPG" />
+                    </image>
+                    <effect>
+                        <DropShadow color="#8f7f7f" offsetX="-2.0" />
+                    </effect>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button   layoutX="206.0" layoutY="76.0" mnemonicParsing="false"  text="Categories" />
+    </children>
 </Pane>
