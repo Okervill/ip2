@@ -5,23 +5,10 @@
  */
 package QuestionPage;
 
-import CategoryPage.DeleteCategoryController;
-import SQL.SQLHandler;
-import ip2.Category;
-import ip2.Question;
 import ip2.User;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -51,15 +38,6 @@ public class QuestionPageController implements Initializable {
      * @param url
      * @param rb
      */
-    @FXML
-    private TableView<Question> table;
-
-    @FXML
-    private TableColumn<Question, String> col_quest;
-
-    @FXML
-    private TableColumn<Question, String> col_answer;
-
     // ObservableList<Question> oblist = FXCollections.observableArrayList();
     @FXML
     private void deleteQuestion(ActionEvent event) throws IOException, SQLException {
@@ -150,13 +128,6 @@ public class QuestionPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Platform.runLater(() -> {
-
-        });
-
-        initialiseQuestCol();
-        loadQuestTable();
-
     }
 
 }
