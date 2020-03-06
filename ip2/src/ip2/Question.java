@@ -8,6 +8,8 @@ package ip2;
 import SQL.SQLHandler;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -35,14 +37,26 @@ public class Question {
         wrongAns1 = wrong1;
         wrongAns2 = wrong2;
         wrongAns3 = wrong3;
-    
+
     }
-    
+
+    public Question(String questionid, String quest, String catID, String correct, String wrong1, String wrong2, String wrong3) throws SQLException {
+
+        QuestionID = questionid;
+        CategoryID = catID;
+        question = quest;
+        answer = correct;
+        wrongAns1 = wrong1;
+        wrongAns2 = wrong2;
+        wrongAns3 = wrong3;
+
+    }
+
     public Question(String question) throws SQLException {
         SQLHandler sql = new SQLHandler();
-        ArrayList<String> questioninfo = sql.searchUsersTable(question);
 
-        
+        ArrayList<String> questioninfo = sql.searchQuestionTable(question);
+
         QuestionID = questioninfo.get(0);
         CategoryID = questioninfo.get(1);
         this.question = questioninfo.get(2);
@@ -50,21 +64,24 @@ public class Question {
         wrongAns1 = questioninfo.get(4);
         wrongAns2 = questioninfo.get(5);
         wrongAns3 = questioninfo.get(6);
-       
+
     }
-    
-     public void createQuestion(Question question) throws SQLException {
+
+    public void createQuestion(Question question) throws SQLException {
         SQLHandler sql = new SQLHandler();
         sql.createQuestion(question.getQuestionId(), question.getCategoryId(), question.getUserQuestion(), question.getCorrectAnswer(), question.getWrongAnswer1(), question.getWrongAnswer2(), question.getWrongAnswer3());
     }
-     
-      public String getQuestionId() {
+
+    public String getQuestionId() {
         return this.QuestionID;
     }
+    
 
     public String getCategoryId() {
         return this.CategoryID;
     }
+    
+    
 
     public String getUserQuestion() {
         return this.question;
@@ -86,5 +103,4 @@ public class Question {
         return this.wrongAns3;
     }
 
-   
 }
