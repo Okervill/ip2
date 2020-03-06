@@ -185,6 +185,7 @@ public class SQLHandler {
         while (rs.next()) {
             output.add((rs.getString("QuestionId")));
             output.add((rs.getString("CategoryId")));
+            output.add((rs.getString("Question")));
             output.add((rs.getString("Answer")));
             output.add((rs.getString("wrongAns1")));
             output.add((rs.getString("wrongAns2")));
@@ -263,5 +264,13 @@ public class SQLHandler {
         query.executeUpdate();
         query.close();
     }
-
+    
+    /*public void deleteQuestion(String question) throws SQLException {
+        String sql = " DELETE FROM Questions WHERE question=?";
+        query = conn.prepareStatement(sql);
+        query.setString(1, question);
+        query.executeUpdate();
+        query.close();
+    }
+*/
 }

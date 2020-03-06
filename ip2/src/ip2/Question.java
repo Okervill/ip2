@@ -71,7 +71,12 @@ public class Question {
         SQLHandler sql = new SQLHandler();
         sql.createQuestion(question.getQuestionId(), question.getCategoryId(), question.getUserQuestion(), question.getCorrectAnswer(), question.getWrongAnswer1(), question.getWrongAnswer2(), question.getWrongAnswer3());
     }
-
+    
+   /*  public void deleteQuestion(Question question)throws SQLException {
+        SQLHandler sql = new SQLHandler();
+        sql.deleteCategory(question.getUserQuestion());
+    }
+*/
     public String getQuestionId() {
         return this.QuestionID;
     }

@@ -13,6 +13,6 @@
             <TableColumn fx:id="col_answer" prefWidth="120.0" text="Answer" />
             </columns>
         </TableView>
-        <Button layoutX="455.0" layoutY="323.0" mnemonicParsing="false" text="Delete" />
+        <Button onAction = "#deleteQuestion" layoutX="455.0" layoutY="323.0" mnemonicParsing="false" text="Delete" />
     </children>
 </Pane>
