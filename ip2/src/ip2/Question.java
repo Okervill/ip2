@@ -53,8 +53,9 @@ public class Question {
        
     }
     
-     public void createQuestion(Question question) throws SQLException {
+   /*  public void createQuestion(Question question) throws SQLException {
         SQLHandler sql = new SQLHandler();
+<<<<<<< Updated upstream
         sql.createQuestion(question.getQuestionId(), question.getCategoryId(), question.getUserQuestion(), question.getCorrectAnswer(), question.getWrongAnswer1(), question.getWrongAnswer2(), question.getWrongAnswer3());
     }
      
@@ -87,4 +88,8 @@ public class Question {
     }
 
    
+=======
+        sql.createUser(question.getQuestionId(), question.getCategoryId(), question.getUserQuestion(), question.getCorrectAnswer(), question.getWrongAnswer1(), question.getWrongAnswer2(), question.getUsername());
+    }*/
+>>>>>>> Stashed changes
 }
