@@ -8,6 +8,7 @@ package QuestionPage;
 import ip2.User;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +17,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TablePosition;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -34,8 +39,10 @@ public class QuestionPageController implements Initializable {
      * @param url
      * @param rb
      */
-    // ObservableList<Question> oblist = FXCollections.observableArrayList();
-    @FXML
+    
+    
+
+
     public void backButton(ActionEvent event) throws IOException {
         Parent root;
         root = FXMLLoader.load(getClass().getResource("/AdminHomePage/AdminHome.fxml"));
@@ -53,6 +60,9 @@ public class QuestionPageController implements Initializable {
     public void setData(User user) {
         currentUser = user;
     }
+
+  
+   
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

@@ -55,6 +55,6 @@
             </graphic>
         </Button>
         <Button layoutX="206.0" layoutY="76.0" mnemonicParsing="false" onAction="#categoryPage" text="Categories" />
-      <Button layoutX="208.0" layoutY="172.0" mnemonicParsing="false" onAction="#questionPage" text="Questions" />
+     
     </children>
 </Pane>
