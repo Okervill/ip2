@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package UserHomePage;
+package CasualPlaySelect;
 
+import UserHomePage.*;
 import ip2.User;
 import java.io.IOException;
 import java.net.URL;
@@ -25,7 +26,7 @@ import javafx.stage.StageStyle;
  *
  * @author Patrick
  */
-public class UserHomeController implements Initializable {
+public class CasualPlaySelectController implements Initializable {
 
     User currentUser;
     
@@ -52,7 +53,7 @@ public class UserHomeController implements Initializable {
     @FXML
     public void casualPlayButton(ActionEvent event) throws IOException {
         Parent root;
-        root = FXMLLoader.load(getClass().getResource("/CasualPlaySelect/CasualPlaySelect.fxml"));
+        root = FXMLLoader.load(getClass().getResource("/LoginRegister/Login.fxml"));
 
         Scene scene = new Scene(root);
         Stage reg = new Stage(StageStyle.DECORATED);
@@ -67,7 +68,7 @@ public class UserHomeController implements Initializable {
     @FXML
     public void competitivePlayButton(ActionEvent event) throws IOException {
         Parent root;
-        root = FXMLLoader.load(getClass().getResource("/CasualPlaySelect/CasualPlaySelect.fxml"));
+        root = FXMLLoader.load(getClass().getResource("/LoginRegister/Login.fxml"));
 
         Scene scene = new Scene(root);
         Stage reg = new Stage(StageStyle.DECORATED);
