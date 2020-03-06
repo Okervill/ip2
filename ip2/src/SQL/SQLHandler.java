@@ -171,7 +171,6 @@ public class SQLHandler {
             Category currentCategory=new Category(CategoryID, CategoryName);
             output.add(currentCategory);
 
-         
         }
 
         query.close();
