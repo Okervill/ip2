@@ -78,7 +78,7 @@ public class CategoryPageController implements Initializable {
     @FXML
     public void deleteCategoryButton(ActionEvent event) throws IOException {
         Parent root;
-        root = FXMLLoader.load(getClass().getResource("/CategoryPage/DeleteCategory.fxml"));
+        root = FXMLLoader.load(getClass().getResource("DeleteCategory.fxml"));
 
         Scene scene = new Scene(root);
         Stage reg = new Stage(StageStyle.DECORATED);

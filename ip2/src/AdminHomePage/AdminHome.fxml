@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="337.0" prefWidth="463.0" style="-fx-background-color: e8a87c;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AdminHomePage.AdminHomeController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="337.0" prefWidth="463.0" style="-fx-background-color: e8a87c;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AdminHomePage.AdminHomeController">
     <children>
         <Label layoutY="7.0" text="Welcome, Admin" textFill="WHITE">
             <font>
@@ -30,9 +30,9 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </Button>
-        <Button  onAction="#categoryPage" layoutX="93.0" layoutY="101.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
+        <Button layoutX="93.0" layoutY="101.0" mnemonicParsing="false" onAction="#categoryPage" style="-fx-background-color: transparent;">
             <graphic>
-                <ImageView  fx:id="categories" fitHeight="75.0" fitWidth="262.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="categories" fitHeight="75.0" fitWidth="262.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@button.JPG" />
                     </image>
@@ -42,9 +42,9 @@
                 </ImageView>
             </graphic>
         </Button>
-        <Button onAction="#questionPage" fx:id="questions" layoutX="93.0" layoutY="202.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
+        <Button fx:id="questions" layoutX="93.0" layoutY="202.0" mnemonicParsing="false" onAction="#questionPage" style="-fx-background-color: transparent;">
             <graphic>
-                <ImageView  fitHeight="75.0" fitWidth="262.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="75.0" fitWidth="262.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@button%202.JPG" />
                     </image>
@@ -54,6 +54,7 @@
                 </ImageView>
             </graphic>
         </Button>
-        <Button   layoutX="206.0" layoutY="76.0" mnemonicParsing="false"  text="Categories" />
+        <Button layoutX="206.0" layoutY="76.0" mnemonicParsing="false" onAction="#categoryPage" text="Categories" />
+      <Button layoutX="208.0" layoutY="172.0" mnemonicParsing="false" onAction="#questionPage" text="Questions" />
     </children>
 </Pane>
