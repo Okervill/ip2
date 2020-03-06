@@ -146,7 +146,7 @@ public class SQLHandler {
             String wrongans2 = rs.getString("wrongAns2");
             String wrongans3 = rs.getString("wrongAns3");
           
-            output.add(new Question(QuestionID, CategoryID, question, answer, wrongans1,wrongans2, wrongans3));
+//            output.add(new Question(QuestionID, CategoryID, question, answer, wrongans1,wrongans2, wrongans3));
          
         }
 
