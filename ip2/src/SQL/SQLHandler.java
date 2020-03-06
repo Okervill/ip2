@@ -256,12 +256,18 @@ public class SQLHandler {
         return output;
     }
 
-    public void deleteCategory(String categoryName) throws SQLException {
-        String sql = " DELETE FROM Categories WHERE CategoryName=?";
-        query = conn.prepareStatement(sql);
-        query.setString(1, categoryName);
+    public void deleteCategory(String categoryId) throws SQLException {
+        String sql1 = " DELETE FROM Categories WHERE CategoryID=?";
+        query = conn.prepareStatement(sql1);
+        query.setString(1, categoryId);
         query.executeUpdate();
         query.close();
+        String sql2="DELETE FROM Questions WHERE CategoryID=?";
+        query = conn.prepareStatement(sql2);
+        query.setString(1, categoryId);
+        query.executeUpdate();
+        query.close();
+        
     }
 
 }

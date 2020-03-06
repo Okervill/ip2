@@ -53,6 +53,6 @@ public class Category {
      */
     public void deleteCategory(Category category)throws SQLException {
         SQLHandler sql = new SQLHandler();
-        sql.deleteCategory(category.getCategoryName());
+        sql.deleteCategory(category.getCategoryId());
     }
 }
