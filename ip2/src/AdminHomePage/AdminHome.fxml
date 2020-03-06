@@ -55,6 +55,9 @@
             </graphic>
         </Button>
         <Button layoutX="206.0" layoutY="76.0" mnemonicParsing="false" onAction="#categoryPage" text="Categories" />
+<<<<<<< Updated upstream
       <Button layoutX="208.0" layoutY="172.0" mnemonicParsing="false" onAction="#questionPage" text="Questions" />
+=======
+>>>>>>> Stashed changes
     </children>
 </Pane>
