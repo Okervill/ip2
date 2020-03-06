@@ -9,7 +9,6 @@ import ip2.User;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,14 +28,13 @@ public class QuestionPageController implements Initializable {
 
     User currentUser;
 
-
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
-    
-    
+    // ObservableList<Question> oblist = FXCollections.observableArrayList();
     @FXML
     public void backButton(ActionEvent event) throws IOException {
         Parent root;
@@ -55,11 +53,9 @@ public class QuestionPageController implements Initializable {
     public void setData(User user) {
         currentUser = user;
     }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Platform.runLater(() -> {
-
-        });
     }
 
 }

@@ -5,6 +5,7 @@
  */
 package SQL;
 
+import ip2.Category;
 import ip2.Question;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -141,7 +142,7 @@ public class SQLHandler {
             String QuestionID = rs.getString("QuestionID");
             String CategoryID = rs.getString("CategoryID");
             String question = rs.getString("Question");
-             String answer = rs.getString("Answer");
+            String answer = rs.getString("Answer");
             String wrongans1 = rs.getString("wrongAns1");
             String wrongans2 = rs.getString("wrongAns2");
             String wrongans3 = rs.getString("wrongAns3");
@@ -154,7 +155,27 @@ public class SQLHandler {
         return output;
     }
 
-    
+    public ObservableList showCategoriesTable() throws SQLException {
+
+        ObservableList<Category> output = FXCollections.observableArrayList();
+        output.clear();
+     
+        String sql = "SELECT * FROM Categories";
+        query = conn.prepareStatement(sql);
+        ResultSet rs = query.executeQuery();
+
+        while (rs.next()) {
+            String CategoryID = rs.getString("CategoryID");
+            String CategoryName = rs.getString("CategoryName");
+            Category currentCategory=new Category(CategoryID, CategoryName);
+            output.add(currentCategory);
+         
+        }
+
+        query.close();
+        return output;
+    }
+
     public ArrayList searchQuestionTable(String searchQuery) throws SQLException {
 
         ArrayList<String> output = new ArrayList<>();
@@ -164,6 +185,7 @@ public class SQLHandler {
         while (rs.next()) {
             output.add((rs.getString("QuestionId")));
             output.add((rs.getString("CategoryId")));
+            output.add((rs.getString("Question")));
             output.add((rs.getString("Answer")));
             output.add((rs.getString("wrongAns1")));
             output.add((rs.getString("wrongAns2")));
