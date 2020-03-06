@@ -75,7 +75,7 @@ public class AdminHomeController implements Initializable {
     @FXML
     public void questionPage(ActionEvent event) throws IOException {
         Parent root;
-        root = FXMLLoader.load(getClass().getResource("/QuestionPage/QuestionPage.fxml"));
+        root = FXMLLoader.load(getClass().getResource("/QuestionPage/ViewQuestions.fxml"));
 
         Scene scene = new Scene(root);
         Stage reg = new Stage(StageStyle.DECORATED);

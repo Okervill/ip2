@@ -55,4 +55,6 @@ public class Category {
         SQLHandler sql = new SQLHandler();
         sql.deleteCategory(category.getCategoryName());
     }
+    
+      
 }
