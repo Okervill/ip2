@@ -185,6 +185,7 @@ public class SQLHandler {
         while (rs.next()) {
             output.add((rs.getString("QuestionId")));
             output.add((rs.getString("CategoryId")));
+            output.add((rs.getString("Question")));
             output.add((rs.getString("Answer")));
             output.add((rs.getString("wrongAns1")));
             output.add((rs.getString("wrongAns2")));
