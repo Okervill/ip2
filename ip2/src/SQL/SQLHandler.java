@@ -242,5 +242,25 @@ public class SQLHandler {
         query.executeUpdate();
         query.close();
     }
+    
+        //------------------------------------//
+    // GET ALL USER HIGHSCORE FROM USER TABLE //
+    //------------------------------------//
+    public ArrayList getAllHighscore() throws SQLException {
+
+        ArrayList<String> output = new ArrayList<>();
+        String sql = "SELECT UserScore FROM Users";
+        query = conn.prepareStatement(sql);
+        ResultSet rs = query.executeQuery();
+
+        while (rs.next()) {
+            output.add(rs.getString("UserScore"));
+        }
+
+        query.close(); 
+        return output;
+       
+    }
+    
 
 }

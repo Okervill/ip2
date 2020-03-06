@@ -30,6 +30,9 @@ public class HighscoreController implements Initializable {
     User currentUser;
     @FXML
     private Label userLabel;
+    @FXML
+    private Button highscore;
+    
 
     @FXML
     public void logutButton(ActionEvent event) throws IOException {
@@ -44,6 +47,20 @@ public class HighscoreController implements Initializable {
         reg.show();
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
 
+    }
+    
+    public void viewhighscore (ActionEvent event) throws IOException {
+         Parent root;
+         root = FXMLLoader.load(getClass().getResource("/LoginRegister/high.fxml"));
+         
+        Scene scene = new Scene(root);
+        Stage reg = new Stage(StageStyle.DECORATED);
+        reg.setTitle("Home");
+        reg.setScene(scene);
+
+        reg.show();
+        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+    
     }
 
     /**
