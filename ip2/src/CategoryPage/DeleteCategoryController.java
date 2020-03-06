@@ -8,24 +8,33 @@ package CategoryPage;
 import SQL.SQLHandler;
 import ip2.Category;
 import ip2.Shaker;
-import ip2.User;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TablePosition;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import static sun.net.www.http.HttpClient.New;
 
 /**
  * FXML Controller class
@@ -38,34 +47,50 @@ public class DeleteCategoryController implements Initializable {
     private Button deleteButton;
     @FXML
     private TextField getCategoryName;
+    @FXML
+    private TableView<Category> categoryTable;
+    @FXML
+    private TableColumn<Category, String> name;
+    ObservableList<Category> data = FXCollections.observableArrayList();
+ 
     
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Platform.runLater(() -> {
-
-        });
-    }
     
+        try {
+            
+            Connection conn = SQLHandler.getConn();
+            ResultSet rs = conn.createStatement().executeQuery("Select * from Categories");
+            while (rs.next()) {
+            data.add(new Category(rs.getString("CategoryID"), rs.getString("CategoryName")));
+         
+        }
+        } catch (SQLException ex) {
+            Logger.getLogger(DeleteCategoryController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        name.setCellValueFactory(new PropertyValueFactory<>("CategoryName"));
+        categoryTable.setItems(data);
+        
+              
+              
+    }
     @FXML
     private void deleteCategory(ActionEvent event) throws SQLException, IOException {
-        String categoryName;
-        categoryName = getCategoryName.getText();
         
-
+        TablePosition pos = (TablePosition) categoryTable.getSelectionModel().getSelectedCells().get(0);
+        int index = pos.getRow();
+        Category item = categoryTable.getItems().get(index);
+        String categoryName=(String) name.getCellObservableValue(item).getValue();
         ArrayList<String> allCategories = new ArrayList<>();
         SQLHandler sql = new SQLHandler();
         allCategories = sql.getAllCategories();
-
-        if (categoryName.isEmpty()) {
-            deleteCategoryFailed();
-        } else {
-         
-            delete(categoryName);
-              Parent root;
-        root = FXMLLoader.load(getClass().getResource("CategoryPage.fxml"));
+         delete(categoryName);
+        Parent root;
+        root = FXMLLoader.load(getClass().getResource("DeleteCategory.fxml"));
 
         Scene scene = new Scene(root);
         Stage reg = new Stage(StageStyle.DECORATED);
@@ -74,7 +99,8 @@ public class DeleteCategoryController implements Initializable {
 
         reg.show();
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
-        }
+        
+        
     }
     
     @FXML
