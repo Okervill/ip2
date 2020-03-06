@@ -25,7 +25,7 @@ public class Question {
     private final String wrongAns2;
     private final String wrongAns3;
 
-    public Question(String quest, String catID, String correct, String wrong1, String wrong2, String wrong3) throws SQLException {
+    public Question( String catID, String quest, String correct, String wrong1, String wrong2, String wrong3) throws SQLException {
 
         SQLHandler sql = new SQLHandler();
         int questionCount = sql.getAllQuestions().size();

@@ -5,6 +5,7 @@
  */
 package QuestionPage;
 
+import CategoryPage.DeleteCategoryController;
 import SQL.SQLHandler;
 import ip2.Category;
 import ip2.Question;
@@ -53,25 +54,10 @@ public class QuestionPageController implements Initializable {
     private TableView<Question> table;
 
     @FXML
-    private TableColumn<Question, String> col_questid;
-
-    @FXML
-    private TableColumn<Question, String> col_catid;
-
-    @FXML
-    private TableColumn<Question, String> col_question;
+    private TableColumn<Question, String> col_quest;
 
     @FXML
     private TableColumn<Question, String> col_answer;
-
-    @FXML
-    private TableColumn<Question, String> col_1;
-
-    @FXML
-    private TableColumn<Question, String> col_2;
-
-    @FXML
-    private TableColumn<Question, String> col_3;
 
     // ObservableList<Question> oblist = FXCollections.observableArrayList();
     @FXML
@@ -94,33 +80,32 @@ public class QuestionPageController implements Initializable {
     }
 
     private void initialiseQuestCol() {
-        col_questid.setCellValueFactory(new PropertyValueFactory<>("QuestionID"));
-        col_catid.setCellValueFactory(new PropertyValueFactory<>("CategoryID"));
-        col_question.setCellValueFactory(new PropertyValueFactory<>("question"));
+        col_quest.setCellValueFactory(new PropertyValueFactory<>("question"));
         col_answer.setCellValueFactory(new PropertyValueFactory<>("answer"));
-        col_1.setCellValueFactory(new PropertyValueFactory<>("wrongAns1"));
-        col_2.setCellValueFactory(new PropertyValueFactory<>("wrongAns2"));
-        col_3.setCellValueFactory(new PropertyValueFactory<>("wrongAns3"));
-        
-      
+
     }
 
     private void loadQuestTable() {
         ObservableList<Question> oblist = FXCollections.observableArrayList();
-        SQLHandler sql = new SQLHandler();
+        
 
         try {
-            oblist = sql.showQuestionsTable();
+
+            Connection conn = SQLHandler.getConn();
+            ResultSet rs = conn.createStatement().executeQuery("Select * from Questions");
+            while (rs.next()) {
+                oblist.add(new Question(rs.getString("QuestionID"), rs.getString("CategoryID"), rs.getString("question"), rs.getString("answer"), rs.getString("wrongAns1"), rs.getString("wrongAns2"), rs.getString("wrongAns3")));
+
+            }
         } catch (SQLException ex) {
-            Logger.getLogger(QuestionPageController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DeleteCategoryController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        System.out.println(oblist);
+        col_quest.setCellValueFactory(new PropertyValueFactory<>("question"));
+        col_answer.setCellValueFactory(new PropertyValueFactory<>("answer"));
         table.setItems(oblist);
 
     }
-    
-   
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

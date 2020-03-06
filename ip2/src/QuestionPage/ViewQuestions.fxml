@@ -9,15 +9,10 @@
     <children>
         <TableView fx:id="table" layoutX="18.0" layoutY="53.0" prefHeight="200.0" prefWidth="532.0">
             <columns>
-                <TableColumn fx:id="col_questid" prefWidth="50.0" text="QuestionID" />
-                <TableColumn fx:id="col_catid" prefWidth="100.0" text="CategoryID" />
-            <TableColumn fx:id="col_question" prefWidth="100.0" text="Question" />
-            <TableColumn fx:id="col_answer" prefWidth="100.0" text="Answer" />
-            <TableColumn fx:id="col_1" prefWidth="100.0" text="wrongAns1" />
-            <TableColumn fx:id="col_2" prefWidth="100.0" text="wrongAns2" />
-            <TableColumn fx:id="col_3" prefWidth="100.0" text="wrongAns3" />
+                <TableColumn fx:id="col_quest" prefWidth="420.0" text="Question" />
+            <TableColumn fx:id="col_answer" prefWidth="120.0" text="Answer" />
             </columns>
         </TableView>
-        <Button  layoutX="455.0" layoutY="323.0" mnemonicParsing="false" text="Delete" />
+        <Button layoutX="455.0" layoutY="323.0" mnemonicParsing="false" text="Delete" />
     </children>
 </Pane>
