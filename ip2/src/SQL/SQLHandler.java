@@ -148,6 +148,7 @@ public class SQLHandler {
             String wrongans3 = rs.getString("wrongAns3");
           
             //output.add(new Question(QuestionID, CategoryID, question, answer, wrongans1,wrongans2, wrongans3));
+
          
         }
 
