@@ -169,6 +169,7 @@ public class SQLHandler {
             String CategoryName = rs.getString("CategoryName");
             Category currentCategory=new Category(CategoryID, CategoryName);
             output.add(currentCategory);
+
          
         }
 
