@@ -28,6 +28,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -48,8 +49,6 @@ public class DeleteCategoryController implements Initializable {
     private TextField getCategoryName;
     @FXML
     private TableView<Category> categoryTable;
-    @FXML 
-    private TableColumn<Category, String> ID;
     @FXML
     private TableColumn<Category, String> name;
     ObservableList<Category> data = FXCollections.observableArrayList();
@@ -73,7 +72,6 @@ public class DeleteCategoryController implements Initializable {
             Logger.getLogger(DeleteCategoryController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        ID.setCellValueFactory(new PropertyValueFactory<>("CategoryID"));
         name.setCellValueFactory(new PropertyValueFactory<>("CategoryName"));
         categoryTable.setItems(data);
         
@@ -82,21 +80,17 @@ public class DeleteCategoryController implements Initializable {
     }
     @FXML
     private void deleteCategory(ActionEvent event) throws SQLException, IOException {
-        String categoryName;
-        categoryName = getCategoryName.getText();
         
-
+        TablePosition pos = (TablePosition) categoryTable.getSelectionModel().getSelectedCells().get(0);
+        int index = pos.getRow();
+        Category item = categoryTable.getItems().get(index);
+        String categoryName=(String) name.getCellObservableValue(item).getValue();
         ArrayList<String> allCategories = new ArrayList<>();
         SQLHandler sql = new SQLHandler();
         allCategories = sql.getAllCategories();
-
-        if (categoryName.isEmpty()) {
-            deleteCategoryFailed();
-        } else {
-         
-            delete(categoryName);
-              Parent root;
-        root = FXMLLoader.load(getClass().getResource("CategoryPage.fxml"));
+         delete(categoryName);
+        Parent root;
+        root = FXMLLoader.load(getClass().getResource("DeleteCategory.fxml"));
 
         Scene scene = new Scene(root);
         Stage reg = new Stage(StageStyle.DECORATED);
@@ -105,7 +99,8 @@ public class DeleteCategoryController implements Initializable {
 
         reg.show();
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
-        }
+        
+        
     }
     
     @FXML

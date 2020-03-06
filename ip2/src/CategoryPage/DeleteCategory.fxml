@@ -15,8 +15,7 @@
       <Button fx:id="deleteButton" layoutX="275.0" layoutY="347.0" mnemonicParsing="false" onAction="#deleteCategory" text="Delete" />
       <TableView fx:id="categoryTable" layoutX="134.0" layoutY="56.0" prefHeight="206.0" prefWidth="341.0">
         <columns>
-          <TableColumn fx:id="ID" prefWidth="75.0" text="Category Id" />
-          <TableColumn fx:id="name" prefWidth="264.66669209798175" text="Category Name" />
+          <TableColumn fx:id="name" prefWidth="340.000005086263" text="Category Name" />
         </columns>
       </TableView>
    </children>
