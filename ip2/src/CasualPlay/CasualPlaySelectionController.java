@@ -8,6 +8,7 @@ package CasualPlay;
 import CategoryPage.DeleteCategoryController;
 import SQL.SQLHandler;
 import ip2.Category;
+import ip2.Shaker;
 import ip2.User;
 import java.io.IOException;
 import java.net.URL;
@@ -27,6 +28,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -40,18 +42,30 @@ import javafx.stage.StageStyle;
 public class CasualPlaySelectionController implements Initializable {
 
     User currentUser;
-    
+
+    @FXML
+    private Button playButton;
+
     @FXML
     private TableView<Category> table;
     @FXML
     private TableColumn<Category, String> col_name;
-    
+
     ObservableList<Category> data = FXCollections.observableArrayList();
 
     @FXML
     public void playGame(ActionEvent event) throws IOException {
-        System.out.println("This would start the game.");
 
+        try {
+            TablePosition pos = (TablePosition) table.getSelectionModel().getSelectedCells().get(0);
+            int index = pos.getRow();
+            Category item = table.getItems().get(index);
+
+            System.out.println("You have selected " + item.getCategoryName());
+        } catch (Exception e) {
+            Shaker shaker = new Shaker(playButton);
+            shaker.shake();
+        }
     }
 
     @FXML
@@ -77,24 +91,22 @@ public class CasualPlaySelectionController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    
+
         try {
-            
+
             Connection conn = SQLHandler.getConn();
             ResultSet rs = conn.createStatement().executeQuery("Select * from Categories");
             while (rs.next()) {
-            data.add(new Category(rs.getString("CategoryID"), rs.getString("CategoryName")));
-        
-        }
+                data.add(new Category(rs.getString("CategoryID"), rs.getString("CategoryName")));
+
+            }
         } catch (SQLException ex) {
             Logger.getLogger(DeleteCategoryController.class.getName()).log(Level.SEVERE, null, ex);
         }
-      
+
         col_name.setCellValueFactory(new PropertyValueFactory<>("CategoryName"));
         table.setItems(data);
-        
-              
-              
+
     }
 
     public void setData(User user) {
