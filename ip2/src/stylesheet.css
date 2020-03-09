@@ -35,7 +35,7 @@
 .text-field
 {
     -fx-text-fill: -fx-primarytext;
-
+    -fx-font-size : 12pt;
     -jfx-focus-color: -fx-secondary;
     -jfx-unfocus-color: -fx-grey;
     -fx-prompt-text-fill: -fx-primarytext;

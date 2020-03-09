@@ -6,6 +6,7 @@
 package QuestionPage;
 
 import SQL.SQLHandler;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import ip2.Question;
@@ -52,7 +53,7 @@ public class AddQuestionController implements Initializable {
     private JFXTextField wrongAns3;
 
     @FXML
-    private Button addQuest;
+    private JFXButton addQuest;
 
     @FXML
     private JFXComboBox<String> categoryCombo;
@@ -65,10 +66,7 @@ public class AddQuestionController implements Initializable {
         String wrong2 = wrongAns2.getText();
         String wrong3 = wrongAns3.getText();
 
-       /* ArrayList<String> allQuestions = new ArrayList<>();
-        SQLHandler sql2 = new SQLHandler();
-        allQuestions = sql2.getAllQuestions();
-*/
+
         if (answer.isEmpty() || question.isEmpty() || wrong1.isEmpty() || wrong2.isEmpty() || wrong3.isEmpty() || categoryCombo.getSelectionModel().isEmpty()) {
 
             addQuestionFailed();

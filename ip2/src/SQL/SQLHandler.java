@@ -288,10 +288,7 @@ public class SQLHandler {
         return output;
     }
 
-    public void deleteCategory(String categoryName) throws SQLException {
-        String sql = " DELETE FROM Categories WHERE CategoryName=?";
-        query = conn.prepareStatement(sql);
-        query.setString(1, categoryName);
+   
     public void deleteCategory(String categoryId) throws SQLException {
         String sql1 = " DELETE FROM Categories WHERE CategoryID=?";
         query = conn.prepareStatement(sql1);
