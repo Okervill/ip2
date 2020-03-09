@@ -1,8 +1,10 @@
-{
--fx-primary : #e8a87c;
+
+
+*{
+    -fx-primary : #e8a87c;
     -fx-secondary : #a8d6c9;
     -fx-primarytext : #ffffff;
--fx-grey: #999999;
+    -fx-grey: #999999;
 }
 
 .root{
@@ -21,27 +23,34 @@
     -fx-background-radius: 20px;
     -fx-font-size: 12pt;
 
--fx-font-color: -fx-primarytext;
+    -fx-font-color: -fx-primarytext;
 }
 
 .button:hover, .button:focused{
 
--fx-border-color: -fx-secondary;
+    -fx-border-color: -fx-secondary;
     -fx-background-color: -fx-secondary;
 }
 
 .text-field
 {
-    -fx-text-fill: #ffffff;
-   
+    -fx-text-fill: -fx-primarytext;
+
     -jfx-focus-color: -fx-secondary;
--jfx-unfocus-color: -fx-grey;
-    -fx-prompt-text-fill: #ffffff;
+    -jfx-unfocus-color: -fx-grey;
+    -fx-prompt-text-fill: -fx-primarytext;
+
 }
 .combo-box
 {
     -jfx-focus-color: -fx-secondary;
--jfx-unfocus-color: -fx-grey;
--fx-prompt-text-fill: #ffffff;
+    -jfx-unfocus-color: -fx-secondary;
+    -fx-prompt-text-fill: #ffffff;
+    -fx-text-fill: black;
+    -fx-background-color: -fx-secondary;
+}
 
+.combo-box .list-cell {
+    -fx-text-fill: -fx-primarytext; 
+    -fx-background-color: -fx-secondary;
 }

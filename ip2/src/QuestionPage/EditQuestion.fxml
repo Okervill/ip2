@@ -8,18 +8,20 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="400.0" style="-fx-background-color: e8a87c;" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QuestionPage.AddQuestionController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="400.0" style="-fx-background-color: e8a87c;" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QuestionPage.EditController">
    <children>
       <JFXTextField fx:id="correctAns" focusColor="WHITE" layoutX="48.0" layoutY="238.0" prefHeight="37.0" prefWidth="199.0" promptText="Enter in the correct answer" unFocusColor="#a8d6c9">
          <font>
             <Font size="14.0" />
-         </font></JFXTextField>
+         </font>
+      </JFXTextField>
       <TextArea fx:id="questionArea" layoutX="48.0" layoutY="66.0" prefHeight="137.0" prefWidth="305.0" promptText="Enter question" style="-fx-background-color: transparent;" />
       <JFXTextField fx:id="wrongAns1" focusColor="WHITE" layoutX="48.0" layoutY="304.0" prefHeight="25.0" prefWidth="148.0" promptText="A" unFocusColor="#a8d6c9">
          <font>
             <Font size="14.0" />
-         </font></JFXTextField>
-      <Label layoutX="139.0" layoutY="14.0" text="Add Question" textFill="WHITE">
+         </font>
+      </JFXTextField>
+      <Label layoutX="139.0" layoutY="14.0" text="Edit Question" textFill="WHITE">
          <font>
             <Font name="System Bold" size="19.0" />
          </font>
@@ -42,18 +44,20 @@
       <JFXTextField fx:id="wrongAns2" focusColor="WHITE" layoutX="218.0" layoutY="304.0" prefHeight="25.0" prefWidth="148.0" promptText="B" unFocusColor="#a8d6c9">
          <font>
             <Font size="14.0" />
-         </font></JFXTextField>
+         </font>
+      </JFXTextField>
       <JFXTextField fx:id="wrongAns3" focusColor="WHITE" layoutX="48.0" layoutY="351.0" prefHeight="25.0" prefWidth="148.0" promptText="C" unFocusColor="#a8d6c9">
          <font>
             <Font size="14.0" />
-         </font></JFXTextField>
+         </font>
+      </JFXTextField>
       <JFXComboBox fx:id="categoryCombo" layoutX="111.0" layoutY="405.0" prefHeight="25.0" prefWidth="113.0" />
       <Label layoutX="48.0" layoutY="407.0" text="Category:" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <JFXButton layoutX="256.0" layoutY="453.0" onAction="#finishButton" prefHeight="39.0" prefWidth="91.0" text="Finish" />
-      <JFXButton fx:id="addQuest" layoutX="66.0" onAction="#addQuestion" layoutY="453.0" prefHeight="39.0" prefWidth="91.0" text="Add" />
+      <JFXButton layoutX="253.0" layoutY="463.0" onAction="#cancelButton" prefHeight="39.0" prefWidth="91.0" text="Cancel" />
+      <JFXButton fx:id="addQuest" layoutX="76.0" layoutY="463.0" onAction="#addQuestion" prefHeight="39.0" prefWidth="91.0" text="Finish" />
    </children>
 </Pane>
