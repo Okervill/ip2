@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package UserHomePage;
+package HighscorePage;
 
 import ip2.User;
 import java.io.IOException;
@@ -25,45 +25,12 @@ import javafx.stage.StageStyle;
  *
  * @author Patrick
  */
-public class UserHomeController implements Initializable {
+public class HighscoreController implements Initializable {
 
     User currentUser;
-    
-   
-    
     @FXML
     private Label userLabel;
 
-    @FXML
-    public void highscoreButton(ActionEvent event) throws IOException {
-        Parent root;
-        root = FXMLLoader.load(getClass().getResource("/HighscorePage/Highscore.fxml"));
-
-        Scene scene = new Scene(root);
-        Stage reg = new Stage(StageStyle.DECORATED);
-        reg.setTitle("Home");
-        reg.setScene(scene);
-
-        reg.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
-
-    }
-    
-    @FXML
-    public void casualPlay(ActionEvent event) throws IOException {
-        Parent root;
-        root = FXMLLoader.load(getClass().getResource("/CasualPlay/CasualPlaySelection.fxml"));
-
-        Scene scene = new Scene(root);
-        Stage reg = new Stage(StageStyle.DECORATED);
-        reg.setTitle("Casual Play Selection");
-        reg.setScene(scene);
-
-        reg.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
-
-    }
-    
     @FXML
     public void logutButton(ActionEvent event) throws IOException {
         Parent root;
@@ -81,15 +48,10 @@ public class UserHomeController implements Initializable {
 
     /**
      * Initializes the controller class.
-     * @param url
-     * @param rb
      */
-    @FXML
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        userLabel.setText("Welcome to the quiz!");
-        
+
     }
 
     public void setData(User user) {
