@@ -123,6 +123,7 @@ public class ViewQuestionsController implements Initializable {
 
     @FXML
     private void editQuestion(ActionEvent event) throws IOException, SQLException {
+       try{
         String quest = getTablePos();
 
         SQLHandler sql = new SQLHandler();
@@ -132,7 +133,9 @@ public class ViewQuestionsController implements Initializable {
          currentQuestion = search(quest);
 
          SwitchWindow.switchWindow((Stage) editQuest.getScene().getWindow(), new EditPage(currentQuestion));
-       
+        } catch (Exception e) {
+            System.out.print("Select a question to edit");
+        }
     }
 
     @FXML

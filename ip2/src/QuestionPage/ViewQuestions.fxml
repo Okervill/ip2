@@ -16,5 +16,8 @@
       <JFXButton layoutX="42.0" layoutY="308.0" onAction="#addQuestion" prefHeight="44.0" prefWidth="97.0" text="Add" />
       <JFXButton fx:id="editQuest" layoutX="252.0" layoutY="308.0" onAction="#editQuestion" prefHeight="44.0" prefWidth="97.0" text="Edit" />
       <JFXButton layoutX="477.0" layoutY="308.0" onAction="#deleteQuestion" prefHeight="44.0" prefWidth="97.0" text="Delete" />
+      <JFXButton layoutX="252.0" layoutY="308.0" prefHeight="44.0" prefWidth="97.0" text="Edit" />
+      <JFXButton layoutX="477.0" layoutY="308.0" onAction="#deleteQuestion" prefHeight="44.0" prefWidth="97.0" text="Delete" />
+      
     </children>
 </Pane>
