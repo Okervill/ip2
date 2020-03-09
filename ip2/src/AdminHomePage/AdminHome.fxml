@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="337.0" prefWidth="463.0" style="-fx-background-color: e8a87c;" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AdminHomePage.AdminHomeController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="337.0" prefWidth="463.0" style="-fx-background-color: e8a87c;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AdminHomePage.AdminHomeController">
     <children>
         <Label layoutY="7.0" text="Welcome, Admin" textFill="WHITE">
             <font>
@@ -34,7 +34,7 @@
             <graphic>
                 <ImageView fx:id="categories" fitHeight="75.0" fitWidth="262.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@button.JPG" />
+                        <Image url="@../Resources/button.JPG" />
                     </image>
                     <effect>
                         <DropShadow color="#8f7f7f" offsetX="-2.0" />
@@ -46,7 +46,7 @@
             <graphic>
                 <ImageView fitHeight="75.0" fitWidth="262.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@button%202.JPG" />
+                        <Image url="@../Resources/button%202.JPG" />
                     </image>
                     <effect>
                         <DropShadow color="#8f7f7f" offsetX="-2.0" />
