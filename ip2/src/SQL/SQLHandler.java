@@ -96,7 +96,7 @@ public class SQLHandler {
     //-----------------------------//
     public void createQuestion(String QuestionId, String CategoryId, String question, String answer, String wrongAns1, String wrongAns2, String wrongAns3) throws SQLException {
 
-        String sql = "INSERT INTO Question (QuestionId, CategoryId, Question, Answer, wrongAns1, wrongAns2, wrongAns3) VALUES(?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Questions (QuestionId, CategoryId, Question, Answer, wrongAns1, wrongAns2, wrongAns3) VALUES(?,?,?,?,?,?,?)";
         query = conn.prepareStatement(sql);
 
         query.setString(1, QuestionId);
@@ -106,6 +106,23 @@ public class SQLHandler {
         query.setString(5, wrongAns1);
         query.setString(6, wrongAns2);
         query.setString(7, wrongAns3);
+
+        query.executeUpdate();
+        query.close();
+    }
+
+    public void editQuestion(String QuestionId, String CategoryId, String question, String answer, String wrongAns1, String wrongAns2, String wrongAns3) throws SQLException {
+
+        String sql = "UPDATE Questions SET CategoryId = ? , Question = ?, Answer = ?, wrongAns1 = ?, wrongAns2 = ?, wrongAns3 = ? WHERE QuestionId = \"" + QuestionId + "\"";
+
+        query = conn.prepareStatement(sql);
+
+        query.setString(1, CategoryId);
+        query.setString(2, question);
+        query.setString(3, answer);
+        query.setString(4, wrongAns1);
+        query.setString(5, wrongAns2);
+        query.setString(6, wrongAns3);
 
         query.executeUpdate();
         query.close();
@@ -133,7 +150,7 @@ public class SQLHandler {
 
         ObservableList<Question> output = FXCollections.observableArrayList();
         output.clear();
-     
+
         String sql = "SELECT * FROM Questions";
         query = conn.prepareStatement(sql);
         ResultSet rs = query.executeQuery();
@@ -146,9 +163,9 @@ public class SQLHandler {
             String wrongans1 = rs.getString("wrongAns1");
             String wrongans2 = rs.getString("wrongAns2");
             String wrongans3 = rs.getString("wrongAns3");
-          
-            output.add(new Question(QuestionID, CategoryID, question, answer, wrongans1,wrongans2, wrongans3));
-         
+
+            output.add(new Question(QuestionID, CategoryID, question, answer, wrongans1, wrongans2, wrongans3));
+
         }
 
         query.close();
@@ -159,7 +176,7 @@ public class SQLHandler {
 
         ObservableList<Category> output = FXCollections.observableArrayList();
         output.clear();
-     
+
         String sql = "SELECT * FROM Categories";
         query = conn.prepareStatement(sql);
         ResultSet rs = query.executeQuery();
@@ -167,9 +184,9 @@ public class SQLHandler {
         while (rs.next()) {
             String CategoryID = rs.getString("CategoryID");
             String CategoryName = rs.getString("CategoryName");
-            Category currentCategory=new Category(CategoryID, CategoryName);
+            Category currentCategory = new Category(CategoryID, CategoryName);
             output.add(currentCategory);
-         
+
         }
 
         query.close();
@@ -179,7 +196,7 @@ public class SQLHandler {
     public ArrayList searchQuestionTable(String searchQuery) throws SQLException {
 
         ArrayList<String> output = new ArrayList<>();
-        String sql = "SELECT QuestionId, CategoryId, Question, Answer, wrongAns1, wrongAns2, wrongAns3 FROM Questions WHERE question = \"" + searchQuery + "\"";
+        String sql = "SELECT * FROM Questions WHERE question = \"" + searchQuery + "\"";
         query = conn.prepareStatement(sql);
         ResultSet rs = query.executeQuery();
         while (rs.next()) {
@@ -257,10 +274,39 @@ public class SQLHandler {
         return output;
     }
 
-    public void deleteCategory(String categoryName) throws SQLException {
-        String sql = " DELETE FROM Categories WHERE CategoryName=?";
+    public ArrayList searchIDCategoriesTable(String searchQuery) throws SQLException {
+
+        ArrayList<String> output = new ArrayList<>();
+        String sql = "SELECT CategoryName FROM Categories WHERE CategoryID = \"" + searchQuery + "\"";
         query = conn.prepareStatement(sql);
-        query.setString(1, categoryName);
+        ResultSet rs = query.executeQuery();
+        while (rs.next()) {
+
+            output.add((rs.getString("CategoryName")));
+
+        }
+        return output;
+    }
+
+   
+    public void deleteCategory(String categoryId) throws SQLException {
+        String sql1 = " DELETE FROM Categories WHERE CategoryID=?";
+        query = conn.prepareStatement(sql1);
+        query.setString(1, categoryId);
+        query.executeUpdate();
+        query.close();
+        String sql2="DELETE FROM Questions WHERE CategoryID=?";
+        query = conn.prepareStatement(sql2);
+        query.setString(1, categoryId);
+        query.executeUpdate();
+        query.close();
+        
+    }
+
+    public void deleteQuestion(String question) throws SQLException {
+        String sql = " DELETE FROM Questions WHERE question=?";
+        query = conn.prepareStatement(sql);
+        query.setString(1, question);
         query.executeUpdate();
         query.close();
     }

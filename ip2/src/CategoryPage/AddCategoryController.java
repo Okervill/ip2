@@ -18,6 +18,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -44,23 +46,24 @@ public class AddCategoryController implements Initializable {
     private TextField getCategoryName;
     @FXML
     private Button addNewCategoryButton;
-    
-        @Override
+
+    @Override
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
 
         });
     }
+
     @FXML
     private void addNewCategory(ActionEvent event) throws SQLException, IOException {
         String categoryName;
         categoryName = getCategoryName.getText();
-        
 
         ArrayList<String> allCategories = new ArrayList<>();
         SQLHandler sql = new SQLHandler();
         allCategories = sql.getAllCategories();
-
+        
+        
         if (allCategories.contains(categoryName)) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Category Error");
@@ -72,22 +75,23 @@ public class AddCategoryController implements Initializable {
         if (categoryName.isEmpty()) {
             addCategoryFailed();
         } else {
-            
+
             Category newCategory = new Category(categoryName);
             newCategory.createCategory(newCategory);
             Parent root;
             root = FXMLLoader.load(getClass().getResource("CategoryPage.fxml"));
 
-        Scene scene = new Scene(root);
-        Stage reg = new Stage(StageStyle.DECORATED);
-        reg.setTitle("Home");
-        reg.setScene(scene);
+            Scene scene = new Scene(root);
+            Stage reg = new Stage(StageStyle.DECORATED);
+            reg.setTitle("Home");
+            reg.setScene(scene);
 
-        reg.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
-            
+            reg.show();
+            ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+
         }
     }
+
     @FXML
     public void backButton(ActionEvent event) throws IOException {
         Parent root;
@@ -102,11 +106,11 @@ public class AddCategoryController implements Initializable {
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
 
     }
-     private void addCategoryFailed() {
+
+    private void addCategoryFailed() {
         Shaker shake = new Shaker(addNewCategoryButton);
         shake.shake();
         getCategoryName.requestFocus();
     }
-    
-    
+
 }

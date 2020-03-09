@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package UserHomePage;
+package QuestionPage;
 
-import ip2.User;
+import ip2.Question;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,24 +14,23 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Patrick
+ * @author erino
  */
-public class UserHome extends Application {
-
-    User currentUser;
+public class EditPage extends Application {
+    Question currentQuestion;
 
     @Override
     public void start(Stage stage) throws Exception {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserHomePage/UserHome.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/QuestionPage/EditQuestion.fxml"));
         Parent root = (Parent) loader.load();
-
-        UserHomeController controller = loader.getController();
-
-        controller.setData(currentUser);
-
+        
+        EditController controller = loader.getController();
+        
+        controller.setData(currentQuestion);
+        
         Scene scene = new Scene(root);
-
+        
         stage.setScene(scene);
         stage.setTitle("Home");
 
@@ -39,11 +38,12 @@ public class UserHome extends Application {
         stage.centerOnScreen();
 
     }
+
     
-    public UserHome() {
-    }
     
-    public UserHome(User user){
-        currentUser = user;
+  
+    
+    public EditPage(Question question){
+        currentQuestion = question;
     }
 }

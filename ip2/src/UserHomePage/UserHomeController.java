@@ -6,17 +6,19 @@
 package UserHomePage;
 
 import ip2.User;
+import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListView;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -26,29 +28,73 @@ import javafx.scene.control.ListView;
 public class UserHomeController implements Initializable {
 
     User currentUser;
+    
+   
+    
+    @FXML
+    private Label userLabel;
 
     @FXML
-    private ListView<String> userDisplay;
+    public void highscoreButton(ActionEvent event) throws IOException {
+        Parent root;
+        root = FXMLLoader.load(getClass().getResource("/HighscorePage/Highscore.fxml"));
+
+        Scene scene = new Scene(root);
+        Stage reg = new Stage(StageStyle.DECORATED);
+        reg.setTitle("Home");
+        reg.setScene(scene);
+
+        reg.show();
+        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+
+    }
+    
+    @FXML
+    public void casualPlay(ActionEvent event) throws IOException {
+        Parent root;
+        root = FXMLLoader.load(getClass().getResource("/CasualPlay/CasualPlaySelection.fxml"));
+
+        Scene scene = new Scene(root);
+        Stage reg = new Stage(StageStyle.DECORATED);
+        reg.setTitle("Casual Play Selection");
+        reg.setScene(scene);
+
+        reg.show();
+        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+
+    }
+    
+    @FXML
+    public void logutButton(ActionEvent event) throws IOException {
+        Parent root;
+        root = FXMLLoader.load(getClass().getResource("/LoginRegister/Login.fxml"));
+
+        Scene scene = new Scene(root);
+        Stage reg = new Stage(StageStyle.DECORATED);
+        reg.setTitle("Home");
+        reg.setScene(scene);
+
+        reg.show();
+        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+
+    }
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
+    @FXML
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Platform.runLater(() -> {
-
-            ObservableList<String> u = FXCollections.observableArrayList();
-            u.add(currentUser.getUserID());
-            u.add(currentUser.getFirstname());
-            u.add(currentUser.getSurname());
-            u.add(currentUser.getUsername());
-
-            userDisplay.setItems(u);
-        });
+        
+        userLabel.setText("Welcome to the quiz!");
+        
     }
 
     public void setData(User user) {
         currentUser = user;
+
     }
 
 }

@@ -64,12 +64,12 @@ public class DeleteCategoryController implements Initializable {
             ResultSet rs = conn.createStatement().executeQuery("Select * from Categories");
             while (rs.next()) {
             data.add(new Category(rs.getString("CategoryID"), rs.getString("CategoryName")));
-         
+        
         }
         } catch (SQLException ex) {
             Logger.getLogger(DeleteCategoryController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+      
         name.setCellValueFactory(new PropertyValueFactory<>("CategoryName"));
         categoryTable.setItems(data);
         

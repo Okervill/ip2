@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package QuestionPage;
+package HighscorePage;
 
 import ip2.User;
 import java.io.IOException;
@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -24,21 +25,16 @@ import javafx.stage.StageStyle;
  *
  * @author Patrick
  */
-public class QuestionPageController implements Initializable {
+public class HighscoreController implements Initializable {
 
     User currentUser;
-
-    /**
-     * Initializes the controller class.
-     *
-     * @param url
-     * @param rb
-     */
-    // ObservableList<Question> oblist = FXCollections.observableArrayList();
     @FXML
-    public void backButton(ActionEvent event) throws IOException {
+    private Label userLabel;
+
+    @FXML
+    public void logutButton(ActionEvent event) throws IOException {
         Parent root;
-        root = FXMLLoader.load(getClass().getResource("/AdminHomePage/AdminHome.fxml"));
+        root = FXMLLoader.load(getClass().getResource("/LoginRegister/Login.fxml"));
 
         Scene scene = new Scene(root);
         Stage reg = new Stage(StageStyle.DECORATED);
@@ -50,12 +46,17 @@ public class QuestionPageController implements Initializable {
 
     }
 
-    public void setData(User user) {
-        currentUser = user;
-    }
-
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+    }
+
+    public void setData(User user) {
+        currentUser = user;
+
     }
 
 }

@@ -6,6 +6,8 @@
 package LoginRegister;
 
 import SQL.SQLHandler;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import ip2.Hash;
 import ip2.Shaker;
 import ip2.SwitchWindow;
@@ -30,13 +32,13 @@ import javafx.stage.Stage;
 public class RegisterController implements Initializable {
 
     @FXML
-    private TextField getFirstname;
+    private JFXTextField getFirstname;
     @FXML
-    private TextField getSurname;
+    private JFXTextField getSurname;
     @FXML
-    private TextField getUsername;
+    private JFXTextField getUsername;
     @FXML
-    private TextField getPassword;
+    private JFXPasswordField getPassword;
     @FXML
     private Button registerButton;
     @FXML
