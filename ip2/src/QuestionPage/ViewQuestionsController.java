@@ -171,5 +171,18 @@ public class ViewQuestionsController implements Initializable {
         add.show();
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
     }
+@FXML
+    private void homeButton(ActionEvent event) throws IOException, SQLException {
 
+        Parent root;
+        root = FXMLLoader.load(getClass().getResource("/AdminHomePage/AdminHome.fxml"));
+
+        Scene scene = new Scene(root);
+        Stage add = new Stage(StageStyle.DECORATED);
+        add.setTitle("Admin");
+        add.setScene(scene);
+
+        add.show();
+        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+    }
 }

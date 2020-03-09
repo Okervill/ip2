@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="400.0" style="-fx-background-color: e8a87c;" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QuestionPage.AddQuestionController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="400.0" style="-fx-background-color: e8a87c;" stylesheets="@../Resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QuestionPage.AddQuestionController">
    <children>
       <JFXTextField fx:id="correctAns" focusColor="WHITE" layoutX="48.0" layoutY="238.0" prefHeight="37.0" prefWidth="199.0" promptText="Enter in the correct answer" unFocusColor="#a8d6c9">
          <font>
