@@ -6,13 +6,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane dividerPositions="0.613933236574746" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="465.0" prefWidth="691.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginRegister.RegisterController">
+<SplitPane dividerPositions="0.613933236574746" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="465.0" prefWidth="691.0" stylesheets="@../Resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginRegister.RegisterController">
   <items>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="463.0" prefWidth="432.0" style="-fx-background-color: e8a87c;">
          <children>
@@ -37,18 +35,13 @@
             <JFXPasswordField fx:id="getPassword" labelFloat="true" layoutX="118.0" layoutY="317.0" onAction="#register" prefHeight="25.0" prefWidth="178.0" promptText="Choose a password" stylesheets="@../stylesheet.css" />
          </children>
       </AnchorPane>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="463.0" prefWidth="254.0" SplitPane.resizableWithParent="false">
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="463.0" prefWidth="254.0" style="-fx-background-color: white;" SplitPane.resizableWithParent="false">
          <children>
             <Label layoutX="63.0" layoutY="208.0" text="Already a member?" textFill="#605959">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <ImageView fitHeight="62.0" fitWidth="125.0" layoutX="69.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@new.png" />
-               </image>
-            </ImageView>
             <Button fx:id="loginButton" layoutX="69.0" layoutY="245.0" mnemonicParsing="false" onAction="#loadLoginPage" prefHeight="42.0" prefWidth="116.0" style="-fx-background-radius: 100; -fx-background-color: a8d6c9;" text="Login" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="15.0" />
