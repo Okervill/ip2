@@ -7,7 +7,6 @@ package QuestionPage;
 
 import SQL.SQLHandler;
 import ip2.Question;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -26,7 +25,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.effect.DropShadow;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -43,7 +41,6 @@ public class ViewQuestionsController implements Initializable {
     private TableColumn<Question, String> col_quest;
     @FXML
     private TableColumn<Question, String> col_answer;
-  
 
     /**
      * Initializes the controller class.
@@ -122,11 +119,11 @@ public class ViewQuestionsController implements Initializable {
         currentQuestion.deleteQuestion(currentQuestion);
 
     }
-    
-     @FXML
+
+    @FXML
     private void addQuestion(ActionEvent event) throws IOException, SQLException {
-        
-          Parent root;
+
+        Parent root;
         root = FXMLLoader.load(getClass().getResource("AddQuestion.fxml"));
 
         Scene scene = new Scene(root);
@@ -137,8 +134,20 @@ public class ViewQuestionsController implements Initializable {
         add.show();
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
     }
-   
 
+    @FXML
+    private void backButton(ActionEvent event) throws IOException, SQLException {
 
+        Parent root;
+        root = FXMLLoader.load(getClass().getResource("/AdminHomePage/AdminHome.fxml"));
+
+        Scene scene = new Scene(root);
+        Stage add = new Stage(StageStyle.DECORATED);
+        add.setTitle("Add Question");
+        add.setScene(scene);
+
+        add.show();
+        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+    }
 
 }

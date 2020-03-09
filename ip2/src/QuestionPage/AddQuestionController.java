@@ -92,6 +92,20 @@ public class AddQuestionController implements Initializable {
              */
         }
     }
+    
+    @FXML
+    private void cancelButton(ActionEvent event) throws SQLException, IOException {
+        Parent root;
+        root = FXMLLoader.load(getClass().getResource("/QuestionPage/ViewQuestions.fxml"));
+
+        Scene scene = new Scene(root);
+        Stage reg = new Stage(StageStyle.DECORATED);
+        reg.setTitle("Home");
+        reg.setScene(scene);
+
+        reg.show();
+        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+    }
 
     private void addQuestionFailed() {
         Shaker shake = new Shaker(addQuest);

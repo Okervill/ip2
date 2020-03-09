@@ -13,8 +13,9 @@
             <TableColumn fx:id="col_answer" prefWidth="120.0" text="Answer" />
             </columns>
         </TableView>
-      <JFXButton onAction = "#addQuestion" layoutX="42.0" layoutY="308.0" prefHeight="44.0" prefWidth="97.0" text="Add" />
+      <JFXButton layoutX="42.0" layoutY="308.0" onAction="#addQuestion" prefHeight="44.0" prefWidth="97.0" text="Add" />
       <JFXButton layoutX="252.0" layoutY="308.0" prefHeight="44.0" prefWidth="97.0" text="Edit" />
-      <JFXButton onAction = "#deleteQuestion" layoutX="477.0" layoutY="308.0" prefHeight="44.0" prefWidth="97.0" text="Delete" />
+      <JFXButton layoutX="477.0" layoutY="308.0" onAction="#deleteQuestion" prefHeight="44.0" prefWidth="97.0" text="Delete" />
+      <JFXButton layoutX="509.0" layoutY="4.0" onAction="#backButton" prefHeight="6.0" prefWidth="87.0" text="Go Back" />
     </children>
 </Pane>
