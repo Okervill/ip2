@@ -5,8 +5,13 @@
  */
 package QuestionPage;
 
+import AdminHomePage.AdminHome;
 import SQL.SQLHandler;
+import com.jfoenix.controls.JFXButton;
 import ip2.Question;
+import ip2.SwitchWindow;
+import ip2.User;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -31,7 +36,7 @@ import javafx.stage.StageStyle;
 /**
  * FXML Controller class
  *
- * @author Patrick
+ * @author erino
  */
 public class ViewQuestionsController implements Initializable {
 
@@ -41,6 +46,10 @@ public class ViewQuestionsController implements Initializable {
     private TableColumn<Question, String> col_quest;
     @FXML
     private TableColumn<Question, String> col_answer;
+    ArrayList<String> allQuestions = new ArrayList<>();
+    String quest;
+      @FXML
+    private JFXButton editQuest;
 
     /**
      * Initializes the controller class.
@@ -75,35 +84,59 @@ public class ViewQuestionsController implements Initializable {
     }
 
     @FXML
-    private void deleteQuestion(ActionEvent event) throws IOException, SQLException {
-
+    private String getTablePos() {
         TablePosition pos = (TablePosition) table.getSelectionModel().getSelectedCells().get(0);
         int index = pos.getRow();
         Question item = table.getItems().get(index);
 
-        String quest = (String) col_quest.getCellObservableValue(item).getValue();
+        quest = (String) col_quest.getCellObservableValue(item).getValue();
 
-        ArrayList<String> allQuestions = new ArrayList<>();
+        return quest;
+    }
+
+    @FXML
+    private void deleteQuestion(ActionEvent event) throws IOException, SQLException {
+        try {
+
+            String quest = getTablePos();
+
+            SQLHandler sql = new SQLHandler();
+            allQuestions = sql.getAllQuestions();
+
+            Question currentQuestion = search(quest);
+            currentQuestion.deleteQuestion(currentQuestion);
+
+            Parent root;
+            root = FXMLLoader.load(getClass().getResource("ViewQuestions.fxml"));
+
+            Scene scene = new Scene(root);
+            Stage reg = new Stage(StageStyle.DECORATED);
+            reg.setTitle("Questions");
+            reg.setScene(scene);
+
+            reg.show();
+            ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+        } catch (Exception e) {
+            System.out.print("Select a question to delete");
+        }
+    }
+
+    @FXML
+    private void editQuestion(ActionEvent event) throws IOException, SQLException {
+        String quest = getTablePos();
 
         SQLHandler sql = new SQLHandler();
         allQuestions = sql.getAllQuestions();
 
-        delete(quest);
-        Parent root;
-        root = FXMLLoader.load(getClass().getResource("ViewQuestions.fxml"));
+        Question currentQuestion = new Question(quest);
+         currentQuestion = search(quest);
 
-        Scene scene = new Scene(root);
-        Stage reg = new Stage(StageStyle.DECORATED);
-        reg.setTitle("Questions");
-        reg.setScene(scene);
-
-        reg.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
-
+         SwitchWindow.switchWindow((Stage) editQuest.getScene().getWindow(), new EditPage(currentQuestion));
+       
     }
 
     @FXML
-    public void delete(String userquest) throws SQLException, IOException {
+    public Question search(String userquest) throws SQLException, IOException {
         SQLHandler sql = new SQLHandler();
         ArrayList<String> questionInfo = sql.searchQuestionTable(userquest);
 
@@ -116,7 +149,8 @@ public class ViewQuestionsController implements Initializable {
         String wrongAns3 = questionInfo.get(6);
 
         Question currentQuestion = new Question(QuestionID, CategoryID, quest, answer, wrongAns1, wrongAns2, wrongAns3);
-        currentQuestion.deleteQuestion(currentQuestion);
+
+        return currentQuestion;
 
     }
 
@@ -124,22 +158,7 @@ public class ViewQuestionsController implements Initializable {
     private void addQuestion(ActionEvent event) throws IOException, SQLException {
 
         Parent root;
-        root = FXMLLoader.load(getClass().getResource("AddQuestion.fxml"));
-
-        Scene scene = new Scene(root);
-        Stage add = new Stage(StageStyle.DECORATED);
-        add.setTitle("Add Question");
-        add.setScene(scene);
-
-        add.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
-    }
-
-    @FXML
-    private void backButton(ActionEvent event) throws IOException, SQLException {
-
-        Parent root;
-        root = FXMLLoader.load(getClass().getResource("/AdminHomePage/AdminHome.fxml"));
+        root = FXMLLoader.load(getClass().getResource("/QuestionPage/AddQuestion.fxml"));
 
         Scene scene = new Scene(root);
         Stage add = new Stage(StageStyle.DECORATED);

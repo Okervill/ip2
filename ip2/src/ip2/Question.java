@@ -77,6 +77,11 @@ public class Question {
         sql.deleteQuestion(question.getUserQuestion());
     }
 
+    public void editQuestion(Question question) throws SQLException {
+        SQLHandler sql = new SQLHandler();
+        sql.editQuestion(question.getQuestionId(), question.getCategoryId(), question.getUserQuestion(), question.getCorrectAnswer(), question.getWrongAnswer1(), question.getWrongAnswer2(), question.getWrongAnswer3());
+    }
+
     public String getQuestionId() {
         return this.QuestionID;
     }
