@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CasualPlaySelect;
+package CasualPlay;
 
 import UserHomePage.*;
 import ip2.User;
@@ -17,7 +17,7 @@ import javafx.stage.Stage;
  *
  * @author Patrick
  */
-public class CasualPlaySelect extends Application {
+public class CasualPlaySelection extends Application {
 
     User currentUser;
 
@@ -41,10 +41,10 @@ public class CasualPlaySelect extends Application {
 
     }
     
-    public CasualPlaySelect() {
+    public CasualPlaySelection() {
     }
     
-    public CasualPlaySelect(User user){
+    public CasualPlaySelection(User user){
         currentUser = user;
     }
 }
