@@ -56,28 +56,34 @@ public class CasualPlaySelectionController implements Initializable {
     @FXML
     public void playGame(ActionEvent event) throws IOException {
 
-        try {
-            TablePosition pos = (TablePosition) table.getSelectionModel().getSelectedCells().get(0);
-            int index = pos.getRow();
-            Category item = table.getItems().get(index);
+//        try {
+        TablePosition pos = (TablePosition) table.getSelectionModel().getSelectedCells().get(0);
+        int index = pos.getRow();
+        Category item = table.getItems().get(index);
 
-            System.out.println("You have selected " + item.getCategoryName());
+        System.out.println("You have selected " + item.getCategoryName());
 
-            Parent root;
-            root = FXMLLoader.load(getClass().getResource("/CasualPlay/CasualGame.fxml"));
+        String test = (String) item.getCategoryName();
+        CasualGame game = new CasualGame(test);
+        
+        game.setUserSelection(test);
 
-            Scene scene = new Scene(root);
-            Stage reg = new Stage(StageStyle.DECORATED);
-            reg.setTitle("Home");
-            reg.setScene(scene);
+//        System.out.println(game.getUserSelection());
+        Parent root;
+        root = FXMLLoader.load(getClass().getResource("/CasualPlay/CasualGame.fxml"));
 
-            reg.show();
-            ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+        Scene scene = new Scene(root);
+        Stage reg = new Stage(StageStyle.DECORATED);
+        reg.setTitle("Home");
+        reg.setScene(scene);
 
-        } catch (Exception e) {
-            Shaker shaker = new Shaker(playButton);
-            shaker.shake();
-        }
+        reg.show();
+        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+
+//        } catch (Exception e) {
+//            Shaker shaker = new Shaker(playButton);
+//            shaker.shake();
+//        }
     }
 
     @FXML

@@ -5,21 +5,10 @@
  */
 package CasualPlay;
 
-import CategoryPage.DeleteCategoryController;
-import SQL.SQLHandler;
-import ip2.Category;
-import ip2.Shaker;
 import ip2.User;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,10 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TablePosition;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -42,10 +28,19 @@ import javafx.stage.StageStyle;
 public class CasualGameController implements Initializable {
 
     User currentUser;
+    
+    String currentSelection;
+
+    @FXML
+    private Label testLabel;
+
+  
+   
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        System.out.println("Test in casual game controller. category is: " + currentSelection);
+        
     }
 
     @FXML
@@ -62,10 +57,10 @@ public class CasualGameController implements Initializable {
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
 
     }
-    
-    
-    public void setData(User user) {
+
+    public void setData(User user, String userSelection) {
         currentUser = user;
+        currentSelection = userSelection;
 
     }
 
