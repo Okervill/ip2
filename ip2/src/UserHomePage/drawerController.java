@@ -35,17 +35,10 @@ public class drawerController implements Initializable {
 
     @FXML
     private void loadCompetitive(ActionEvent event) throws IOException {
-        Parent root;
-        root = FXMLLoader.load(getClass().getResource("UserHome.fxml"));
-
-        Scene scene = new Scene(root);
-        Stage add = new Stage(StageStyle.DECORATED);
-        add.setTitle("Admin");
-        add.setScene(scene);
-
-        add.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+       
     }
+    
+    
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
