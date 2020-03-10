@@ -62,6 +62,18 @@ public class CasualPlaySelectionController implements Initializable {
             Category item = table.getItems().get(index);
 
             System.out.println("You have selected " + item.getCategoryName());
+
+            Parent root;
+            root = FXMLLoader.load(getClass().getResource("/CasualPlay/CasualGame.fxml"));
+
+            Scene scene = new Scene(root);
+            Stage reg = new Stage(StageStyle.DECORATED);
+            reg.setTitle("Home");
+            reg.setScene(scene);
+
+            reg.show();
+            ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+
         } catch (Exception e) {
             Shaker shaker = new Shaker(playButton);
             shaker.shake();
