@@ -69,7 +69,7 @@ public class CasualPlaySelectionController implements Initializable {
 
 //        System.out.println(game.getUserSelection());
         Parent root;
-        root = FXMLLoader.load(getClass().getResource("/CasualPlay/CasualGame.fxml"));
+        root = FXMLLoader.load(getClass().getResource("/CasualPlay/CasualQuiz.fxml"));
 
         Scene scene = new Scene(root);
         Stage reg = new Stage(StageStyle.DECORATED);

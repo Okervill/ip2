@@ -73,7 +73,49 @@ public class CasualGameController implements Initializable {
     }
 
     @FXML
-    private Label testLabel;
+    private void answer(ActionEvent event) {
+//        if (event.getSource().equals(option1)) {
+//            if (option1.getText().equals(questions.get(qNo - 1).getCorrectAnswer())) {
+//                score++;
+//            }
+//            nextQuestion();
+//        } else if (event.getSource().equals(option2)) {
+//            if (option2.getText().equals(questions.get(qNo - 1).getCorrectAnswer())) {
+//                score++;
+//            }
+//            nextQuestion();
+//        } else if (event.getSource().equals(option3)) {
+//            if (option3.getText().equals(questions.get(qNo - 1).getCorrectAnswer())) {
+//                score++;
+//            }
+//            nextQuestion();
+//        } else if (event.getSource().equals(option4)) {
+//            if (option4.getText().equals(questions.get(qNo - 1).getCorrectAnswer())) {
+//                score++;
+//            }
+//            nextQuestion();
+//        }
+    }
+    
+    @FXML
+    private void start(ActionEvent event) throws SQLException {
+//        startButton.setVisible(false);
+//        ArrayList<Question> questions = getQuestions();
+//        if (questions.isEmpty()) {
+//            return;
+//        }
+//
+//        option1.setVisible(true);
+//        option2.setVisible(true);
+//        option3.setVisible(true);
+//        option4.setVisible(true);
+//        questionDisplay.setVisible(true);
+//
+//        nextQuestion();
+    }
+    
+    
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
