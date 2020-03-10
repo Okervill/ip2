@@ -1,6 +1,9 @@
 /ip2/nbproject/private/
 /ip2/build/
 /ip2/dist/
+.DS_Store
+ip2/.DS_Store
+ip2/src/.DS_Store
 ip2/nbproject/UPDATED.TXT
 ip2/nbproject/jfx-impl_backup_2.xml
 ip2/nbproject/jfx-impl.xml

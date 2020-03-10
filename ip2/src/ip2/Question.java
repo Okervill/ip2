@@ -110,4 +110,9 @@ public class Question {
         return this.wrongAns3;
     }
 
+
+
+      //  sql.createUser(question.getQuestionId(), question.getCategoryId(), question.getUserQuestion(), question.getCorrectAnswer(), question.getWrongAnswer1(), question.getWrongAnswer2(), question.getUsername());
+    //}
+
 }
