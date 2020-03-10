@@ -1,6 +1,13 @@
 package CasualPlay;
 
+import SQL.SQLHandler;
+import ip2.Question;
 import ip2.User;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,18 +18,9 @@ public class CasualGame extends Application {
 
     User currentUser;
 
-    private String userSelection;
+    private static String userSelection;
 
-    public CasualGame() {
-    }
-
-    public String getUserSelection() {
-        return userSelection;
-    }
-
-    public void setUserSelection(String userSelection) {
-        this.userSelection = userSelection;
-    }
+   
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -32,7 +30,7 @@ public class CasualGame extends Application {
 
         CasualGameController controller = loader.getController();
 
-        controller.setData(currentUser, userSelection);
+        controller.setData(currentUser);
 
         Scene scene = new Scene(root);
 
@@ -44,25 +42,16 @@ public class CasualGame extends Application {
 
     }
 
-    public User getCurrentUser() {
-        return currentUser;
+    public static String getUserSelection() {
+        return userSelection;
+    }
+
+    public static void setUserSelection(String userSelection) {
+        CasualGame.userSelection = userSelection;
     }
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
-    }
-
-    public CasualGame(User user) {
-        currentUser = user;
-    }
-
-    public CasualGame(User currentUser, String userSelection) {
-        this.currentUser = currentUser;
-        this.userSelection = userSelection;
-    }
-
-    public CasualGame(String userSelect) {
-        userSelect = userSelection;
     }
 
 }

@@ -8,7 +8,6 @@ package CasualPlay;
 import CategoryPage.DeleteCategoryController;
 import SQL.SQLHandler;
 import ip2.Category;
-import ip2.Shaker;
 import ip2.User;
 import java.io.IOException;
 import java.net.URL;
@@ -63,10 +62,10 @@ public class CasualPlaySelectionController implements Initializable {
 
         System.out.println("You have selected " + item.getCategoryName());
 
-        String test = (String) item.getCategoryName();
-        CasualGame game = new CasualGame(test);
+        String tempSelection = (String) item.getCategoryName();
         
-        game.setUserSelection(test);
+        CasualGame.setUserSelection(tempSelection);
+        
 
 //        System.out.println(game.getUserSelection());
         Parent root;

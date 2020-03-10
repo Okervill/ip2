@@ -161,14 +161,44 @@ public class SQLHandler {
             String wrongans1 = rs.getString("wrongAns1");
             String wrongans2 = rs.getString("wrongAns2");
             String wrongans3 = rs.getString("wrongAns3");
-            
+
             output.add(new Question(QuestionID, CategoryID, question, answer, wrongans1, wrongans2, wrongans3));
-            
+
         }
 
         query.close();
         return output;
     }
+
+    //------------------------------------//
+    // GET ALL QUESTIONS FROM SPECIFIC CATEGORY //
+    //------------------------------------//
+
+    public ArrayList<Question> getQnAFromCategory(String categoryID) throws SQLException {
+        ArrayList<Question> output = new ArrayList<>();
+        String sql = "SELECT * FROM Questions WHERE CategoryID='"+ categoryID + "'";
+        
+//        = \"" + searchQuery + "\""
+        query = conn.prepareStatement(sql);
+        ResultSet rs = query.executeQuery();
+
+        while (rs.next()) {
+            String QuestionID = rs.getString("QuestionID");
+            String CategoryID = rs.getString("CategoryID");
+            String question = rs.getString("Question");
+            String answer = rs.getString("Answer");
+            String wrongans1 = rs.getString("wrongAns1");
+            String wrongans2 = rs.getString("wrongAns2");
+            String wrongans3 = rs.getString("wrongAns3");
+
+            output.add(new Question(QuestionID, CategoryID, question, answer, wrongans1, wrongans2, wrongans3));
+
+        }
+
+        query.close();
+        return output;
+    }
+
 
     public ObservableList showQuestionsTable() throws SQLException {
 
