@@ -10,6 +10,9 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
+import CompetitivePlay.CompetitivePlay;
+import LoginRegister.RegisterUser;
+import ip2.SwitchWindow;
 import ip2.User;
 import java.io.IOException;
 import java.net.URL;
@@ -47,9 +50,8 @@ public class UserHomeController implements Initializable {
 
     @FXML
     private Label userLabel;
-    
-  
-
+    @FXML
+    private Button competitivePlayButton;
 
         
         
@@ -104,7 +106,6 @@ public class UserHomeController implements Initializable {
      * @param url
      * @param rb
      */
-    @FXML
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 Platform.runLater(() -> {
@@ -138,6 +139,11 @@ Platform.runLater(() -> {
     public void setData(User user) {
         currentUser = user;
 
+    }
+
+    @FXML
+    private void competitvePlay(ActionEvent event) {
+            SwitchWindow.switchWindow((Stage) competitivePlayButton.getScene().getWindow(), new CompetitivePlay(currentUser));
     }
 
 }
