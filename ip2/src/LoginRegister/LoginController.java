@@ -8,6 +8,8 @@ package LoginRegister;
 import AdminHomePage.AdminHome;
 import SQL.SQLHandler;
 import UserHomePage.UserHome;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import ip2.Hash;
 import ip2.Shaker;
 import ip2.SwitchWindow;
@@ -20,7 +22,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
@@ -31,9 +32,9 @@ import javafx.stage.Stage;
 public class LoginController implements Initializable {
 
     @FXML
-    private TextField inputUser;
+    private JFXTextField inputUser;
     @FXML
-    private TextField inputPass;
+    private JFXPasswordField inputPass;
     @FXML
     private Button loginButton;
     @FXML
@@ -97,5 +98,7 @@ public class LoginController implements Initializable {
     private void swapFocusPassword(ActionEvent event) {
         inputPass.requestFocus();
     }
+    
+    
 
 }

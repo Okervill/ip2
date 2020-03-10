@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -34,7 +33,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import static sun.net.www.http.HttpClient.New;
 
 /**
  * FXML Controller class
@@ -66,12 +64,12 @@ public class DeleteCategoryController implements Initializable {
             ResultSet rs = conn.createStatement().executeQuery("Select * from Categories");
             while (rs.next()) {
             data.add(new Category(rs.getString("CategoryID"), rs.getString("CategoryName")));
-         
+        
         }
         } catch (SQLException ex) {
             Logger.getLogger(DeleteCategoryController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+      
         name.setCellValueFactory(new PropertyValueFactory<>("CategoryName"));
         categoryTable.setItems(data);
         

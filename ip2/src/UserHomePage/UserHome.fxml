@@ -12,9 +12,9 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Button onAction="#highscoreButton" layoutX="527.0" layoutY="361.0" mnemonicParsing="false" text="hi-score" />
-      <Button onAction="#casualPlayButton" layoutX="273.0" layoutY="163.0" mnemonicParsing="false" text="casual play" />
-      <Button onAction="#competitivePlayButton" layoutX="258.0" layoutY="245.0" mnemonicParsing="false" text="competitive play" />
-      <Button onAction="#logutButton" layoutX="541.0" layoutY="2.0" mnemonicParsing="false" text="logout" />
+      <Button layoutX="527.0" layoutY="361.0" mnemonicParsing="false" onAction="#highscoreButton" text="hi-score" />
+      <Button layoutX="273.0" layoutY="163.0" mnemonicParsing="false" onAction="#casualPlay" text="casual play" />
+      <Button layoutX="258.0" layoutY="245.0" mnemonicParsing="false" text="competitive play" />
+      <Button layoutX="541.0" layoutY="2.0" mnemonicParsing="false" onAction="#logutButton" text="logout" />
    </children>
 </AnchorPane>
