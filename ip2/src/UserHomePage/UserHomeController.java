@@ -5,6 +5,9 @@
  */
 package UserHomePage;
 
+import CompetitivePlay.CompetitivePlay;
+import LoginRegister.RegisterUser;
+import ip2.SwitchWindow;
 import ip2.User;
 import java.io.IOException;
 import java.net.URL;
@@ -33,6 +36,8 @@ public class UserHomeController implements Initializable {
     
     @FXML
     private Label userLabel;
+    @FXML
+    private Button competitivePlayButton;
 
     @FXML
     public void highscoreButton(ActionEvent event) throws IOException {
@@ -84,7 +89,6 @@ public class UserHomeController implements Initializable {
      * @param url
      * @param rb
      */
-    @FXML
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
@@ -95,6 +99,11 @@ public class UserHomeController implements Initializable {
     public void setData(User user) {
         currentUser = user;
 
+    }
+
+    @FXML
+    private void competitvePlay(ActionEvent event) {
+            SwitchWindow.switchWindow((Stage) competitivePlayButton.getScene().getWindow(), new CompetitivePlay(currentUser));
     }
 
 }
