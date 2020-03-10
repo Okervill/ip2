@@ -30,6 +30,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -48,8 +51,14 @@ public class ViewQuestionsController implements Initializable {
     private TableColumn<Question, String> col_answer;
     ArrayList<String> allQuestions = new ArrayList<>();
     String quest;
-      @FXML
+    @FXML
     private JFXButton editQuest;
+
+    @FXML
+    private StackPane stackpane;
+
+    @FXML
+    private AnchorPane mainContainer;
 
     /**
      * Initializes the controller class.
@@ -117,22 +126,23 @@ public class ViewQuestionsController implements Initializable {
             reg.show();
             ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
         } catch (Exception e) {
-            System.out.print("Select a question to delete");
+
+            Alerts.showMaterialDialog(stackpane, mainContainer, new ArrayList<>(), "No selection", "Please select a question to delete.");
         }
     }
 
     @FXML
     private void editQuestion(ActionEvent event) throws IOException, SQLException {
-       try{
-        String quest = getTablePos();
+        try {
+            String quest = getTablePos();
 
-        SQLHandler sql = new SQLHandler();
-        allQuestions = sql.getAllQuestions();
+            SQLHandler sql = new SQLHandler();
+            allQuestions = sql.getAllQuestions();
 
-        Question currentQuestion = new Question(quest);
-         currentQuestion = search(quest);
+            Question currentQuestion = new Question(quest);
+            currentQuestion = search(quest);
 
-         SwitchWindow.switchWindow((Stage) editQuest.getScene().getWindow(), new EditPage(currentQuestion));
+            SwitchWindow.switchWindow((Stage) editQuest.getScene().getWindow(), new EditPage(currentQuestion));
         } catch (Exception e) {
             System.out.print("Select a question to edit");
         }
@@ -171,7 +181,8 @@ public class ViewQuestionsController implements Initializable {
         add.show();
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
     }
-@FXML
+
+    @FXML
     private void homeButton(ActionEvent event) throws IOException, SQLException {
 
         Parent root;

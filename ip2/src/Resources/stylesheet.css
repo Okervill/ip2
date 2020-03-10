@@ -5,6 +5,7 @@
     -fx-secondary : #a8d6c9;
     -fx-primarytext : #ffffff;
     -fx-grey: #999999;
+     -fx-lightorange: #ecb693;
 }
 
 .root{
@@ -53,4 +54,21 @@
 .combo-box .list-cell {
     -fx-text-fill: -fx-primarytext; 
     -fx-background-color: -fx-secondary;
+}
+
+.jfx-hamburger StackPane
+{
+    -fx-background-color: -fx-grey;
+   
+}
+.pullout-button:hover
+{
+    -fx-background-color: -fx-secondary;
+    
+}
+.pullout-button
+{
+    -fx-border-color: transparent;
+    -fx-background-color: -fx-lightorange;
+    
 }
