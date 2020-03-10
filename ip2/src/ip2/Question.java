@@ -105,7 +105,7 @@ public class Question {
 
 
 
-        sql.createUser(question.getQuestionId(), question.getCategoryId(), question.getUserQuestion(), question.getCorrectAnswer(), question.getWrongAnswer1(), question.getWrongAnswer2(), question.getUsername());
-    }
+      //  sql.createUser(question.getQuestionId(), question.getCategoryId(), question.getUserQuestion(), question.getCorrectAnswer(), question.getWrongAnswer1(), question.getWrongAnswer2(), question.getUsername());
+    //}
 
 }

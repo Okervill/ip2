@@ -14,12 +14,11 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Button layoutX="241.0" layoutY="2.0" mnemonicParsing="false" onAction="#viewhighscore" text="view highscore" />
       <Button layoutX="541.0" layoutY="2.0" mnemonicParsing="false" onAction="#logutButton" text="logout" />
-      <TableView id="table" layoutX="219.0" layoutY="75.0" prefHeight="200.0" prefWidth="200.0">
+        <TableView fx:id="highScoreTable" layoutX="134.0" layoutY="56.0" prefHeight="206.0" prefWidth="341.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn fx:id="name" prefWidth="170.0" text="Quiz" />
+            <TableColumn fx:id="name1" prefWidth="170.0" text="User Score" />
         </columns>
       </TableView>
    </children>

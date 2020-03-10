@@ -6,6 +6,7 @@
 package SQL;
 
 import ip2.Category;
+import ip2.HighScore;
 import ip2.Question;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -270,12 +271,14 @@ public class SQLHandler {
     public ArrayList getAllHighscore() throws SQLException {
 
         ArrayList<String> output = new ArrayList<>();
-        String sql = "SELECT UserScore FROM Users";
+        String sql = "Select Quiz 1 from CompetitiveBank";
         query = conn.prepareStatement(sql);
         ResultSet rs = query.executeQuery();
 
         while (rs.next()) {
-            output.add(rs.getString("UserScore"));
+            //output.add(new HighScore(rs.getString("CompetitiveBankId"),rs.getString("Quiz 1")));
+            output.add(rs.getString("CompetitiveBankId"));
+            output.add(rs.getString("Quiz 1"));
         }
 
         query.close(); 

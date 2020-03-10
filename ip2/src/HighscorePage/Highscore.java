@@ -29,7 +29,7 @@ public class Highscore extends Application{
         HighscoreController controller = loader.getController();
         
         controller.setData(currentUser);
-        
+        System.out.println(currentUser);
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
