@@ -8,7 +8,6 @@ package CasualPlay;
 import CategoryPage.DeleteCategoryController;
 import SQL.SQLHandler;
 import ip2.Category;
-import ip2.Shaker;
 import ip2.User;
 import java.io.IOException;
 import java.net.URL;
@@ -56,16 +55,34 @@ public class CasualPlaySelectionController implements Initializable {
     @FXML
     public void playGame(ActionEvent event) throws IOException {
 
-        try {
-            TablePosition pos = (TablePosition) table.getSelectionModel().getSelectedCells().get(0);
-            int index = pos.getRow();
-            Category item = table.getItems().get(index);
+//        try {
+        TablePosition pos = (TablePosition) table.getSelectionModel().getSelectedCells().get(0);
+        int index = pos.getRow();
+        Category item = table.getItems().get(index);
 
-            System.out.println("You have selected " + item.getCategoryName());
-        } catch (Exception e) {
-            Shaker shaker = new Shaker(playButton);
-            shaker.shake();
-        }
+        System.out.println("You have selected " + item.getCategoryName());
+
+        String tempSelection = (String) item.getCategoryName();
+        
+        CasualGame.setUserSelection(tempSelection);
+        
+
+//        System.out.println(game.getUserSelection());
+        Parent root;
+        root = FXMLLoader.load(getClass().getResource("/CasualPlay/CasualQuiz.fxml"));
+
+        Scene scene = new Scene(root);
+        Stage reg = new Stage(StageStyle.DECORATED);
+        reg.setTitle("Home");
+        reg.setScene(scene);
+
+        reg.show();
+        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+
+//        } catch (Exception e) {
+//            Shaker shaker = new Shaker(playButton);
+//            shaker.shake();
+//        }
     }
 
     @FXML

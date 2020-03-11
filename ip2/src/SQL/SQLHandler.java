@@ -147,6 +147,59 @@ public class SQLHandler {
         return output;
     }
 
+    public ArrayList<Question> getAllQandA() throws SQLException {
+        ArrayList<Question> output = new ArrayList<>();
+        String sql = "SELECT * FROM Questions";
+        query = conn.prepareStatement(sql);
+        ResultSet rs = query.executeQuery();
+
+        while (rs.next()) {
+            String QuestionID = rs.getString("QuestionID");
+            String CategoryID = rs.getString("CategoryID");
+            String question = rs.getString("Question");
+            String answer = rs.getString("Answer");
+            String wrongans1 = rs.getString("wrongAns1");
+            String wrongans2 = rs.getString("wrongAns2");
+            String wrongans3 = rs.getString("wrongAns3");
+
+            output.add(new Question(QuestionID, CategoryID, question, answer, wrongans1, wrongans2, wrongans3));
+
+        }
+
+        query.close();
+        return output;
+    }
+
+    //------------------------------------//
+    // GET ALL QUESTIONS FROM SPECIFIC CATEGORY //
+    //------------------------------------//
+
+    public ArrayList<Question> getQnAFromCategory(String categoryID) throws SQLException {
+        ArrayList<Question> output = new ArrayList<>();
+        String sql = "SELECT * FROM Questions WHERE CategoryID='"+ categoryID + "'";
+        
+//        = \"" + searchQuery + "\""
+        query = conn.prepareStatement(sql);
+        ResultSet rs = query.executeQuery();
+
+        while (rs.next()) {
+            String QuestionID = rs.getString("QuestionID");
+            String CategoryID = rs.getString("CategoryID");
+            String question = rs.getString("Question");
+            String answer = rs.getString("Answer");
+            String wrongans1 = rs.getString("wrongAns1");
+            String wrongans2 = rs.getString("wrongAns2");
+            String wrongans3 = rs.getString("wrongAns3");
+
+            output.add(new Question(QuestionID, CategoryID, question, answer, wrongans1, wrongans2, wrongans3));
+
+        }
+
+        query.close();
+        return output;
+    }
+
+
     public ObservableList showQuestionsTable() throws SQLException {
 
         ObservableList<Question> output = FXCollections.observableArrayList();
@@ -289,19 +342,18 @@ public class SQLHandler {
         return output;
     }
 
-   
     public void deleteCategory(String categoryId) throws SQLException {
         String sql1 = " DELETE FROM Categories WHERE CategoryID=?";
         query = conn.prepareStatement(sql1);
         query.setString(1, categoryId);
         query.executeUpdate();
         query.close();
-        String sql2="DELETE FROM Questions WHERE CategoryID=?";
+        String sql2 = "DELETE FROM Questions WHERE CategoryID=?";
         query = conn.prepareStatement(sql2);
         query.setString(1, categoryId);
         query.executeUpdate();
         query.close();
-        
+
     }
 
     public void deleteQuestion(String question) throws SQLException {
@@ -311,8 +363,8 @@ public class SQLHandler {
         query.executeUpdate();
         query.close();
     }
-    
-        //------------------------------------//
+
+    //------------------------------------//
     // GET ALL USER HIGHSCORE FROM USER TABLE //
     //------------------------------------//
     public ArrayList getAllHighscore() throws SQLException {
@@ -328,10 +380,9 @@ public class SQLHandler {
             output.add(rs.getString("Quiz 1"));
         }
 
-        query.close(); 
+        query.close();
         return output;
-       
+
     }
-    
 
 }

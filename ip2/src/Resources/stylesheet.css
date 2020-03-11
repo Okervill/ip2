@@ -5,11 +5,13 @@
     -fx-secondary : #a8d6c9;
     -fx-primarytext : #ffffff;
     -fx-grey: #999999;
+     -fx-lightorange: #ecb693;
 }
 
 .root{
     -fx-background-color: -fx-primary;
 }
+
 
 
 .button{
@@ -26,7 +28,7 @@
     -fx-font-color: -fx-primarytext;
 }
 
-.button:hover, .button:focused{
+.button:hover{
 
     -fx-border-color: -fx-secondary;
     -fx-background-color: -fx-secondary;
@@ -53,4 +55,41 @@
 .combo-box .list-cell {
     -fx-text-fill: -fx-primarytext; 
     -fx-background-color: -fx-secondary;
+}
+
+.jfx-hamburger StackPane
+{
+    -fx-background-color: -fx-grey;
+   
+}
+.pullout-button:hover, .pullout-button:focused
+{
+    -fx-background-color: -fx-secondary;
+    
+}
+.pullout-button
+{
+    -fx-border-color: transparent;
+    -fx-background-color: -fx-lightorange;
+    
+}
+
+.userhome-button:hover
+{
+  
+    -fx-background-color: -fx-secondary;
+    
+}
+.userhome-button
+{
+  
+    -fx-background-color: -fx-lightorange;
+    -fx-border-color: transparent;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+}
+
+.quest-button:hover{
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
 }

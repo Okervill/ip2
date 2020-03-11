@@ -66,7 +66,6 @@ public class AdminHomeController implements Initializable {
         Stage reg = new Stage(StageStyle.DECORATED);
         reg.setTitle("Home");
         reg.setScene(scene);
-
         reg.show();
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
 

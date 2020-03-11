@@ -1,20 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserHomePage.UserHomeController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="340.0" prefWidth="468.0" style="-fx-background-color: e8a87c;" stylesheets="@../Resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserHomePage.UserHomeController">
    <children>
-      <Label fx:id="userLabel" layoutX="14.0" layoutY="-3.0" prefHeight="34.0" prefWidth="323.0" text="Welcome to the quiz!">
+      <Line endX="35.350006103515625" layoutX="214.0" layoutY="41.0" startX="-206.5" stroke="#a8d6c9" strokeWidth="1.3" />
+      <Label layoutX="13.0" layoutY="9.0" text="Welcome," textFill="WHITE">
          <font>
-            <Font size="16.0" />
+            <Font name="System Bold" size="19.0" />
          </font>
       </Label>
-      <Button layoutX="527.0" layoutY="361.0" mnemonicParsing="false" onAction="#highscoreButton" text="hi-score" />
-      <Button layoutX="273.0" layoutY="163.0" mnemonicParsing="false" onAction="#casualPlay" text="casual play" />
-      <Button layoutX="258.0" layoutY="245.0" mnemonicParsing="false" text="competitive play" />
-      <Button layoutX="541.0" layoutY="2.0" mnemonicParsing="false" onAction="#logutButton" text="logout" />
+      <Label fx:id="userLabel" layoutX="106.0" layoutY="9.0" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
+      <JFXHamburger fx:id="hamburger" layoutX="259.0" layoutY="14.0" />
+      <JFXButton fx:id="casualPlayButton" layoutX="95.0" layoutY="203.0" onAction="#casualPlay" prefHeight="66.0" prefWidth="250.0" styleClass="userhome-button" text="Casual">
+         <graphic>
+            <ImageView fitHeight="49.0" fitWidth="52.0" opacity="0.49" pickOnBounds="true" preserveRatio="true" translateX="-55.0">
+               <image>
+                  <Image url="@../Resources/creativity.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="competitivePlayButton" layoutX="94.0" layoutY="90.0" onAction="#competitvePlay" prefHeight="66.0" prefWidth="250.0" styleClass="userhome-button" stylesheets="@../Resources/stylesheet.css" text=" Competitive">
+         <graphic>
+            <ImageView fitHeight="49.0" fitWidth="52.0" opacity="0.49" pickOnBounds="true" preserveRatio="true" translateX="-30.0">
+               <image>
+                  <Image url="@../Resources/strength.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <Label fx:id="casuallabel1" layoutX="354.0" layoutY="226.0" text="Practice questions " textFill="#999999">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="casualLabel3" layoutX="355.0" layoutY="252.0" text="your choosing!" textFill="#999999">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="compLabel1" layoutX="353.0" layoutY="114.0" text="Play random" textFill="#999999" wrapText="true">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="compLabel3" layoutX="354.0" layoutY="141.0" text="against a timer!" textFill="#999999">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Button fx:id="casualInfo" layoutX="342.0" layoutY="190.0" mnemonicParsing="false" style="-fx-border-color: transparent;" styleClass="quest-button">
+         <graphic>
+            <ImageView fitHeight="28.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Resources/question.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="compInfo" layoutX="342.0" layoutY="81.0" mnemonicParsing="false" style="-fx-border-color: transparent;" styleClass="quest-button">
+         <graphic>
+            <ImageView fitHeight="28.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Resources/question.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Label fx:id="compLabel2" layoutX="353.0" layoutY="127.0" text="questions against" textFill="#999999" wrapText="true">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="casualLabel2" layoutX="354.0" layoutY="239.0" text="from a category of" textFill="#999999">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Button layoutX="380.0" layoutY="5.0" mnemonicParsing="false" onAction="#logoutButton" style="-fx-background-color: transparent; -fx-border-color: transparent;" styleClass="quest-button" text="Sign Out" textFill="WHITE" underline="true">
+         <font>
+            <Font size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <JFXButton fx:id="casual" layoutX="2.0" layoutY="283.0" style="-fx-border-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="41.0" fitWidth="47.0" opacity="0.49" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Resources/trophy.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="previousScoreButton" layoutX="395.0" layoutY="283.0" onAction="#previousScore" style="-fx-border-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="41.0" fitWidth="47.0" opacity="0.49" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Resources/book.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="250.0" prefHeight="340.0" prefWidth="250.0" />
+    
    </children>
-</AnchorPane>
+</Pane>
