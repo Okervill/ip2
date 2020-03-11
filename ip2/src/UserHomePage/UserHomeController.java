@@ -53,7 +53,8 @@ public class UserHomeController implements Initializable {
     private Label userLabel;
     @FXML
     private JFXButton competitivePlayButton;
-
+    @FXML
+    private JFXButton casualPlayButton;
     @FXML
     private Label casuallabel1;
 
@@ -166,8 +167,6 @@ public class UserHomeController implements Initializable {
 
     }
 
-    
-    
     /**
      * Initializes the controller class.
      *
@@ -179,7 +178,7 @@ public class UserHomeController implements Initializable {
         Platform.runLater(() -> {
             userLabel.setText(currentUser.getFirstname());
         });
-        
+
         drawer.setDisable(true);
         casuallabel1.setVisible(false);
         casualLabel2.setVisible(false);

@@ -24,10 +24,10 @@ public class CasualPlaySelection extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserHomePage/UserHome.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/CasualPlay/CasualPlaySelection.fxml"));
         Parent root = (Parent) loader.load();
 
-        UserHomeController controller = loader.getController();
+        CasualPlaySelectionController controller = loader.getController();
 
         controller.setData(currentUser);
 
