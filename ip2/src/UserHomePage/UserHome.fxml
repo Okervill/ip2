@@ -12,7 +12,7 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Button layoutX="527.0" layoutY="361.0" mnemonicParsing="false" onAction="#highscoreButton" text="hi-score" />
+      <Button fx:id="highScoreButton" layoutX="527.0" layoutY="361.0" mnemonicParsing="false" onAction="#highscoreButton" text="hi-score" />
       <Button layoutX="273.0" layoutY="163.0" mnemonicParsing="false" onAction="#casualPlay" text="casual play" />
       <Button layoutX="258.0" layoutY="245.0" mnemonicParsing="false" text="competitive play" />
       <Button layoutX="541.0" layoutY="2.0" mnemonicParsing="false" onAction="#logutButton" text="logout" />

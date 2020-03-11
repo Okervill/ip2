@@ -5,6 +5,9 @@
  */
 package UserHomePage;
 
+import HighscorePage.HighscorePage;
+import LoginRegister.RegisterUser;
+import ip2.SwitchWindow;
 import ip2.User;
 import java.io.IOException;
 import java.net.URL;
@@ -33,19 +36,14 @@ public class UserHomeController implements Initializable {
     
     @FXML
     private Label userLabel;
+    @FXML
+    private Button highScoreButton;
 
     @FXML
-    public void highscoreButton(ActionEvent event) throws IOException {
-        Parent root;
-        root = FXMLLoader.load(getClass().getResource("/HighscorePage/Highscore.fxml"));
+    public void highscoreButton(ActionEvent event) throws IOException {     
+        //System.out.println(currentUser);
 
-        Scene scene = new Scene(root);
-        Stage reg = new Stage(StageStyle.DECORATED);
-        reg.setTitle("Home");
-        reg.setScene(scene);
-
-        reg.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+         SwitchWindow.switchWindow((Stage) highScoreButton.getScene().getWindow(), new HighscorePage(currentUser));
 
     }
     
@@ -84,7 +82,6 @@ public class UserHomeController implements Initializable {
      * @param url
      * @param rb
      */
-    @FXML
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
