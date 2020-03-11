@@ -22,6 +22,7 @@ import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -51,10 +52,75 @@ public class UserHomeController implements Initializable {
     @FXML
     private Label userLabel;
     @FXML
-    private Button competitivePlayButton;
+    private JFXButton competitivePlayButton;
 
-        
-        
+    @FXML
+    private Label casuallabel1;
+
+    @FXML
+    private Label casualLabel3;
+
+    @FXML
+    private Label compLabel1;
+
+    @FXML
+    private Label compLabel3;
+
+    @FXML
+    private Button casualInfo;
+
+    @FXML
+    private Button compInfo;
+
+    @FXML
+    private Label compLabel2;
+
+    @FXML
+    private Label casualLabel2;
+
+    @FXML
+    public void handleMouseEvents() {
+        casualInfo.addEventHandler(MouseEvent.MOUSE_ENTERED,
+                new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                casuallabel1.setVisible(true);
+                casualLabel2.setVisible(true);
+                casualLabel3.setVisible(true);
+            }
+        });
+
+        casualInfo.addEventHandler(MouseEvent.MOUSE_EXITED,
+                new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                casuallabel1.setVisible(false);
+                casualLabel2.setVisible(false);
+                casualLabel3.setVisible(false);
+            }
+        });
+
+        compInfo.addEventHandler(MouseEvent.MOUSE_ENTERED,
+                new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                compLabel1.setVisible(true);
+                compLabel2.setVisible(true);
+                compLabel3.setVisible(true);
+            }
+        });
+
+        compInfo.addEventHandler(MouseEvent.MOUSE_EXITED,
+                new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                compLabel1.setVisible(false);
+                compLabel2.setVisible(false);
+                compLabel3.setVisible(false);
+            }
+        });
+    }
+
     @FXML
     public void highscoreButton(ActionEvent event) throws IOException {
         Parent root;
@@ -86,7 +152,7 @@ public class UserHomeController implements Initializable {
     }
 
     @FXML
-    public void logutButton(ActionEvent event) throws IOException {
+    public void logoutButton(ActionEvent event) throws IOException {
         Parent root;
         root = FXMLLoader.load(getClass().getResource("/LoginRegister/Login.fxml"));
 
@@ -100,6 +166,8 @@ public class UserHomeController implements Initializable {
 
     }
 
+    
+    
     /**
      * Initializes the controller class.
      *
@@ -108,11 +176,17 @@ public class UserHomeController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-Platform.runLater(() -> {
-        userLabel.setText(currentUser.getFirstname());
-         });
-       
-
+        Platform.runLater(() -> {
+            userLabel.setText(currentUser.getFirstname());
+        });
+        
+        drawer.setDisable(true);
+        casuallabel1.setVisible(false);
+        casualLabel2.setVisible(false);
+        casualLabel3.setVisible(false);
+        compLabel1.setVisible(false);
+        compLabel2.setVisible(false);
+        compLabel3.setVisible(false);
         try {
             VBox box = FXMLLoader.load(getClass().getResource("pullout.fxml"));
             drawer.setSidePane(box);
@@ -125,15 +199,19 @@ Platform.runLater(() -> {
 
                 if (drawer.isOpened()) {
                     drawer.close();
+                    drawer.setDisable(true);
                 } else {
                     drawer.open();
+                    drawer.setDisable(false);
                 }
             }
             );
         } catch (IOException ex) {
             Logger.getLogger(UserHomeController.class.getName()).log(Level.SEVERE, null, ex);
         }
- 
+
+        handleMouseEvents();
+
     }
 
     public void setData(User user) {
@@ -143,7 +221,7 @@ Platform.runLater(() -> {
 
     @FXML
     private void competitvePlay(ActionEvent event) {
-            SwitchWindow.switchWindow((Stage) competitivePlayButton.getScene().getWindow(), new CompetitivePlay(currentUser));
+        SwitchWindow.switchWindow((Stage) competitivePlayButton.getScene().getWindow(), new CompetitivePlay(currentUser));
     }
 
 }

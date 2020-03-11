@@ -5,7 +5,11 @@
  */
 package UserHomePage;
 
+import AdminHomePage.AdminHome;
+import CompetitivePlay.CompetitivePlay;
 import com.jfoenix.controls.JFXButton;
+import ip2.SwitchWindow;
+import ip2.User;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,23 +30,23 @@ import javafx.stage.StageStyle;
  */
 public class drawerController implements Initializable {
 
+    User currentUser;
     @FXML
     private JFXButton competitive;
 
-  
     @FXML
     private JFXButton casual;
 
     @FXML
-    private void loadCompetitive(ActionEvent event) throws IOException {
-       
+    public void competitiveLoad(ActionEvent event) throws IOException {
+        SwitchWindow.switchWindow((Stage) competitive.getScene().getWindow(), new CompetitivePlay(currentUser));
     }
-    
-    
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        casual.requestFocus();
+
     }
+
+ 
 
 }
