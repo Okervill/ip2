@@ -21,5 +21,6 @@
          </font>
       </TextArea>
       <Button fx:id="backButton" layoutX="274.0" layoutY="276.0" mnemonicParsing="false" onAction="#back" text="Back" />
+      <Button fx:id="quitButton" layoutX="559.0" layoutY="2.0" mnemonicParsing="false" onAction="#quit" text="Quit" />
    </children>
 </AnchorPane>

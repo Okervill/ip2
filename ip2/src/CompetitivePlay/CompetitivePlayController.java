@@ -10,6 +10,7 @@ import UserHomePage.UserHome;
 import ip2.Question;
 import ip2.SwitchWindow;
 import ip2.User;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,10 +19,14 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -51,6 +56,8 @@ public class CompetitivePlayController implements Initializable {
     private TextArea scoreDisplay;
     @FXML
     private Button backButton;
+    @FXML
+    private Button quitButton;
 
     Timer countdown = new Timer();
 
@@ -86,6 +93,7 @@ public class CompetitivePlayController implements Initializable {
     @FXML
     private void start(ActionEvent event) throws SQLException {
         startButton.setVisible(false);
+        quitButton.setVisible(false);
         ArrayList<Question> questions = getQuestions();
         if (questions.isEmpty()) {
             return;
@@ -98,6 +106,20 @@ public class CompetitivePlayController implements Initializable {
         questionDisplay.setVisible(true);
 
         nextQuestion();
+    }
+    
+    @FXML
+    private void quit(ActionEvent event) throws IOException{
+        Parent root;
+        root = FXMLLoader.load(getClass().getResource("/UserHomePage/UserHome.fxml"));
+
+        Scene scene = new Scene(root);
+        Stage reg = new Stage(StageStyle.DECORATED);
+        reg.setTitle("Casual Play Selection");
+        reg.setScene(scene);
+
+        reg.show();
+        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
     }
 
     private ArrayList<Question> getQuestions() throws SQLException {
