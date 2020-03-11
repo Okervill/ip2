@@ -183,8 +183,14 @@ public class UserHomeController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Platform.runLater(() -> {
-            userLabel.setText(currentUser.getFirstname());
+        // changed from lambra to anonymous inner class
+        // doesn't give null pointer error anymore.
+        Platform.runLater(new Runnable() {
+
+            @Override
+            public void run() {
+                userLabel.setText(currentUser.getFirstname());
+            }
         });
 
         drawer.setDisable(true);
