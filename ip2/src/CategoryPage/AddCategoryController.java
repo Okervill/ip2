@@ -5,21 +5,15 @@
  */
 package CategoryPage;
 
-import LoginRegister.Login;
 import SQL.SQLHandler;
 import ip2.Category;
-import ip2.Hash;
 import ip2.Shaker;
-import ip2.SwitchWindow;
-import ip2.User;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
