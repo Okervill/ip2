@@ -27,7 +27,6 @@ public class AdminHome extends Application {
         Parent root = (Parent) loader.load();
 
         AdminHomeController controller = loader.getController();
-
         controller.setData(currentUser);
 
         Scene scene = new Scene(root);

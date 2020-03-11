@@ -123,17 +123,13 @@ public class UserHomeController implements Initializable {
     }
 
     @FXML
-    public void highscoreButton(ActionEvent event) throws IOException {
-        Parent root;
-        root = FXMLLoader.load(getClass().getResource("/HighscorePage/Highscore.fxml"));
+    private Button highScoreButton;
 
-        Scene scene = new Scene(root);
-        Stage reg = new Stage(StageStyle.DECORATED);
-        reg.setTitle("Home");
-        reg.setScene(scene);
+    @FXML
+    public void highscoreButton(ActionEvent event) throws IOException {     
+        //System.out.println(currentUser);
 
-        reg.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+         SwitchWindow.switchWindow((Stage) highScoreButton.getScene().getWindow(), new HighscorePage(currentUser));
 
     }
 

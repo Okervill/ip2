@@ -7,7 +7,6 @@ package HighscorePage;
 
 import CategoryPage.DeleteCategoryController;
 import SQL.SQLHandler;
-import ip2.Category;
 import ip2.HighScore;
 import ip2.User;
 import java.io.IOException;
@@ -18,6 +17,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -46,13 +46,11 @@ public class HighscoreController implements Initializable {
     private Label userLabel;
     @FXML
     private TableView<HighScore> highScoreTable;
-   @FXML
-    private TableColumn name;
-   @FXML
-    private TableColumn<HighScore,String > name1;
+    @FXML
+    private TableColumn<HighScore, String> name;
+    @FXML
+    private TableColumn<HighScore, String> name1;
     ObservableList<HighScore> data = FXCollections.observableArrayList();
-   
-    
 
     @FXML
     public void logutButton(ActionEvent event) throws IOException {
@@ -68,35 +66,31 @@ public class HighscoreController implements Initializable {
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
 
     }
-    
-
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        try {
-            
-            Connection conn = SQLHandler.getConn();
-            ResultSet rs = conn.createStatement().executeQuery("Select * FROM CompetitiveBank "); //where competitiveBankId = \""+currentUser.getCompetitiveBankID()+"\"");
-            while (rs.next()) {
-            data.add(new HighScore(rs.getString("CompetitiveBankId"), rs.getString("Quiz 1")));
-         System.out.println(data);
-        }
-        } catch (SQLException ex) {
-            Logger.getLogger(DeleteCategoryController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-      
-        System.out.println();
-        
-        
-         name.setCellValueFactory(new PropertyValueFactory<>("competitiveBankId"));
-         name1.setCellValueFactory(new PropertyValueFactory<>("quiz"));
+        Platform.runLater(() -> {
+            System.out.println(currentUser.getUserID());
+            try {
+                //System.out.println(currentUser);
+                Connection conn = SQLHandler.getConn();
+                ResultSet rs = conn.createStatement().executeQuery("Select * FROM CompetitiveBank where competitiveBankId = \"" + currentUser.getCompetitiveBankID() + "\"");
+                while (rs.next()) {
+                    data.add(new HighScore(rs.getString("CompetitiveBankId"), rs.getString("Quiz 1")));
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DeleteCategoryController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+
+        name.setCellValueFactory(new PropertyValueFactory<>("competitiveBankId"));
+        name1.setCellValueFactory(new PropertyValueFactory<>("quiz"));
         highScoreTable.setItems(data);
-        
-              
+
+        });
     }
 
     public void setData(User user) {
