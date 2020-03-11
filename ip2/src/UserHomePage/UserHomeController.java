@@ -9,9 +9,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
-import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import CompetitivePlay.CompetitivePlay;
-import LoginRegister.RegisterUser;
 import ip2.SwitchWindow;
 import ip2.User;
 import java.io.IOException;
@@ -21,7 +19,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -121,17 +118,32 @@ public class UserHomeController implements Initializable {
             }
         });
     }
-
+    
     @FXML
-    private Button highScoreButton;
+    public void previousScore(ActionEvent event) throws IOException{
+      Parent root;
+        root = FXMLLoader.load(getClass().getResource("/PreviousScore/PreviousScore.fxml"));
 
-    @FXML
-    public void highscoreButton(ActionEvent event) throws IOException {     
-        //System.out.println(currentUser);
+        Scene scene = new Scene(root);
+        Stage reg = new Stage(StageStyle.DECORATED);
+        reg.setTitle("Casual Play Selection");
+        reg.setScene(scene);
 
-         SwitchWindow.switchWindow((Stage) highScoreButton.getScene().getWindow(), new HighscorePage(currentUser));
-
+        reg.show();
+        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
     }
+    
+    
+//    @FXML
+//    private Button highScoreButton;
+//
+//    @FXML
+//    public void highscoreButton(ActionEvent event) throws IOException {     
+//        //System.out.println(currentUser);
+//
+//         SwitchWindow.switchWindow((Stage) highScoreButton.getScene().getWindow(), new PreviousScore(currentUser));
+//
+//    }
 
     @FXML
     public void casualPlay(ActionEvent event) throws IOException {

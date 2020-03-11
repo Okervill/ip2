@@ -47,6 +47,20 @@ public class drawerController implements Initializable {
     public void casualLoad(ActionEvent event) throws IOException {
         SwitchWindow.switchWindow((Stage) casual.getScene().getWindow(), new CasualPlaySelection(currentUser));
     }
+    
+    @FXML
+    public void previousScore(ActionEvent event) throws IOException{
+      Parent root;
+        root = FXMLLoader.load(getClass().getResource("/PreviousScore/PreviousScore.fxml"));
+
+        Scene scene = new Scene(root);
+        Stage reg = new Stage(StageStyle.DECORATED);
+        reg.setTitle("Casual Play Selection");
+        reg.setScene(scene);
+
+        reg.show();
+        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

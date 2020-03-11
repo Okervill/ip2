@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package HighscorePage;
+package PreviousScore;
 
 import CategoryPage.DeleteCategoryController;
 import SQL.SQLHandler;
@@ -39,7 +39,7 @@ import javafx.stage.StageStyle;
  *
  * @author Patrick
  */
-public class HighscoreController implements Initializable {
+public class PreviousScoreController implements Initializable {
 
     User currentUser;
     @FXML
@@ -53,9 +53,9 @@ public class HighscoreController implements Initializable {
     ObservableList<HighScore> data = FXCollections.observableArrayList();
 
     @FXML
-    public void logutButton(ActionEvent event) throws IOException {
+    public void backButton(ActionEvent event) throws IOException {
         Parent root;
-        root = FXMLLoader.load(getClass().getResource("/LoginRegister/Login.fxml"));
+        root = FXMLLoader.load(getClass().getResource("/UserHomePage/UserHome.fxml"));
 
         Scene scene = new Scene(root);
         Stage reg = new Stage(StageStyle.DECORATED);

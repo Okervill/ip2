@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package HighscorePage;
+package PreviousScore;
 
 import ip2.User;
 import javafx.application.Application;
@@ -16,11 +16,11 @@ import javafx.stage.Stage;
  *
  * @author Patrick
  */
-public class HighscorePage extends Application{
+public class PreviousScore extends Application{
     
     User currentUser;
 
-     public HighscorePage(User user){
+     public PreviousScore(User user){
         currentUser = user;
     }
     @Override
@@ -29,7 +29,7 @@ public class HighscorePage extends Application{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/HighscorePage/Highscore.fxml"));
         Parent root = (Parent) loader.load();
 
-        HighscoreController controller = loader.getController();
+        PreviousScoreController controller = loader.getController();
 
         controller.setData(currentUser);
 
