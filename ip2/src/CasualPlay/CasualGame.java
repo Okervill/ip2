@@ -1,13 +1,6 @@
 package CasualPlay;
 
-import SQL.SQLHandler;
-import ip2.Question;
 import ip2.User;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
