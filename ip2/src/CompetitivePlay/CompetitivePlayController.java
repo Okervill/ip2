@@ -6,7 +6,7 @@
 package CompetitivePlay;
 
 import SQL.SQLHandler;
-import UserHomePage.UserHome;
+import com.jfoenix.controls.JFXButton;
 import ip2.Question;
 import ip2.SwitchWindow;
 import ip2.User;
@@ -17,17 +17,16 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -39,30 +38,57 @@ import javafx.stage.StageStyle;
 public class CompetitivePlayController implements Initializable {
 
     User currentUser;
-    // @FXML
-    // private Button startButton;
     @FXML
-    private Button option1;
+    private JFXButton option1;
     @FXML
-    private Button option3;
+    private JFXButton option3;
     @FXML
-    private Button option4;
+    private JFXButton option4;
     @FXML
-    private Button option2;
+    private JFXButton option2;
+    @FXML
+    private JFXButton startButton;
     @FXML
     private TextArea questionDisplay;
 
+    @FXML
+    private JFXButton returnhome;
+
     private int qNo = 0;
     ArrayList<Question> questions = new ArrayList<>();
-    int score = 0;
-    // @FXML
-    //private TextArea scoreDisplay;
-    // @FXML
-    //private Button backButton;
-    //@FXML
-    //private Button quitButton;
+    int score;
 
+    @FXML
     Timer countdown = new Timer();
+
+    @FXML
+    private JFXButton casual;
+
+    @FXML
+    private JFXButton previousScoreButton;
+    @FXML
+    private JFXButton finishButton;
+
+    @FXML
+    private Label label1;
+    
+        @FXML
+    private Button home;
+
+    @FXML
+    private Label label2;
+
+    @FXML
+    private Label label3;
+
+    @FXML
+    private HBox scorebox;
+
+    @FXML
+    private Label scoreDisplay;
+
+    @FXML
+    private JFXButton highscore;
 
     /**
      * Initializes the controller class.
@@ -77,12 +103,29 @@ public class CompetitivePlayController implements Initializable {
 
             public void run() {
                 endQuiz();
+
             }
         }
         countdown.schedule(new CountdownTimer(), 30000, 60000);
 
+        startButton.setVisible(true);
+        finishButton.setVisible(false);
+        option1.setVisible(false);
+        option2.setVisible(false);
+        option3.setVisible(false);
+        option4.setVisible(false);
+
+        highscore.setVisible(false);
+        scoreDisplay.setVisible(false);
+        scorebox.setVisible(false);
+        label3.setVisible(false);
+        label2.setVisible(false);
+        label1.setVisible(false);
+        previousScoreButton.setVisible(false);
+        returnhome.setVisible(false);
     }
 
+    @FXML
     public void setData(User user) {
         currentUser = user;
     }
@@ -94,27 +137,16 @@ public class CompetitivePlayController implements Initializable {
         if (questions.isEmpty()) {
             return;
         }
-
+        startButton.setVisible(false);
+        option1.setVisible(true);
+        option2.setVisible(true);
+        option3.setVisible(true);
+        option4.setVisible(true);
         nextQuestion();
 
     }
 
-    /*
     @FXML
-    private void homeButton(ActionEvent event) throws IOException, SQLException {
-
-        Parent root;
-        root = FXMLLoader.load(getClass().getResource("/UserHomePage/UserHome.fxml"));
-
-        Scene scene = new Scene(root);
-        Stage add = new Stage(StageStyle.DECORATED);
-        add.setTitle("Admin");
-        add.setScene(scene);
-
-        add.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
-    }
-     */
     private ArrayList<Question> getQuestions() throws SQLException {
 
         SQLHandler sql = new SQLHandler();
@@ -137,6 +169,7 @@ public class CompetitivePlayController implements Initializable {
         return questions;
     }
 
+    @FXML
     private int getRandom(int max) {
         int rnd = (int) (Math.random() * max);
         return rnd;
@@ -167,6 +200,7 @@ public class CompetitivePlayController implements Initializable {
         }
     }
 
+    @FXML
     private void nextQuestion() {
         Question q = questions.get(qNo);
         questionDisplay.setText(q.getUserQuestion());
@@ -191,17 +225,50 @@ public class CompetitivePlayController implements Initializable {
         }
     }
 
+    @FXML
     private void endQuiz() {
+        System.out.println(score);
         countdown.cancel();
+
         option1.setVisible(false);
         option2.setVisible(false);
         option3.setVisible(false);
         option4.setVisible(false);
-        questionDisplay.setVisible(false);
+        finishButton.setVisible(true);
+        finishButton.requestFocus();
+        questionDisplay.clear();
+    }
 
-        // scoreDisplay.setVisible(true);
-        //scoreDisplay.setText(String.valueOf(score));
-        // backButton.setVisible(true);
+    @FXML
+    private void finish(ActionEvent event) {
+        questionDisplay.setVisible(false);
+        finishButton.setVisible(false);
+        home.setVisible(false);
+
+        highscore.setVisible(true);
+        scoreDisplay.setVisible(true);
+        scorebox.setVisible(true);
+        label3.setVisible(true);
+        label2.setVisible(true);
+        label1.setVisible(true);
+        previousScoreButton.setVisible(true);
+        returnhome.setVisible(true);
+        scoreDisplay.setText("" + score);
+
+    }
+
+    @FXML
+    private void returnHome(ActionEvent event) throws IOException {
+        Parent root;
+        root = FXMLLoader.load(getClass().getResource("/UserHomePage/UserHome.fxml"));
+
+        Scene scene = new Scene(root);
+        Stage reg = new Stage(StageStyle.DECORATED);
+        reg.setTitle("Home");
+        reg.setScene(scene);
+
+        reg.show();
+        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
     }
 
 }

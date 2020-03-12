@@ -355,6 +355,20 @@ public class SQLHandler {
         query.close();
 
     }
+     public void editCategory(String CategoryId, String CategoryName) throws SQLException {
+
+        String sql = "UPDATE Categories SET CategoryID = ? , CategoryName = ?  WHERE CategoryID = \"" + CategoryId + "\"";
+
+        query = conn.prepareStatement(sql);
+
+        query.setString(1, CategoryId);
+        query.setString(2, CategoryName);
+       
+
+        query.executeUpdate();
+        query.close();
+    }
+
 
     public void deleteQuestion(String question) throws SQLException {
         String sql = " DELETE FROM Questions WHERE question=?";

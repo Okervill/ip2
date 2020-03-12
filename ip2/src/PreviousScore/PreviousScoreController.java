@@ -5,7 +5,6 @@
  */
 package PreviousScore;
 
-import CategoryPage.DeleteCategoryController;
 import SQL.SQLHandler;
 import ip2.HighScore;
 import ip2.User;
@@ -82,7 +81,7 @@ public class PreviousScoreController implements Initializable {
                     data.add(new HighScore(rs.getString("CompetitiveBankId"), rs.getString("Quiz 1")));
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(DeleteCategoryController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(PreviousScoreController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
 

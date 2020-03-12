@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="221.0" prefWidth="338.0" stylesheets="@../Resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CategoryPage.EditCategoryController">
+   <children>
+      <JFXTextField fx:id="getCategoryName" alignment="CENTER" labelFloat="true" layoutX="81.0" layoutY="68.0" />
+      
+      <JFXButton fx:id="addNewCategoryButton" layoutX="67.0" layoutY="156.0" onAction="#editNewCategory" prefHeight="39.0" prefWidth="85.0" text="Edit" />
+      <Label layoutX="109.0" layoutY="14.0" text="Edit Category" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="cancel" layoutX="187.0" layoutY="156.0" onAction="#cancelButton" prefHeight="39.0" prefWidth="85.0" text="Cancel" />
+   </children>
+</Pane>

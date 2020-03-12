@@ -62,7 +62,7 @@
     -fx-background-color: -fx-grey;
    
 }
-.pullout-button:hover, .pullout-button:focused
+.pullout-button:hover
 {
     -fx-background-color: -fx-secondary;
     

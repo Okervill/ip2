@@ -6,6 +6,8 @@
 package CategoryPage;
 
 import SQL.SQLHandler;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import ip2.Category;
 import ip2.Shaker;
 import java.io.IOException;
@@ -37,9 +39,9 @@ public class AddCategoryController implements Initializable {
      * Initializes the controller class.
      */
     @FXML
-    private TextField getCategoryName;
+    private JFXTextField getCategoryName;
     @FXML
-    private Button addNewCategoryButton;
+    private JFXButton addNewCategoryButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -73,7 +75,7 @@ public class AddCategoryController implements Initializable {
             Category newCategory = new Category(categoryName);
             newCategory.createCategory(newCategory);
             Parent root;
-            root = FXMLLoader.load(getClass().getResource("CategoryPage.fxml"));
+            root = FXMLLoader.load(getClass().getResource("ViewCategoryTable.fxml"));
 
             Scene scene = new Scene(root);
             Stage reg = new Stage(StageStyle.DECORATED);
@@ -87,9 +89,9 @@ public class AddCategoryController implements Initializable {
     }
 
     @FXML
-    public void backButton(ActionEvent event) throws IOException {
+    public void cancelButton(ActionEvent event) throws IOException {
         Parent root;
-        root = FXMLLoader.load(getClass().getResource("/CategoryPage/CategoryPage.fxml"));
+        root = FXMLLoader.load(getClass().getResource("/CategoryPage/ViewCategoryTable.fxml"));
 
         Scene scene = new Scene(root);
         Stage reg = new Stage(StageStyle.DECORATED);
