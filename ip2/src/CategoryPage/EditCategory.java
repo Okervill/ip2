@@ -3,13 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CompetitivePlay;
+package CategoryPage;
 
-import AdminHomePage.AdminHomeController;
-import ip2.User;
-import java.sql.SQLException;
+import QuestionPage.*;
+import ip2.Category;
+import ip2.Question;
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,39 +16,36 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author patrick
+ * @author erino
  */
-public class CompetitivePlay extends Application {
-
-    
-    
-    User currentUser;
-
+public class EditCategory extends Application {
+    Category currentCategory;
 
     @Override
     public void start(Stage stage) throws Exception {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/CompetitivePlay/Competitive.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/CategoryPage/EditCategory.fxml"));
         Parent root = (Parent) loader.load();
-
-        CompetitivePlayController controller = loader.getController();
-
-        controller.setData(currentUser);
-
+        
+        EditCategoryController controller = loader.getController();
+        
+        controller.setData(currentCategory);
+        
         Scene scene = new Scene(root);
-
+        
         stage.setScene(scene);
-        stage.setTitle("Competitive");
+        stage.setTitle("Home");
 
         stage.show();
         stage.centerOnScreen();
 
     }
 
-   
-
-    public CompetitivePlay(User user) {
-        currentUser = user;
+    
+    
+  
+    
+    public EditCategory(Category category){
+        currentCategory = category;
     }
-
 }

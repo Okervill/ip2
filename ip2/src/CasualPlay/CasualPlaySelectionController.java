@@ -5,7 +5,6 @@
  */
 package CasualPlay;
 
-import CategoryPage.DeleteCategoryController;
 import SQL.SQLHandler;
 import ip2.Category;
 import ip2.User;
@@ -118,7 +117,7 @@ public class CasualPlaySelectionController implements Initializable {
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DeleteCategoryController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CasualPlaySelectionController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         col_name.setCellValueFactory(new PropertyValueFactory<>("CategoryName"));

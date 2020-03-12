@@ -60,7 +60,7 @@ public class AdminHomeController implements Initializable {
     @FXML
     public void categoryPage(ActionEvent event) throws IOException {
         Parent root;
-        root = FXMLLoader.load(getClass().getResource("/CategoryPage/CategoryPage.fxml"));
+        root = FXMLLoader.load(getClass().getResource("/CategoryPage/ViewCategoryTable.fxml"));
 
         Scene scene = new Scene(root);
         Stage reg = new Stage(StageStyle.DECORATED);

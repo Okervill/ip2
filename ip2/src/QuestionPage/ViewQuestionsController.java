@@ -126,8 +126,7 @@ public class ViewQuestionsController implements Initializable {
             reg.show();
             ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
         } catch (Exception e) {
-
-            Alerts.showMaterialDialog(stackpane, mainContainer, new ArrayList<>(), "No selection", "Please select a question to delete.");
+            System.out.println("Select a question to delete");
         }
     }
 

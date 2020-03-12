@@ -46,6 +46,10 @@ public class Category {
         sql.createCategory(category.getCategoryId(), category.getCategoryName());
     }
      
+      public void editCategory(Category category) throws SQLException {
+        SQLHandler sql = new SQLHandler();
+        sql.editCategory(category.getCategoryId(), category.getCategoryName());
+    }
     /**
      *
      * @param category

@@ -9,6 +9,7 @@ import SQL.SQLHandler;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import ip2.Category;
+import ip2.Question;
 import ip2.Shaker;
 import java.io.IOException;
 import java.net.URL;
@@ -24,68 +25,29 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 /**
- * FXML Controller class
  *
- * @author stani
+ * @author erino
  */
-public class AddCategoryController implements Initializable {
+public class EditCategoryController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
+    String catid;
+    Category currentCategory;
     @FXML
     private JFXTextField getCategoryName;
+
     @FXML
     private JFXButton addNewCategoryButton;
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        Platform.runLater(() -> {
-
-        });
-    }
+    @FXML
+    private JFXButton cancel;
 
     @FXML
-    private void addNewCategory(ActionEvent event) throws SQLException, IOException {
-        String categoryName;
-        categoryName = getCategoryName.getText();
+    public void editnewCategory(ActionEvent event) throws IOException {
 
-        ArrayList<String> allCategories = new ArrayList<>();
-        SQLHandler sql = new SQLHandler();
-        allCategories = sql.getAllCategories();
-        
-        
-        if (allCategories.contains(categoryName)) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Category Error");
-            alert.setHeaderText("This category already exists, please choose another");
-            alert.showAndWait();
-            return;
-        }
-
-        if (categoryName.isEmpty()) {
-            addCategoryFailed();
-        } else {
-
-            Category newCategory = new Category(categoryName);
-            newCategory.createCategory(newCategory);
-            Parent root;
-            root = FXMLLoader.load(getClass().getResource("ViewCategoryTable.fxml"));
-
-            Scene scene = new Scene(root);
-            Stage reg = new Stage(StageStyle.DECORATED);
-            reg.setTitle("Home");
-            reg.setScene(scene);
-
-            reg.show();
-            ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
-
-        }
     }
 
     @FXML
@@ -103,10 +65,55 @@ public class AddCategoryController implements Initializable {
 
     }
 
-    private void addCategoryFailed() {
+    @FXML
+    public void editNewCategory(ActionEvent event) throws IOException, SQLException {
+        String name = getCategoryName.getText();
+        ArrayList<String> allCategories = new ArrayList<>();
+        SQLHandler sql = new SQLHandler();
+        allCategories = sql.getAllCategories();
+
+      
+        if (name.isEmpty()) {
+
+            addQuestionFailed();
+
+        } else {
+
+            Category newcategory = new Category(catid, name);
+            newcategory.editCategory(newcategory);
+
+            Parent root;
+            root = FXMLLoader.load(getClass().getResource("/CategoryPage/ViewCategoryTable.fxml"));
+
+            Scene scene = new Scene(root);
+            Stage reg = new Stage(StageStyle.DECORATED);
+            reg.setTitle("Home");
+            reg.setScene(scene);
+
+            reg.show();
+            ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+
+        }
+
+    }
+
+    private void addQuestionFailed() {
         Shaker shake = new Shaker(addNewCategoryButton);
         shake.shake();
         getCategoryName.requestFocus();
+    }
+
+    public void setData(Category category) {
+        currentCategory = category;
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        Platform.runLater(() -> {
+
+            getCategoryName.setText(currentCategory.getCategoryName());
+            catid = currentCategory.getCategoryId();
+        });
     }
 
 }
