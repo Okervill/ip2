@@ -17,7 +17,10 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -36,8 +39,8 @@ import javafx.stage.StageStyle;
 public class CompetitivePlayController implements Initializable {
 
     User currentUser;
-    @FXML
-    private Button startButton;
+    // @FXML
+    // private Button startButton;
     @FXML
     private Button option1;
     @FXML
@@ -52,12 +55,12 @@ public class CompetitivePlayController implements Initializable {
     private int qNo = 0;
     ArrayList<Question> questions = new ArrayList<>();
     int score = 0;
-    @FXML
-    private TextArea scoreDisplay;
-    @FXML
-    private Button backButton;
-    @FXML
-    private Button quitButton;
+    // @FXML
+    //private TextArea scoreDisplay;
+    // @FXML
+    //private Button backButton;
+    //@FXML
+    //private Button quitButton;
 
     Timer countdown = new Timer();
 
@@ -69,13 +72,6 @@ public class CompetitivePlayController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        option1.setVisible(false);
-        option2.setVisible(false);
-        option3.setVisible(false);
-        option4.setVisible(false);
-        questionDisplay.setVisible(false);
-        backButton.setVisible(false);
-        scoreDisplay.setVisible(false);
 
         class CountdownTimer extends TimerTask {
 
@@ -84,6 +80,7 @@ public class CompetitivePlayController implements Initializable {
             }
         }
         countdown.schedule(new CountdownTimer(), 30000, 60000);
+
     }
 
     public void setData(User user) {
@@ -92,36 +89,32 @@ public class CompetitivePlayController implements Initializable {
 
     @FXML
     private void start(ActionEvent event) throws SQLException {
-        startButton.setVisible(false);
-        quitButton.setVisible(false);
+
         ArrayList<Question> questions = getQuestions();
         if (questions.isEmpty()) {
             return;
         }
 
-        option1.setVisible(true);
-        option2.setVisible(true);
-        option3.setVisible(true);
-        option4.setVisible(true);
-        questionDisplay.setVisible(true);
-
         nextQuestion();
+
     }
-    
+
+    /*
     @FXML
-    private void quit(ActionEvent event) throws IOException{
+    private void homeButton(ActionEvent event) throws IOException, SQLException {
+
         Parent root;
         root = FXMLLoader.load(getClass().getResource("/UserHomePage/UserHome.fxml"));
 
         Scene scene = new Scene(root);
-        Stage reg = new Stage(StageStyle.DECORATED);
-        reg.setTitle("Casual Play Selection");
-        reg.setScene(scene);
+        Stage add = new Stage(StageStyle.DECORATED);
+        add.setTitle("Admin");
+        add.setScene(scene);
 
-        reg.show();
+        add.show();
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
     }
-
+     */
     private ArrayList<Question> getQuestions() throws SQLException {
 
         SQLHandler sql = new SQLHandler();
@@ -206,17 +199,11 @@ public class CompetitivePlayController implements Initializable {
         option4.setVisible(false);
         questionDisplay.setVisible(false);
 
-        scoreDisplay.setVisible(true);
-        scoreDisplay.setText(String.valueOf(score));
-
-        backButton.setVisible(true);
+        // scoreDisplay.setVisible(true);
+        //scoreDisplay.setText(String.valueOf(score));
+        // backButton.setVisible(true);
     }
 
-    @FXML
-    private void back(ActionEvent event) {
-        SwitchWindow.switchWindow((Stage) backButton.getScene().getWindow(), new UserHome(currentUser));
-
-    }
 }
 
 //30 seconds per quiz - not question

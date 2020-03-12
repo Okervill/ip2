@@ -25,7 +25,7 @@ public class CompetitivePlay extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/CompetitivePlay/CompetitivePlay.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/CompetitivePlay/Competitive.fxml"));
         Parent root = (Parent) loader.load();
 
         CompetitivePlayController controller = loader.getController();
