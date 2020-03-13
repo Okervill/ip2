@@ -17,13 +17,10 @@ import java.util.ArrayList;
 public class Category {
     private final String categoryId;
     private final String categoryName;
+    private static int lastAllocatedCatId=0;
     
     public Category(String categoryName) throws SQLException {
-
-        SQLHandler sql = new SQLHandler();
-        int catcount = sql.getAllCategories().size();
-
-        this.categoryId = String.valueOf(catcount++);
+        this.categoryId = String.valueOf(++lastAllocatedCatId);
         this.categoryName=categoryName;
     }
     
