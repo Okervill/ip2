@@ -148,7 +148,7 @@ public class UserHomeController implements Initializable {
     @FXML
     public void casualPlay(ActionEvent event) throws IOException {
         Parent root;
-        root = FXMLLoader.load(getClass().getResource("/CasualPlay/CasualPlaySelection.fxml"));
+        root = FXMLLoader.load(getClass().getResource("/CasualPlay/CasualPlaySelect.fxml"));
 
         Scene scene = new Scene(root);
         Stage reg = new Stage(StageStyle.DECORATED);

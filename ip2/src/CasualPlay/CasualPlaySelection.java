@@ -24,7 +24,7 @@ public class CasualPlaySelection extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/CasualPlay/CasualPlaySelection.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/CasualPlay/CasualPlaySelect.fxml"));
         Parent root = (Parent) loader.load();
 
         CasualPlaySelectionController controller = loader.getController();
