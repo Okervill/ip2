@@ -42,7 +42,7 @@ public class CasualPlaySelectionController implements Initializable {
     User currentUser;
 
     @FXML
-    private Button playButton;
+    private Button playGame;
 
     @FXML
     private TableView<Category> table;
@@ -85,7 +85,7 @@ public class CasualPlaySelectionController implements Initializable {
     }
 
     @FXML
-    public void backButton(ActionEvent event) throws IOException {
+    public void homeButton(ActionEvent event) throws IOException {
         Parent root;
         root = FXMLLoader.load(getClass().getResource("/UserHomePage/UserHome.fxml"));
 
