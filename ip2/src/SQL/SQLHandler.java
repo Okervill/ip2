@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Stack;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -145,6 +146,21 @@ public class SQLHandler {
 
         query.close();
         return output;
+    }
+    
+       public Stack getAllQuestionIDs() throws SQLException {
+
+        Stack stack = new Stack();
+        String sql = "SELECT QuestionID FROM Questions";
+        query = conn.prepareStatement(sql);
+        ResultSet rs = query.executeQuery();
+
+        while (rs.next()) {
+            stack.add(rs.getString("QuestionID"));
+        }
+
+        query.close();
+        return stack;
     }
 
     public ArrayList<Question> getAllQandA() throws SQLException {
@@ -312,6 +328,20 @@ public class SQLHandler {
 
         query.close();
         return output;
+    }
+        public Stack getAllCategoryIDs() throws SQLException {
+
+        Stack stack = new Stack();
+        String sql = "SELECT CategoryID FROM Categories";
+        query = conn.prepareStatement(sql);
+        ResultSet rs = query.executeQuery();
+
+        while (rs.next()) {
+            stack.add(rs.getString("CategoryID"));
+        }
+
+        query.close();
+        return stack;
     }
 
     public ArrayList searchCategoriesTable(String searchQuery) throws SQLException {

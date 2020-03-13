@@ -8,6 +8,7 @@ package ip2;
 import SQL.SQLHandler;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Stack;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -24,10 +25,20 @@ public class Question {
     private final String wrongAns1;
     private final String wrongAns2;
     private final String wrongAns3;
-    private static int lastQuestIdAllocated=0;
+    private String id = "0";
 
     public Question(String catID, String quest, String correct, String wrong1, String wrong2, String wrong3) throws SQLException {
-        this.QuestionID = String.valueOf(++lastQuestIdAllocated);
+        Stack stack = new Stack();
+        SQLHandler sql = new SQLHandler();
+        stack = sql.getAllQuestionIDs();
+
+        int tempid = Integer.parseInt((String) stack.pop());
+
+        tempid++;
+
+        id = Integer.toString(tempid);
+
+        this.QuestionID = id;
         this.CategoryID = catID;
         this.question = quest;
         this.answer = correct;
@@ -38,7 +49,7 @@ public class Question {
 
     public Question(String questionid, String catID, String quest, String correct, String wrong1, String wrong2, String wrong3) throws SQLException {
 
-        this.QuestionID = questionid;
+        this.QuestionID = id;
         this.CategoryID = catID;
         this.question = quest;
         this.answer = correct;
@@ -105,9 +116,5 @@ public class Question {
     public String getWrongAnswer3() {
         return this.wrongAns3;
     }
-
-
-
-    
 
 }
