@@ -24,20 +24,16 @@ public class Question {
     private final String wrongAns1;
     private final String wrongAns2;
     private final String wrongAns3;
+    private static int lastQuestIdAllocated=0;
 
     public Question(String catID, String quest, String correct, String wrong1, String wrong2, String wrong3) throws SQLException {
-
-        SQLHandler sql = new SQLHandler();
-        int questionCount = sql.getAllQuestions().size();
-
-        this.QuestionID = String.valueOf(questionCount++);
+        this.QuestionID = String.valueOf(++lastQuestIdAllocated);
         this.CategoryID = catID;
         this.question = quest;
         this.answer = correct;
         this.wrongAns1 = wrong1;
         this.wrongAns2 = wrong2;
         this.wrongAns3 = wrong3;
-
     }
 
     public Question(String questionid, String catID, String quest, String correct, String wrong1, String wrong2, String wrong3) throws SQLException {
