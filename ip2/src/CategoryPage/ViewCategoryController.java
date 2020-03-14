@@ -18,6 +18,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -67,7 +68,7 @@ public class ViewCategoryController implements Initializable {
             Connection conn = SQLHandler.getConn();
             ResultSet rs = conn.createStatement().executeQuery("Select * from Categories");
             while (rs.next()) {
-                data.add(new Category(rs.getString("CategoryID"), rs.getString("CategoryName")));
+                data.add(new Category(rs.getInt("CategoryID"), rs.getString("CategoryName")));
 
             }
         } catch (SQLException ex) {
@@ -148,10 +149,10 @@ public class ViewCategoryController implements Initializable {
     @FXML
     public Category search(String name) throws SQLException, IOException {
         SQLHandler sql = new SQLHandler();
-        ArrayList<String> categoryInfo = sql.searchCategoriesTable(name);
+        List categoryInfo = sql.searchCategoriesTable(name);
 
-        String categoryId = categoryInfo.get(0);
-        String categoryName = categoryInfo.get(1);
+        int categoryId = (int) categoryInfo.get(0);
+        String categoryName = (String) categoryInfo.get(1);
         Category currentCategory = new Category(categoryId, categoryName);
         
         return currentCategory;

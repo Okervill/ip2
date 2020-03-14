@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -252,7 +253,7 @@ public class SQLHandler {
         ResultSet rs = query.executeQuery();
 
         while (rs.next()) {
-            String CategoryID = rs.getString("CategoryID");
+            int CategoryID = rs.getInt("CategoryID");
             String CategoryName = rs.getString("CategoryName");
             Category currentCategory = new Category(CategoryID, CategoryName);
             output.add(currentCategory);
@@ -303,10 +304,10 @@ public class SQLHandler {
         return output;
     }
 
-    public void createCategory(String categoryId, String categoryName) throws SQLException {
+    public void createCategory(int categoryId, String categoryName) throws SQLException {
         String sql = "INSERT INTO Categories (CategoryID, CategoryName) VALUES(?,?)";
         query = conn.prepareStatement(sql);
-        query.setString(1, categoryId);
+        query.setInt(1, categoryId);
         query.setString(2, categoryName);
         query.executeUpdate();
         query.close();
@@ -344,14 +345,14 @@ public class SQLHandler {
         return stack;
     }
 
-    public ArrayList searchCategoriesTable(String searchQuery) throws SQLException {
+    public List searchCategoriesTable(String searchQuery) throws SQLException {
 
-        ArrayList<String> output = new ArrayList<>();
+        List output = new ArrayList<>();
         String sql = "SELECT CategoryID, CategoryName FROM Categories WHERE CategoryName = \"" + searchQuery + "\"";
         query = conn.prepareStatement(sql);
         ResultSet rs = query.executeQuery();
         while (rs.next()) {
-            output.add((rs.getString("CategoryID")));
+            output.add((rs.getInt("CategoryID")));
             output.add((rs.getString("CategoryName")));
 
         }
@@ -372,26 +373,26 @@ public class SQLHandler {
         return output;
     }
 
-    public void deleteCategory(String categoryId) throws SQLException {
+    public void deleteCategory(int categoryId) throws SQLException {
         String sql1 = " DELETE FROM Categories WHERE CategoryID=?";
         query = conn.prepareStatement(sql1);
-        query.setString(1, categoryId);
+        query.setInt(1, categoryId);
         query.executeUpdate();
         query.close();
         String sql2 = "DELETE FROM Questions WHERE CategoryID=?";
         query = conn.prepareStatement(sql2);
-        query.setString(1, categoryId);
+        query.setInt(1, categoryId);
         query.executeUpdate();
         query.close();
 
     }
-     public void editCategory(String CategoryId, String CategoryName) throws SQLException {
+     public void editCategory(int CategoryId, String CategoryName) throws SQLException {
 
         String sql = "UPDATE Categories SET CategoryID = ? , CategoryName = ?  WHERE CategoryID = \"" + CategoryId + "\"";
 
         query = conn.prepareStatement(sql);
 
-        query.setString(1, CategoryId);
+        query.setInt(1, CategoryId);
         query.setString(2, CategoryName);
        
 
