@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -150,15 +151,15 @@ public class ViewQuestionsController implements Initializable {
     @FXML
     public Question search(String userquest) throws SQLException, IOException {
         SQLHandler sql = new SQLHandler();
-        ArrayList<String> questionInfo = sql.searchQuestionTable(userquest);
+        List questionInfo = sql.searchQuestionTable(userquest);
 
-        String QuestionID = questionInfo.get(0);
-        String CategoryID = questionInfo.get(1);
-        String quest = questionInfo.get(2);
-        String answer = questionInfo.get(3);
-        String wrongAns1 = questionInfo.get(4);
-        String wrongAns2 = questionInfo.get(5);
-        String wrongAns3 = questionInfo.get(6);
+        String QuestionID = (String) questionInfo.get(0);
+        int CategoryID = (int) questionInfo.get(1);
+        String quest = (String) questionInfo.get(2);
+        String answer = (String) questionInfo.get(3);
+        String wrongAns1 = (String) questionInfo.get(4);
+        String wrongAns2 = (String) questionInfo.get(5);
+        String wrongAns3 = (String) questionInfo.get(6);
 
         Question currentQuestion = new Question(QuestionID, CategoryID, quest, answer, wrongAns1, wrongAns2, wrongAns3);
 

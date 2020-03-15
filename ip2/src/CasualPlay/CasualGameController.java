@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -57,7 +58,7 @@ public class CasualGameController implements Initializable {
     @FXML
     private Button quitButton;
 
-    private ArrayList<Question> getQuestions(String catID) throws SQLException {
+    private ArrayList<Question> getQuestions(int catID) throws SQLException {
 
         SQLHandler sql = new SQLHandler();
         ArrayList<Question> allq = sql.getQnAFromCategory(catID);
@@ -84,11 +85,11 @@ public class CasualGameController implements Initializable {
         return rnd;
     }
 
-    private String fetchCatInfo(String tempcat) throws SQLException {
+    private int fetchCatInfo(String tempcat) throws SQLException {
         SQLHandler sql = new SQLHandler();
-        ArrayList<String> categoryInfo = sql.searchCategoriesTable(tempcat);
+        List categoryInfo = sql.searchCategoriesTable(tempcat);
 
-        String tempcategoryId = categoryInfo.get(0);
+        int tempcategoryId = (int) categoryInfo.get(0);
 
         return tempcategoryId;
 
@@ -161,7 +162,7 @@ public class CasualGameController implements Initializable {
     @FXML
     private void start(ActionEvent event) throws SQLException {
 
-        String catID = fetchCatInfo(categorySelected);
+        int catID = fetchCatInfo(categorySelected);
 
         ArrayList<Question> questions = getQuestions(catID);
         if (questions.isEmpty()) {

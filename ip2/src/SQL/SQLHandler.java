@@ -97,13 +97,13 @@ public class SQLHandler {
     //-----------------------------//
     // ADD NEW DATA TO QUESTION TABLE //
     //-----------------------------//
-    public void createQuestion(String QuestionId, String CategoryId, String question, String answer, String wrongAns1, String wrongAns2, String wrongAns3) throws SQLException {
+    public void createQuestion(String QuestionId, int CategoryId, String question, String answer, String wrongAns1, String wrongAns2, String wrongAns3) throws SQLException {
 
         String sql = "INSERT INTO Questions (QuestionId, CategoryId, Question, Answer, wrongAns1, wrongAns2, wrongAns3) VALUES(?,?,?,?,?,?,?)";
         query = conn.prepareStatement(sql);
 
         query.setString(1, QuestionId);
-        query.setString(2, CategoryId);
+        query.setInt(2, CategoryId);
         query.setString(3, question);
         query.setString(4, answer);
         query.setString(5, wrongAns1);
@@ -114,13 +114,13 @@ public class SQLHandler {
         query.close();
     }
 
-    public void editQuestion(String QuestionId, String CategoryId, String question, String answer, String wrongAns1, String wrongAns2, String wrongAns3) throws SQLException {
+    public void editQuestion(String QuestionId, int CategoryId, String question, String answer, String wrongAns1, String wrongAns2, String wrongAns3) throws SQLException {
 
         String sql = "UPDATE Questions SET CategoryId = ? , Question = ?, Answer = ?, wrongAns1 = ?, wrongAns2 = ?, wrongAns3 = ? WHERE QuestionId = \"" + QuestionId + "\"";
 
         query = conn.prepareStatement(sql);
 
-        query.setString(1, CategoryId);
+        query.setInt(1, CategoryId);
         query.setString(2, question);
         query.setString(3, answer);
         query.setString(4, wrongAns1);
@@ -172,7 +172,7 @@ public class SQLHandler {
 
         while (rs.next()) {
             String QuestionID = rs.getString("QuestionID");
-            String CategoryID = rs.getString("CategoryID");
+            int CategoryID = rs.getInt("CategoryID");
             String question = rs.getString("Question");
             String answer = rs.getString("Answer");
             String wrongans1 = rs.getString("wrongAns1");
@@ -191,7 +191,7 @@ public class SQLHandler {
     // GET ALL QUESTIONS FROM SPECIFIC CATEGORY //
     //------------------------------------//
 
-    public ArrayList<Question> getQnAFromCategory(String categoryID) throws SQLException {
+    public ArrayList<Question> getQnAFromCategory(int categoryID) throws SQLException {
         ArrayList<Question> output = new ArrayList<>();
         String sql = "SELECT * FROM Questions WHERE CategoryID='"+ categoryID + "'";
         
@@ -201,7 +201,7 @@ public class SQLHandler {
 
         while (rs.next()) {
             String QuestionID = rs.getString("QuestionID");
-            String CategoryID = rs.getString("CategoryID");
+            int CategoryID = rs.getInt("CategoryID");
             String question = rs.getString("Question");
             String answer = rs.getString("Answer");
             String wrongans1 = rs.getString("wrongAns1");
@@ -228,7 +228,7 @@ public class SQLHandler {
 
         while (rs.next()) {
             String QuestionID = rs.getString("QuestionID");
-            String CategoryID = rs.getString("CategoryID");
+            int CategoryID = rs.getInt("CategoryID");
             String question = rs.getString("Question");
             String answer = rs.getString("Answer");
             String wrongans1 = rs.getString("wrongAns1");
@@ -264,15 +264,15 @@ public class SQLHandler {
         return output;
     }
 
-    public ArrayList searchQuestionTable(String searchQuery) throws SQLException {
+    public List searchQuestionTable(String searchQuery) throws SQLException {
 
-        ArrayList<String> output = new ArrayList<>();
+        List output = new ArrayList<>();
         String sql = "SELECT * FROM Questions WHERE question = \"" + searchQuery + "\"";
         query = conn.prepareStatement(sql);
         ResultSet rs = query.executeQuery();
         while (rs.next()) {
             output.add((rs.getString("QuestionId")));
-            output.add((rs.getString("CategoryId")));
+            output.add((rs.getInt("CategoryId")));
             output.add((rs.getString("Question")));
             output.add((rs.getString("Answer")));
             output.add((rs.getString("wrongAns1")));
@@ -359,7 +359,7 @@ public class SQLHandler {
         return output;
     }
 
-    public ArrayList searchIDCategoriesTable(String searchQuery) throws SQLException {
+    public ArrayList searchIDCategoriesTable(int searchQuery) throws SQLException {
 
         ArrayList<String> output = new ArrayList<>();
         String sql = "SELECT CategoryName FROM Categories WHERE CategoryID = \"" + searchQuery + "\"";

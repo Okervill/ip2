@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -60,7 +61,7 @@ public class EditController implements Initializable {
 
     @FXML
     private JFXButton addQuest;
-    String tempcat;
+    int tempcat;
     String questID;
 
     @Override
@@ -103,7 +104,7 @@ public class EditController implements Initializable {
 
     }
 
-    private String fetchCatName(String tempcat) throws SQLException {
+    private String fetchCatName(int tempcat) throws SQLException {
         SQLHandler sql = new SQLHandler();
         ArrayList<String> categoryInfo = sql.searchIDCategoriesTable(tempcat);
 
@@ -113,12 +114,12 @@ public class EditController implements Initializable {
 
     }
 
-    private String fetchCatId(String catId) throws SQLException {
+    private int fetchCatId(String catId) throws SQLException {
 
         SQLHandler sql = new SQLHandler();
-        ArrayList<String> categoryInfo = sql.searchCategoriesTable(catId);
+        List categoryInfo = sql.searchCategoriesTable(catId);
 
-        String tempcategoryId = categoryInfo.get(0);
+        int tempcategoryId = (int) categoryInfo.get(0);
 
         return tempcategoryId;
 
@@ -139,7 +140,7 @@ public class EditController implements Initializable {
 
         String tempcat = categoryCombo.getSelectionModel().getSelectedItem();
 
-        String catId = fetchCatId(tempcat);
+        int catId = fetchCatId(tempcat);
 
         if (answer.isEmpty() || question.isEmpty() || wrong1.isEmpty() || wrong2.isEmpty() || wrong3.isEmpty() || categoryCombo.getSelectionModel().isEmpty()) {
 
