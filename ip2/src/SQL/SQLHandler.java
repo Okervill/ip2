@@ -13,6 +13,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -148,8 +149,8 @@ public class SQLHandler {
         query.close();
         return output;
     }
-    
-       public Stack getAllQuestionIDs() throws SQLException {
+
+    public Stack getAllQuestionIDs() throws SQLException {
 
         Stack stack = new Stack();
         String sql = "SELECT QuestionID FROM Questions";
@@ -190,11 +191,10 @@ public class SQLHandler {
     //------------------------------------//
     // GET ALL QUESTIONS FROM SPECIFIC CATEGORY //
     //------------------------------------//
-
     public ArrayList<Question> getQnAFromCategory(int categoryID) throws SQLException {
         ArrayList<Question> output = new ArrayList<>();
-        String sql = "SELECT * FROM Questions WHERE CategoryID='"+ categoryID + "'";
-        
+        String sql = "SELECT * FROM Questions WHERE CategoryID='" + categoryID + "'";
+
 //        = \"" + searchQuery + "\""
         query = conn.prepareStatement(sql);
         ResultSet rs = query.executeQuery();
@@ -215,7 +215,6 @@ public class SQLHandler {
         query.close();
         return output;
     }
-
 
     public ObservableList showQuestionsTable() throws SQLException {
 
@@ -330,7 +329,8 @@ public class SQLHandler {
         query.close();
         return output;
     }
-        public Stack getAllCategoryIDs() throws SQLException {
+
+    public Stack getAllCategoryIDs() throws SQLException {
 
         Stack stack = new Stack();
         String sql = "SELECT CategoryID FROM Categories";
@@ -386,7 +386,8 @@ public class SQLHandler {
         query.close();
 
     }
-     public void editCategory(int CategoryId, String CategoryName) throws SQLException {
+
+    public void editCategory(int CategoryId, String CategoryName) throws SQLException {
 
         String sql = "UPDATE Categories SET CategoryID = ? , CategoryName = ?  WHERE CategoryID = \"" + CategoryId + "\"";
 
@@ -394,12 +395,10 @@ public class SQLHandler {
 
         query.setInt(1, CategoryId);
         query.setString(2, CategoryName);
-       
 
         query.executeUpdate();
         query.close();
     }
-
 
     public void deleteQuestion(String question) throws SQLException {
         String sql = " DELETE FROM Questions WHERE question=?";
@@ -430,4 +429,13 @@ public class SQLHandler {
 
     }
 
+    public void createCompTables(int id) throws SQLException {
+        String sql = "CREATE TABLE IF NOT EXISTS comp_" + id + " (\n"
+                + "    id integer PRIMARY KEY,\n"
+                + "    score integer NOT NULL\n"
+                + ");";
+        
+        Statement stmt = conn.createStatement();
+        stmt.execute(sql);
+    }
 }
