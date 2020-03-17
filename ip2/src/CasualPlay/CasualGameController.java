@@ -6,6 +6,7 @@
 package CasualPlay;
 
 import SQL.SQLHandler;
+import com.jfoenix.controls.JFXButton;
 import ip2.Question;
 import ip2.User;
 import java.io.IOException;
@@ -23,7 +24,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -40,23 +43,38 @@ public class CasualGameController implements Initializable {
     int score = 0;
 
     @FXML
-    private Button startButton;
+    private JFXButton startButton;
     @FXML
-    private Button option1;
+    private JFXButton option1;
     @FXML
-    private Button option3;
+    private JFXButton option3;
     @FXML
-    private Button option4;
+    private JFXButton option4;
     @FXML
-    private Button option2;
+    private JFXButton option2;
     @FXML
     private TextArea questionDisplay;
     @FXML
-    private TextArea scoreDisplay;
+    private Label scoreDisplay;
     @FXML
-    private Button backButton;
+    private JFXButton backButton;
     @FXML
-    private Button quitButton;
+    private JFXButton previousScoreButton;
+
+    @FXML
+    private Label label1;
+
+    @FXML
+    private Button home;
+
+    @FXML
+    private Label label2;
+
+    @FXML
+    private Label label3;
+
+    @FXML
+    private HBox scorebox;
 
     private ArrayList<Question> getQuestions(int catID) throws SQLException {
 
@@ -151,11 +169,22 @@ public class CasualGameController implements Initializable {
         option3.setVisible(false);
         option4.setVisible(false);
         questionDisplay.setVisible(false);
-
+        
+        
+       
+        
         scoreDisplay.setVisible(true);
-        scoreDisplay.setText("You have scored " + String.valueOf(score) +"/10");
+        scorebox.setVisible(true);
+        label3.setVisible(true);
+        label2.setVisible(true);
+        label1.setVisible(true);
+        previousScoreButton.setVisible(true);
+        home.setVisible(true);
+        scoreDisplay.setText("" + score);
 
-        backButton.setVisible(true);
+       
+
+     
         startButton.setVisible(false);
     }
 
@@ -191,6 +220,21 @@ public class CasualGameController implements Initializable {
         questionDisplay.setVisible(false);
         backButton.setVisible(false);
         scoreDisplay.setVisible(false);
+
+        startButton.setVisible(true);
+
+        option1.setVisible(false);
+        option2.setVisible(false);
+        option3.setVisible(false);
+        option4.setVisible(false);
+
+        scoreDisplay.setVisible(false);
+        scorebox.setVisible(false);
+        label3.setVisible(false);
+        label2.setVisible(false);
+        label1.setVisible(false);
+        previousScoreButton.setVisible(false);
+        home.setVisible(false);
     }
 
     @FXML
