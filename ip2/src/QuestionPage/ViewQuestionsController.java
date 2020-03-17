@@ -153,7 +153,7 @@ public class ViewQuestionsController implements Initializable {
         SQLHandler sql = new SQLHandler();
         List questionInfo = sql.searchQuestionTable(userquest);
 
-        String QuestionID = (String) questionInfo.get(0);
+        int QuestionID = (int) questionInfo.get(0);
         int CategoryID = (int) questionInfo.get(1);
         String quest = (String) questionInfo.get(2);
         String answer = (String) questionInfo.get(3);

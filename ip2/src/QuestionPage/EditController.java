@@ -62,7 +62,7 @@ public class EditController implements Initializable {
     @FXML
     private JFXButton addQuest;
     int tempcat;
-    String questID;
+    int questID;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

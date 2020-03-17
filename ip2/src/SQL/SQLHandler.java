@@ -98,12 +98,12 @@ public class SQLHandler {
     //-----------------------------//
     // ADD NEW DATA TO QUESTION TABLE //
     //-----------------------------//
-    public void createQuestion(String QuestionId, int CategoryId, String question, String answer, String wrongAns1, String wrongAns2, String wrongAns3) throws SQLException {
+    public void createQuestion(int QuestionId, int CategoryId, String question, String answer, String wrongAns1, String wrongAns2, String wrongAns3) throws SQLException {
 
         String sql = "INSERT INTO Questions (QuestionId, CategoryId, Question, Answer, wrongAns1, wrongAns2, wrongAns3) VALUES(?,?,?,?,?,?,?)";
         query = conn.prepareStatement(sql);
 
-        query.setString(1, QuestionId);
+        query.setInt(1, QuestionId);
         query.setInt(2, CategoryId);
         query.setString(3, question);
         query.setString(4, answer);
@@ -115,7 +115,7 @@ public class SQLHandler {
         query.close();
     }
 
-    public void editQuestion(String QuestionId, int CategoryId, String question, String answer, String wrongAns1, String wrongAns2, String wrongAns3) throws SQLException {
+    public void editQuestion(int QuestionId, int CategoryId, String question, String answer, String wrongAns1, String wrongAns2, String wrongAns3) throws SQLException {
 
         String sql = "UPDATE Questions SET CategoryId = ? , Question = ?, Answer = ?, wrongAns1 = ?, wrongAns2 = ?, wrongAns3 = ? WHERE QuestionId = \"" + QuestionId + "\"";
 
@@ -158,7 +158,7 @@ public class SQLHandler {
         ResultSet rs = query.executeQuery();
 
         while (rs.next()) {
-            stack.add(rs.getString("QuestionID"));
+            stack.add(rs.getInt("QuestionID"));
         }
 
         query.close();
@@ -172,7 +172,7 @@ public class SQLHandler {
         ResultSet rs = query.executeQuery();
 
         while (rs.next()) {
-            String QuestionID = rs.getString("QuestionID");
+            int QuestionID = rs.getInt("QuestionID");
             int CategoryID = rs.getInt("CategoryID");
             String question = rs.getString("Question");
             String answer = rs.getString("Answer");
@@ -200,7 +200,7 @@ public class SQLHandler {
         ResultSet rs = query.executeQuery();
 
         while (rs.next()) {
-            String QuestionID = rs.getString("QuestionID");
+            int QuestionID = rs.getInt("QuestionID");
             int CategoryID = rs.getInt("CategoryID");
             String question = rs.getString("Question");
             String answer = rs.getString("Answer");
@@ -226,7 +226,7 @@ public class SQLHandler {
         ResultSet rs = query.executeQuery();
 
         while (rs.next()) {
-            String QuestionID = rs.getString("QuestionID");
+            int QuestionID = rs.getInt("QuestionID");
             int CategoryID = rs.getInt("CategoryID");
             String question = rs.getString("Question");
             String answer = rs.getString("Answer");
