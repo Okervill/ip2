@@ -75,7 +75,7 @@ public class EditCategoryController implements Initializable {
       
         if (name.isEmpty()) {
 
-            addQuestionFailed();
+            addCategoryFailed();
 
         } else {
 
@@ -97,7 +97,7 @@ public class EditCategoryController implements Initializable {
 
     }
 
-    private void addQuestionFailed() {
+    private void addCategoryFailed() {
         Shaker shake = new Shaker(addNewCategoryButton);
         shake.shake();
         getCategoryName.requestFocus();

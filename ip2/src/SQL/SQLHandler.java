@@ -270,7 +270,7 @@ public class SQLHandler {
         query = conn.prepareStatement(sql);
         ResultSet rs = query.executeQuery();
         while (rs.next()) {
-            output.add((rs.getString("QuestionId")));
+            output.add((rs.getInt("QuestionId")));
             output.add((rs.getInt("CategoryId")));
             output.add((rs.getString("Question")));
             output.add((rs.getString("Answer")));
