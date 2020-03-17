@@ -34,7 +34,7 @@ import javafx.stage.StageStyle;
  */
 public class EditCategoryController implements Initializable {
 
-    String catid;
+    int catid;
     Category currentCategory;
     @FXML
     private JFXTextField getCategoryName;

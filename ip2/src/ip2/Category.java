@@ -16,7 +16,7 @@ import java.util.Stack;
  */
 public class Category {
 
-    private final String categoryId;
+    private final int categoryId;
     private final String categoryName;
 
     public Category(String categoryName) throws SQLException {
@@ -28,19 +28,19 @@ public class Category {
 
         tempid++;
 
-        String id = Integer.toString(tempid);
+        int id = tempid;
 
         this.categoryId = id;
         this.categoryName = categoryName;
     }
 
-    public Category(String categoryId, String categoryName) {
+    public Category(int categoryId, String categoryName) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
 
     }
 
-    public String getCategoryId() {
+    public int getCategoryId() {
         return this.categoryId;
     }
 

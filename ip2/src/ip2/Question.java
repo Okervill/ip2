@@ -8,6 +8,7 @@ package ip2;
 import SQL.SQLHandler;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,7 +20,7 @@ import javafx.collections.ObservableList;
 public class Question {
 
     private final String QuestionID;
-    private final String CategoryID;
+    private final int CategoryID;
     private final String question;
     private final String answer;
     private final String wrongAns1;
@@ -27,7 +28,7 @@ public class Question {
     private final String wrongAns3;
     private String id = "0";
 
-    public Question(String catID, String quest, String correct, String wrong1, String wrong2, String wrong3) throws SQLException {
+    public Question(int catID, String quest, String correct, String wrong1, String wrong2, String wrong3) throws SQLException {
         Stack stack = new Stack();
         SQLHandler sql = new SQLHandler();
         stack = sql.getAllQuestionIDs();
@@ -47,7 +48,7 @@ public class Question {
         this.wrongAns3 = wrong3;
     }
 
-    public Question(String questionid, String catID, String quest, String correct, String wrong1, String wrong2, String wrong3) throws SQLException {
+    public Question(String questionid, int catID, String quest, String correct, String wrong1, String wrong2, String wrong3) throws SQLException {
 
         this.QuestionID = id;
         this.CategoryID = catID;
@@ -62,15 +63,15 @@ public class Question {
     public Question(String quest) throws SQLException {
         SQLHandler sql = new SQLHandler();
 
-        ArrayList<String> questioninfo = sql.searchQuestionTable(quest);
+        List questioninfo = sql.searchQuestionTable(quest);
 
-        QuestionID = questioninfo.get(0);
-        CategoryID = questioninfo.get(1);
-        question = questioninfo.get(2);
-        answer = questioninfo.get(3);
-        wrongAns1 = questioninfo.get(4);
-        wrongAns2 = questioninfo.get(5);
-        wrongAns3 = questioninfo.get(6);
+        QuestionID = (String) questioninfo.get(0);
+        CategoryID = (int) questioninfo.get(1);
+        question = (String) questioninfo.get(2);
+        answer = (String) questioninfo.get(3);
+        wrongAns1 = (String) questioninfo.get(4);
+        wrongAns2 = (String) questioninfo.get(5);
+        wrongAns3 = (String) questioninfo.get(6);
 
     }
 
@@ -93,7 +94,7 @@ public class Question {
         return this.QuestionID;
     }
 
-    public String getCategoryId() {
+    public int getCategoryId() {
         return this.CategoryID;
     }
 

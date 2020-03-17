@@ -113,7 +113,7 @@ public class CasualPlaySelectionController implements Initializable {
             Connection conn = SQLHandler.getConn();
             ResultSet rs = conn.createStatement().executeQuery("Select * from Categories");
             while (rs.next()) {
-                data.add(new Category(rs.getString("CategoryID"), rs.getString("CategoryName")));
+                data.add(new Category(rs.getInt("CategoryID"), rs.getString("CategoryName")));
 
             }
         } catch (SQLException ex) {
