@@ -9,7 +9,6 @@ import SQL.SQLHandler;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import ip2.Category;
-import ip2.Question;
 import ip2.Shaker;
 import java.io.IOException;
 import java.net.URL;
@@ -23,7 +22,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -34,7 +32,7 @@ import javafx.stage.StageStyle;
  */
 public class EditCategoryController implements Initializable {
 
-    String catid;
+    int catid;
     Category currentCategory;
     @FXML
     private JFXTextField getCategoryName;
@@ -75,7 +73,7 @@ public class EditCategoryController implements Initializable {
       
         if (name.isEmpty()) {
 
-            addQuestionFailed();
+            addCategoryFailed();
 
         } else {
 
@@ -97,7 +95,7 @@ public class EditCategoryController implements Initializable {
 
     }
 
-    private void addQuestionFailed() {
+    private void addCategoryFailed() {
         Shaker shake = new Shaker(addNewCategoryButton);
         shake.shake();
         getCategoryName.requestFocus();

@@ -8,7 +8,6 @@ package CompetitivePlay;
 import SQL.SQLHandler;
 import com.jfoenix.controls.JFXButton;
 import ip2.Question;
-import ip2.SwitchWindow;
 import ip2.User;
 import java.io.IOException;
 import java.net.URL;
@@ -27,6 +26,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -39,20 +39,10 @@ public class CompetitivePlayController implements Initializable {
 
     User currentUser;
     @FXML
-    private JFXButton option1;
-    @FXML
-    private JFXButton option3;
-    @FXML
-    private JFXButton option4;
-    @FXML
-    private JFXButton option2;
-    @FXML
-    private JFXButton startButton;
-    @FXML
-    private TextArea questionDisplay;
+    private JFXButton option1, option2, option3, option4, startButton, returnhome, previousScoreButton, finishButton, highscore;
 
     @FXML
-    private JFXButton returnhome;
+    private TextArea questionDisplay;
 
     private int qNo = 0;
     ArrayList<Question> questions = new ArrayList<>();
@@ -62,33 +52,19 @@ public class CompetitivePlayController implements Initializable {
     Timer countdown = new Timer();
 
     @FXML
-    private JFXButton casual;
+    private Label label1, label2, label3, scoreDisplay;
 
     @FXML
-    private JFXButton previousScoreButton;
-    @FXML
-    private JFXButton finishButton;
-
-    @FXML
-    private Label label1;
-    
-        @FXML
     private Button home;
-
-    @FXML
-    private Label label2;
-
-    @FXML
-    private Label label3;
 
     @FXML
     private HBox scorebox;
 
-    @FXML
-    private Label scoreDisplay;
 
     @FXML
-    private JFXButton highscore;
+    private Circle circle1, circle2, circle3, circle4, circle5, circle6, circle7, circle8, circle9, circle10;
+
+    int questionno = 0;
 
     /**
      * Initializes the controller class.
@@ -157,7 +133,7 @@ public class CompetitivePlayController implements Initializable {
             return null;
         }
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 11; i++) {
             int x = getRandom(allq.size());
             if (questions.contains(allq.get(x))) {
                 i = i - 1;
@@ -176,28 +152,96 @@ public class CompetitivePlayController implements Initializable {
     }
 
     @FXML
+    private void changeCircleGreen() {
+        if (questionno == 0) {
+            circle1.setFill(javafx.scene.paint.Color.GREEN);
+        } else if (questionno == 1) {
+            circle2.setFill(javafx.scene.paint.Color.GREEN);
+        } else if (questionno == 2) {
+            circle3.setFill(javafx.scene.paint.Color.GREEN);
+        } else if (questionno == 3) {
+            circle4.setFill(javafx.scene.paint.Color.GREEN);
+        } else if (questionno == 4) {
+            circle5.setFill(javafx.scene.paint.Color.GREEN);
+        } else if (questionno == 5) {
+            circle6.setFill(javafx.scene.paint.Color.GREEN);
+        } else if (questionno == 6) {
+            circle7.setFill(javafx.scene.paint.Color.GREEN);
+        } else if (questionno == 7) {
+            circle8.setFill(javafx.scene.paint.Color.GREEN);
+        } else if (questionno == 8) {
+            circle9.setFill(javafx.scene.paint.Color.GREEN);
+        } else if (questionno == 9) {
+            circle10.setFill(javafx.scene.paint.Color.GREEN);
+        }
+
+    }
+
+    @FXML
+    private void changeCircleRed() {
+        if (questionno == 0) {
+            circle1.setFill(javafx.scene.paint.Color.RED);
+        } else if (questionno == 1) {
+            circle2.setFill(javafx.scene.paint.Color.RED);
+        } else if (questionno == 2) {
+            circle3.setFill(javafx.scene.paint.Color.RED);
+        } else if (questionno == 3) {
+            circle4.setFill(javafx.scene.paint.Color.RED);
+        } else if (questionno == 4) {
+            circle5.setFill(javafx.scene.paint.Color.RED);
+        } else if (questionno == 5) {
+            circle6.setFill(javafx.scene.paint.Color.RED);
+        } else if (questionno == 6) {
+            circle7.setFill(javafx.scene.paint.Color.RED);
+        } else if (questionno == 7) {
+            circle8.setFill(javafx.scene.paint.Color.RED);
+        } else if (questionno == 8) {
+            circle9.setFill(javafx.scene.paint.Color.RED);
+        } else if (questionno == 9) {
+            circle10.setFill(javafx.scene.paint.Color.RED);
+        }
+
+    }
+
+    @FXML
     private void answer(ActionEvent event) {
+
         if (event.getSource().equals(option1)) {
             if (option1.getText().equals(questions.get(qNo - 1).getCorrectAnswer())) {
+                changeCircleGreen();
                 score++;
+            } else {
+                changeCircleRed();
             }
             nextQuestion();
+
         } else if (event.getSource().equals(option2)) {
             if (option2.getText().equals(questions.get(qNo - 1).getCorrectAnswer())) {
                 score++;
+                changeCircleGreen();
+            } else {
+                changeCircleRed();
             }
             nextQuestion();
         } else if (event.getSource().equals(option3)) {
             if (option3.getText().equals(questions.get(qNo - 1).getCorrectAnswer())) {
                 score++;
+                changeCircleGreen();
+            } else {
+                changeCircleRed();
             }
             nextQuestion();
         } else if (event.getSource().equals(option4)) {
             if (option4.getText().equals(questions.get(qNo - 1).getCorrectAnswer())) {
                 score++;
+                changeCircleGreen();
+            } else {
+                changeCircleRed();
             }
+
             nextQuestion();
         }
+        questionno++;
     }
 
     @FXML
@@ -218,7 +262,7 @@ public class CompetitivePlayController implements Initializable {
         option2.setText(answers[(int) num.get(1)]);
         option3.setText(answers[(int) num.get(2)]);
         option4.setText(answers[(int) num.get(3)]);
-        if (qNo < 9) {
+        if (qNo < 10) {
             qNo++;
         } else {
             endQuiz();
@@ -228,6 +272,7 @@ public class CompetitivePlayController implements Initializable {
     @FXML
     private void endQuiz() {
         System.out.println(score);
+      
         countdown.cancel();
 
         option1.setVisible(false);
@@ -254,6 +299,7 @@ public class CompetitivePlayController implements Initializable {
         previousScoreButton.setVisible(true);
         returnhome.setVisible(true);
         scoreDisplay.setText("" + score);
+    
 
     }
 

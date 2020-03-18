@@ -158,7 +158,7 @@ public class UserHomeController implements Initializable {
         reg.show();
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
 
-    }
+    } 
 
     @FXML
     public void logoutButton(ActionEvent event) throws IOException {

@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -74,7 +75,7 @@ public class AddQuestionController implements Initializable {
         } else {
             String tempcat = categoryCombo.getSelectionModel().getSelectedItem();
 
-            String categoryId = fetchCatInfo(tempcat);
+            int categoryId = fetchCatInfo(tempcat);
 
             Question newQuestion = new Question(categoryId, question, answer, wrong1, wrong2, wrong3);
             newQuestion.createQuestion(newQuestion);
@@ -106,11 +107,11 @@ public class AddQuestionController implements Initializable {
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
     }
 
-    private String fetchCatInfo(String tempcat) throws SQLException {
+    private int fetchCatInfo(String tempcat) throws SQLException {
         SQLHandler sql = new SQLHandler();
-        ArrayList<String> categoryInfo = sql.searchCategoriesTable(tempcat);
+        List categoryInfo = sql.searchCategoriesTable(tempcat);
 
-        String tempcategoryId = categoryInfo.get(0);
+        int tempcategoryId = (int) categoryInfo.get(0);
         
 
         return tempcategoryId;

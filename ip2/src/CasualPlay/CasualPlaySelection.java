@@ -5,7 +5,6 @@
  */
 package CasualPlay;
 
-import UserHomePage.*;
 import ip2.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

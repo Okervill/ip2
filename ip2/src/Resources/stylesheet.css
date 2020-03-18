@@ -34,6 +34,12 @@
     -fx-background-color: -fx-secondary;
 }
 
+.button:focused{
+
+    
+    -fx-background-color: -fx-primary;
+}
+
 .text-field
 {
     -fx-text-fill: -fx-primarytext;
@@ -41,6 +47,15 @@
     -jfx-focus-color: -fx-secondary;
     -jfx-unfocus-color: -fx-grey;
     -fx-prompt-text-fill: -fx-primarytext;
+
+}
+
+.search
+{
+     -fx-text-fill: black;
+    -fx-font-size : 12pt;
+   
+    -fx-prompt-text-fill: -fx-grey;
 
 }
 .combo-box
@@ -92,4 +107,16 @@
 .quest-button:hover{
     -fx-border-color: transparent;
     -fx-background-color: transparent;
+}
+.compbutton{
+    -fx-background-color: -fx-lightorange;
+    -fx-border-color: transparent;
+}
+.compbutton:hover{
+    -fx-background-color: -fx-secondary;
+    -fx-border-color: -fx-secondary;
+}
+.compbutton:focused{
+    -fx-background-color: -fx-lightorange;
+    
 }

@@ -6,12 +6,14 @@
 package CasualPlay;
 
 import SQL.SQLHandler;
+import com.jfoenix.controls.JFXButton;
 import ip2.Question;
 import ip2.User;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,7 +24,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -39,25 +43,23 @@ public class CasualGameController implements Initializable {
     int score = 0;
 
     @FXML
-    private Button startButton;
-    @FXML
-    private Button option1;
-    @FXML
-    private Button option3;
-    @FXML
-    private Button option4;
-    @FXML
-    private Button option2;
+    private JFXButton option1, option2, option3, option4;
+
     @FXML
     private TextArea questionDisplay;
     @FXML
-    private TextArea scoreDisplay;
-    @FXML
-    private Button backButton;
-    @FXML
-    private Button quitButton;
+    private Label scoreDisplay, label1, label2, label3;
 
-    private ArrayList<Question> getQuestions(String catID) throws SQLException {
+    @FXML
+    private JFXButton previousScoreButton;
+
+    @FXML
+    private Button home;
+
+    @FXML
+    private HBox scorebox;
+
+    private ArrayList<Question> getQuestions(int catID) throws SQLException {
 
         SQLHandler sql = new SQLHandler();
         ArrayList<Question> allq = sql.getQnAFromCategory(catID);
@@ -84,11 +86,11 @@ public class CasualGameController implements Initializable {
         return rnd;
     }
 
-    private String fetchCatInfo(String tempcat) throws SQLException {
+    private int fetchCatInfo(String tempcat) throws SQLException {
         SQLHandler sql = new SQLHandler();
-        ArrayList<String> categoryInfo = sql.searchCategoriesTable(tempcat);
+        List categoryInfo = sql.searchCategoriesTable(tempcat);
 
-        String tempcategoryId = categoryInfo.get(0);
+        int tempcategoryId = (int) categoryInfo.get(0);
 
         return tempcategoryId;
 
@@ -152,48 +154,57 @@ public class CasualGameController implements Initializable {
         questionDisplay.setVisible(false);
 
         scoreDisplay.setVisible(true);
-        scoreDisplay.setText("You have scored " + String.valueOf(score) +"/10");
+        scorebox.setVisible(true);
+        label3.setVisible(true);
+        label2.setVisible(true);
+        label1.setVisible(true);
+        previousScoreButton.setVisible(true);
+        home.setVisible(true);
+        scoreDisplay.setText("" + score);
 
-        backButton.setVisible(true);
-        startButton.setVisible(false);
-    }
-
-    @FXML
-    private void start(ActionEvent event) throws SQLException {
-
-        String catID = fetchCatInfo(categorySelected);
-
-        ArrayList<Question> questions = getQuestions(catID);
-        if (questions.isEmpty()) {
-            return;
-        }
-
-        option1.setVisible(true);
-        option2.setVisible(true);
-        option3.setVisible(true);
-        option4.setVisible(true);
-        questionDisplay.setVisible(true);
-
-        System.out.println(questions);
-
-        System.out.println(catID);
-
-        nextQuestion();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        option1.setVisible(false);
-        option2.setVisible(false);
-        option3.setVisible(false);
-        option4.setVisible(false);
-        questionDisplay.setVisible(false);
-        backButton.setVisible(false);
-        scoreDisplay.setVisible(false);
+
+        try {
+            scoreDisplay.setVisible(false);
+            scorebox.setVisible(false);
+            label3.setVisible(false);
+            label2.setVisible(false);
+            label1.setVisible(false);
+            previousScoreButton.setVisible(false);
+            home.setVisible(false);
+
+            int catID = fetchCatInfo(categorySelected);
+
+            ArrayList<Question> questions = getQuestions(catID);
+            if (questions.isEmpty()) {
+                return;
+            }
+
+            option1.setVisible(true);
+            option2.setVisible(true);
+            option3.setVisible(true);
+            option4.setVisible(true);
+            questionDisplay.setVisible(true);
+
+            System.out.println(questions);
+
+            System.out.println(catID);
+
+            nextQuestion();
+        } catch (SQLException ex) {
+            Logger.getLogger(CasualGameController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void setData(User user) {
+        currentUser = user;
     }
 
     @FXML
-    public void quitQuiz(ActionEvent event) throws IOException {
+    public void home(ActionEvent event) throws IOException {
         Parent root;
         root = FXMLLoader.load(getClass().getResource("/UserHomePage/UserHome.fxml"));
 
@@ -205,10 +216,6 @@ public class CasualGameController implements Initializable {
         reg.show();
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
 
-    }
-
-    public void setData(User user) {
-        currentUser = user;
     }
 
 }

@@ -5,33 +5,38 @@
  */
 package QuestionPage;
 
-import AdminHomePage.AdminHome;
 import SQL.SQLHandler;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import ip2.Question;
 import ip2.SwitchWindow;
-import ip2.User;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -54,11 +59,10 @@ public class ViewQuestionsController implements Initializable {
     @FXML
     private JFXButton editQuest;
 
+  
+    
     @FXML
-    private StackPane stackpane;
-
-    @FXML
-    private AnchorPane mainContainer;
+     private TextField search;
 
     /**
      * Initializes the controller class.
@@ -89,7 +93,27 @@ public class ViewQuestionsController implements Initializable {
 
         col_quest.setCellValueFactory(new PropertyValueFactory<>("UserQuestion"));
         col_answer.setCellValueFactory(new PropertyValueFactory<>("CorrectAnswer"));
-
+       
+        ObservableList<Question> data = FXCollections.observableArrayList(allQuestions);
+        FilteredList<Question> filtQuest = new FilteredList<>(data, e -> true);
+        search.setOnKeyReleased(e ->{
+            search.textProperty().addListener((observableValue, oldValue, newValue) ->{
+            filtQuest.setPredicate((Predicate<? super Question>) question->{
+               if(newValue == null || newValue.isEmpty()){
+                   return true;
+               }
+               String lowerCaseFilter = newValue.toLowerCase();
+               if(question.getUserQuestion().toLowerCase().contains(lowerCaseFilter)){
+                   return true;
+               }
+               
+                return false;
+            });
+        });
+            SortedList<Question> sortedData = new SortedList<>(filtQuest);
+            sortedData.comparatorProperty().bind(table.comparatorProperty());
+            table.setItems(sortedData);
+        });
     }
 
     @FXML
@@ -126,7 +150,11 @@ public class ViewQuestionsController implements Initializable {
             reg.show();
             ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
         } catch (Exception e) {
-            System.out.println("Select a question to delete");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Delete");
+            alert.setHeaderText("Please select a question to delete");
+            alert.showAndWait();
+            return;
         }
     }
 
@@ -143,22 +171,26 @@ public class ViewQuestionsController implements Initializable {
 
             SwitchWindow.switchWindow((Stage) editQuest.getScene().getWindow(), new EditPage(currentQuestion));
         } catch (Exception e) {
-            System.out.print("Select a question to edit");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Edit");
+            alert.setHeaderText("Please select a question to edit");
+            alert.showAndWait();
+            return;
         }
     }
 
     @FXML
     public Question search(String userquest) throws SQLException, IOException {
         SQLHandler sql = new SQLHandler();
-        ArrayList<String> questionInfo = sql.searchQuestionTable(userquest);
+        List questionInfo = sql.searchQuestionTable(userquest);
 
-        String QuestionID = questionInfo.get(0);
-        String CategoryID = questionInfo.get(1);
-        String quest = questionInfo.get(2);
-        String answer = questionInfo.get(3);
-        String wrongAns1 = questionInfo.get(4);
-        String wrongAns2 = questionInfo.get(5);
-        String wrongAns3 = questionInfo.get(6);
+        int QuestionID = (int) questionInfo.get(0);
+        int CategoryID = (int) questionInfo.get(1);
+        String quest = (String) questionInfo.get(2);
+        String answer = (String) questionInfo.get(3);
+        String wrongAns1 = (String) questionInfo.get(4);
+        String wrongAns2 = (String) questionInfo.get(5);
+        String wrongAns3 = (String) questionInfo.get(6);
 
         Question currentQuestion = new Question(QuestionID, CategoryID, quest, answer, wrongAns1, wrongAns2, wrongAns3);
 
