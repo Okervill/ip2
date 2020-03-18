@@ -34,6 +34,12 @@
     -fx-background-color: -fx-secondary;
 }
 
+.button:focused{
+
+    
+    -fx-background-color: -fx-primary;
+}
+
 .text-field
 {
     -fx-text-fill: -fx-primarytext;

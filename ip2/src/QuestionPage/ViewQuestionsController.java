@@ -5,13 +5,10 @@
  */
 package QuestionPage;
 
-import AdminHomePage.AdminHome;
 import SQL.SQLHandler;
 import com.jfoenix.controls.JFXButton;
 import ip2.Question;
 import ip2.SwitchWindow;
-import ip2.User;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -26,13 +23,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -127,7 +124,11 @@ public class ViewQuestionsController implements Initializable {
             reg.show();
             ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
         } catch (Exception e) {
-            System.out.println("Select a question to delete");
+             Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Delete");
+            alert.setHeaderText("Please select a question to delete");
+            alert.showAndWait();
+            return;
         }
     }
 
@@ -144,7 +145,11 @@ public class ViewQuestionsController implements Initializable {
 
             SwitchWindow.switchWindow((Stage) editQuest.getScene().getWindow(), new EditPage(currentQuestion));
         } catch (Exception e) {
-            System.out.print("Select a question to edit");
+           Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Edit");
+            alert.setHeaderText("Please select a question to edit");
+            alert.showAndWait();
+            return;
         }
     }
 

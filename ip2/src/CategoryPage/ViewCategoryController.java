@@ -30,6 +30,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
@@ -55,8 +56,7 @@ public class ViewCategoryController implements Initializable {
     ObservableList<Category> data = FXCollections.observableArrayList();
     @FXML
     private Button deleteButton;
-    
-    
+
     @FXML
     private JFXButton editCat;
 
@@ -93,7 +93,7 @@ public class ViewCategoryController implements Initializable {
     @FXML
     private void editCategoryButton(ActionEvent event) throws IOException, SQLException {
         try {
-             ArrayList<String> allCategories = new ArrayList<>();
+            ArrayList<String> allCategories = new ArrayList<>();
             String catName = getTablePos();
 
             SQLHandler sql = new SQLHandler();
@@ -104,31 +104,41 @@ public class ViewCategoryController implements Initializable {
 
             SwitchWindow.switchWindow((Stage) editCat.getScene().getWindow(), new EditCategory(currentCategory));
         } catch (Exception e) {
-            System.out.print("Select a category to edit");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Edit Error");
+            alert.setHeaderText("Please select a category to edit");
+            alert.showAndWait();
+            return;
         }
     }
 
     @FXML
     private void deleteCategory(ActionEvent event) throws SQLException, IOException {
+        try {
+            String catname = getTablePos();
+            ArrayList<String> allCategories = new ArrayList<>();
+            SQLHandler sql = new SQLHandler();
+            allCategories = sql.getAllCategories();
 
-        String catname = getTablePos();
-        ArrayList<String> allCategories = new ArrayList<>();
-        SQLHandler sql = new SQLHandler();
-        allCategories = sql.getAllCategories();
-        
-        Category currentCategory = search(catname);
-        currentCategory.deleteCategory(currentCategory);
-        Parent root;
-        root = FXMLLoader.load(getClass().getResource("ViewCategoryTable.fxml"));
+            Category currentCategory = search(catname);
+            currentCategory.deleteCategory(currentCategory);
+            Parent root;
+            root = FXMLLoader.load(getClass().getResource("ViewCategoryTable.fxml"));
 
-        Scene scene = new Scene(root);
-        Stage reg = new Stage(StageStyle.DECORATED);
-        reg.setTitle("Home");
-        reg.setScene(scene);
+            Scene scene = new Scene(root);
+            Stage reg = new Stage(StageStyle.DECORATED);
+            reg.setTitle("Home");
+            reg.setScene(scene);
 
-        reg.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
-
+            reg.show();
+            ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Delete Error");
+            alert.setHeaderText("Please select a category to delete");
+            alert.showAndWait();
+            return;
+        }
     }
 
     @FXML
@@ -154,9 +164,8 @@ public class ViewCategoryController implements Initializable {
         int categoryId = (int) categoryInfo.get(0);
         String categoryName = (String) categoryInfo.get(1);
         Category currentCategory = new Category(categoryId, categoryName);
-        
+
         return currentCategory;
-        
 
     }
 
