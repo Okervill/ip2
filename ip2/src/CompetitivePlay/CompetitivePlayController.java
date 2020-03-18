@@ -272,6 +272,7 @@ public class CompetitivePlayController implements Initializable {
     @FXML
     private void endQuiz() {
         System.out.println(score);
+      
         countdown.cancel();
 
         option1.setVisible(false);
@@ -298,6 +299,7 @@ public class CompetitivePlayController implements Initializable {
         previousScoreButton.setVisible(true);
         returnhome.setVisible(true);
         scoreDisplay.setText("" + score);
+    
 
     }
 

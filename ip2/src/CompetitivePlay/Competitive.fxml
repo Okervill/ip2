@@ -13,10 +13,10 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="418.0" prefWidth="623.0" stylesheets="@../Resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CompetitivePlay.CompetitivePlayController">
    <children>
-      <JFXButton fx:id="option1" layoutX="71.0" layoutY="216.0" onAction="#answer" prefHeight="66.0" prefWidth="214.0" styleClass="userhome-button" stylesheets="@../Resources/stylesheet.css" />
-      <JFXButton fx:id="option2" layoutX="338.0" layoutY="216.0" onAction="#answer" prefHeight="66.0" prefWidth="214.0" styleClass="userhome-button" stylesheets="@../Resources/stylesheet.css" />
-      <JFXButton fx:id="option3" layoutX="71.0" layoutY="323.0" onAction="#answer" prefHeight="66.0" prefWidth="214.0" styleClass="userhome-button" stylesheets="@../Resources/stylesheet.css" />
-      <JFXButton fx:id="option4" layoutX="338.0" layoutY="323.0" onAction="#answer" prefHeight="66.0" prefWidth="214.0" styleClass="userhome-button" stylesheets="@../Resources/stylesheet.css" />
+      <JFXButton fx:id="option1" layoutX="71.0" layoutY="216.0" onAction="#answer" prefHeight="66.0" prefWidth="214.0" styleClass="compbutton" stylesheets="@../Resources/stylesheet.css" />
+      <JFXButton fx:id="option2" layoutX="338.0" layoutY="216.0" onAction="#answer" prefHeight="66.0" prefWidth="214.0" styleClass="compbutton" stylesheets="@../Resources/stylesheet.css" />
+      <JFXButton fx:id="option3" layoutX="71.0" layoutY="323.0" onAction="#answer" prefHeight="66.0" prefWidth="214.0" styleClass="compbutton" stylesheets="@../Resources/stylesheet.css" />
+      <JFXButton fx:id="option4" layoutX="338.0" layoutY="323.0" onAction="#answer" prefHeight="66.0" prefWidth="214.0" styleClass="compbutton" stylesheets="@../Resources/stylesheet.css" />
       <TextArea fx:id="questionDisplay" layoutX="69.0" layoutY="64.0" prefHeight="131.0" prefWidth="486.0" wrapText="true" />
       <Button fx:id="home" layoutX="561.0" layoutY="3.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="42.0" style="-fx-border-color: transparent;">
          <graphic>

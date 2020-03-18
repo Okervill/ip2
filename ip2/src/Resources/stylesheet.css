@@ -99,3 +99,15 @@
     -fx-border-color: transparent;
     -fx-background-color: transparent;
 }
+.compbutton{
+    -fx-background-color: -fx-lightorange;
+    -fx-border-color: transparent;
+}
+.compbutton:hover{
+    -fx-background-color: -fx-secondary;
+    -fx-border-color: -fx-secondary;
+}
+.compbutton:focused{
+    -fx-background-color: -fx-lightorange;
+    
+}
