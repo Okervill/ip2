@@ -145,7 +145,7 @@ public class UserHomeController implements Initializable {
 //
 //    }
 
-   /* @FXML
+    @FXML
     public void casualPlay(ActionEvent event) throws IOException {
         Parent root;
         root = FXMLLoader.load(getClass().getResource("/CasualPlay/CasualPlaySelect.fxml"));
@@ -158,7 +158,7 @@ public class UserHomeController implements Initializable {
         reg.show();
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
 
-    } */
+    } 
 
     @FXML
     public void logoutButton(ActionEvent event) throws IOException {

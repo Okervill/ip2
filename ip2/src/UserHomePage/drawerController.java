@@ -43,11 +43,11 @@ public class drawerController implements Initializable {
         SwitchWindow.switchWindow((Stage) competitive.getScene().getWindow(), new CompetitivePlay(currentUser));
     }
     
-   /*  @FXML
+     @FXML
     public void casualLoad(ActionEvent event) throws IOException {
         SwitchWindow.switchWindow((Stage) casual.getScene().getWindow(), new CasualPlaySelection(currentUser));
     }
-    */
+    
     @FXML
     public void previousScore(ActionEvent event) throws IOException{
       Parent root;

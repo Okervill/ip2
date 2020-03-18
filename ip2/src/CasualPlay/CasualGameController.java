@@ -43,8 +43,6 @@ public class CasualGameController implements Initializable {
     int score = 0;
 
     @FXML
-    private JFXButton startButton;
-    @FXML
     private JFXButton option1;
     @FXML
     private JFXButton option3;
@@ -56,8 +54,7 @@ public class CasualGameController implements Initializable {
     private TextArea questionDisplay;
     @FXML
     private Label scoreDisplay;
-    @FXML
-    private JFXButton backButton;
+  
     @FXML
     private JFXButton previousScoreButton;
 
@@ -169,10 +166,7 @@ public class CasualGameController implements Initializable {
         option3.setVisible(false);
         option4.setVisible(false);
         questionDisplay.setVisible(false);
-        
-        
-       
-        
+
         scoreDisplay.setVisible(true);
         scorebox.setVisible(true);
         label3.setVisible(true);
@@ -182,63 +176,49 @@ public class CasualGameController implements Initializable {
         home.setVisible(true);
         scoreDisplay.setText("" + score);
 
-       
-
-     
-        startButton.setVisible(false);
-    }
-
-    @FXML
-    private void start(ActionEvent event) throws SQLException {
-
-        int catID = fetchCatInfo(categorySelected);
-
-        ArrayList<Question> questions = getQuestions(catID);
-        if (questions.isEmpty()) {
-            return;
-        }
-
-        option1.setVisible(true);
-        option2.setVisible(true);
-        option3.setVisible(true);
-        option4.setVisible(true);
-        questionDisplay.setVisible(true);
-
-        System.out.println(questions);
-
-        System.out.println(catID);
-
-        nextQuestion();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        option1.setVisible(false);
-        option2.setVisible(false);
-        option3.setVisible(false);
-        option4.setVisible(false);
-        questionDisplay.setVisible(false);
-        backButton.setVisible(false);
-        scoreDisplay.setVisible(false);
 
-        startButton.setVisible(true);
+        try {
+            scoreDisplay.setVisible(false);
+            scorebox.setVisible(false);
+            label3.setVisible(false);
+            label2.setVisible(false);
+            label1.setVisible(false);
+            previousScoreButton.setVisible(false);
+            home.setVisible(false);
 
-        option1.setVisible(false);
-        option2.setVisible(false);
-        option3.setVisible(false);
-        option4.setVisible(false);
+            int catID = fetchCatInfo(categorySelected);
 
-        scoreDisplay.setVisible(false);
-        scorebox.setVisible(false);
-        label3.setVisible(false);
-        label2.setVisible(false);
-        label1.setVisible(false);
-        previousScoreButton.setVisible(false);
-        home.setVisible(false);
+            ArrayList<Question> questions = getQuestions(catID);
+            if (questions.isEmpty()) {
+                return;
+            }
+
+            option1.setVisible(true);
+            option2.setVisible(true);
+            option3.setVisible(true);
+            option4.setVisible(true);
+            questionDisplay.setVisible(true);
+
+            System.out.println(questions);
+
+            System.out.println(catID);
+
+            nextQuestion();
+        } catch (SQLException ex) {
+            Logger.getLogger(CasualGameController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void setData(User user) {
+        currentUser = user;
     }
 
     @FXML
-    public void quitQuiz(ActionEvent event) throws IOException {
+    public void home(ActionEvent event) throws IOException {
         Parent root;
         root = FXMLLoader.load(getClass().getResource("/UserHomePage/UserHome.fxml"));
 
@@ -250,10 +230,6 @@ public class CasualGameController implements Initializable {
         reg.show();
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
 
-    }
-
-    public void setData(User user) {
-        currentUser = user;
     }
 
 }
