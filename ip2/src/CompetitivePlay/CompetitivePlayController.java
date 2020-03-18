@@ -192,7 +192,7 @@ public class CompetitivePlayController implements Initializable {
             return null;
         }
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 11; i++) {
             int x = getRandom(allq.size());
             if (questions.contains(allq.get(x))) {
                 i = i - 1;
@@ -321,7 +321,7 @@ public class CompetitivePlayController implements Initializable {
         option2.setText(answers[(int) num.get(1)]);
         option3.setText(answers[(int) num.get(2)]);
         option4.setText(answers[(int) num.get(3)]);
-        if (qNo < 9) {
+        if (qNo < 10) {
             qNo++;
         } else {
             endQuiz();
