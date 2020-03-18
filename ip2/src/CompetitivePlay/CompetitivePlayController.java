@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXButton;
 import ip2.Question;
 import ip2.SwitchWindow;
 import ip2.User;
+import java.awt.Color;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -27,6 +28,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -71,8 +73,8 @@ public class CompetitivePlayController implements Initializable {
 
     @FXML
     private Label label1;
-    
-        @FXML
+
+    @FXML
     private Button home;
 
     @FXML
@@ -85,10 +87,43 @@ public class CompetitivePlayController implements Initializable {
     private HBox scorebox;
 
     @FXML
+    private HBox circlehbox;
+
+    @FXML
     private Label scoreDisplay;
 
     @FXML
     private JFXButton highscore;
+    @FXML
+    private Circle circle1;
+
+    @FXML
+    private Circle circle2;
+
+    @FXML
+    private Circle circle3;
+
+    @FXML
+    private Circle circle4;
+
+    @FXML
+    private Circle circle5;
+
+    @FXML
+    private Circle circle6;
+
+    @FXML
+    private Circle circle7;
+
+    @FXML
+    private Circle circle8;
+
+    @FXML
+    private Circle circle9;
+
+    @FXML
+    private Circle circle10;
+    int questionno = 0;
 
     /**
      * Initializes the controller class.
@@ -176,28 +211,96 @@ public class CompetitivePlayController implements Initializable {
     }
 
     @FXML
+    private void changeCircleGreen() {
+        if (questionno == 0) {
+            circle1.setFill(javafx.scene.paint.Color.GREEN);
+        } else if (questionno == 1) {
+            circle2.setFill(javafx.scene.paint.Color.GREEN);
+        } else if (questionno == 2) {
+            circle3.setFill(javafx.scene.paint.Color.GREEN);
+        } else if (questionno == 3) {
+            circle4.setFill(javafx.scene.paint.Color.GREEN);
+        } else if (questionno == 4) {
+            circle5.setFill(javafx.scene.paint.Color.GREEN);
+        } else if (questionno == 5) {
+            circle6.setFill(javafx.scene.paint.Color.GREEN);
+        } else if (questionno == 6) {
+            circle7.setFill(javafx.scene.paint.Color.GREEN);
+        } else if (questionno == 7) {
+            circle8.setFill(javafx.scene.paint.Color.GREEN);
+        } else if (questionno == 8) {
+            circle9.setFill(javafx.scene.paint.Color.GREEN);
+        } else if (questionno == 9) {
+            circle10.setFill(javafx.scene.paint.Color.GREEN);
+        }
+
+    }
+    
+     @FXML
+    private void changeCircleRed() {
+        if (questionno == 0) {
+            circle1.setFill(javafx.scene.paint.Color.RED);
+        } else if (questionno == 1) {
+            circle2.setFill(javafx.scene.paint.Color.RED);
+        } else if (questionno == 2) {
+            circle3.setFill(javafx.scene.paint.Color.RED);
+        } else if (questionno == 3) {
+            circle4.setFill(javafx.scene.paint.Color.RED);
+        } else if (questionno == 4) {
+            circle5.setFill(javafx.scene.paint.Color.RED);
+        } else if (questionno == 5) {
+            circle6.setFill(javafx.scene.paint.Color.RED);
+        } else if (questionno == 6) {
+            circle7.setFill(javafx.scene.paint.Color.RED);
+        } else if (questionno == 7) {
+            circle8.setFill(javafx.scene.paint.Color.RED);
+        } else if (questionno == 8) {
+            circle9.setFill(javafx.scene.paint.Color.RED);
+        } else if (questionno == 9) {
+            circle10.setFill(javafx.scene.paint.Color.RED);
+        }
+
+    }
+
+    @FXML
     private void answer(ActionEvent event) {
+
         if (event.getSource().equals(option1)) {
             if (option1.getText().equals(questions.get(qNo - 1).getCorrectAnswer())) {
+                changeCircleGreen();
                 score++;
+            }else{
+                changeCircleRed();
             }
             nextQuestion();
+            
         } else if (event.getSource().equals(option2)) {
             if (option2.getText().equals(questions.get(qNo - 1).getCorrectAnswer())) {
                 score++;
+                 changeCircleGreen();
+            }else{
+                changeCircleRed();
             }
             nextQuestion();
         } else if (event.getSource().equals(option3)) {
             if (option3.getText().equals(questions.get(qNo - 1).getCorrectAnswer())) {
                 score++;
+                 changeCircleGreen();
+            }else{
+                changeCircleRed();
             }
             nextQuestion();
         } else if (event.getSource().equals(option4)) {
             if (option4.getText().equals(questions.get(qNo - 1).getCorrectAnswer())) {
                 score++;
+                 changeCircleGreen();
+            }else{
+                changeCircleRed();
             }
+            
             nextQuestion();
         }
+        questionno++;
     }
 
     @FXML

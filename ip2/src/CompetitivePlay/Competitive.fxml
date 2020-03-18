@@ -27,18 +27,18 @@
             </ImageView>
          </graphic>
       </Button>
-      <HBox alignment="CENTER" layoutX="69.0" layoutY="30.0" prefHeight="35.0" prefWidth="486.0" spacing="28.0" style="-fx-background-color: #ecb693;">
+      <HBox fx:id="circlehbox" alignment="CENTER" layoutX="69.0" layoutY="30.0" prefHeight="35.0" prefWidth="486.0" spacing="28.0" style="-fx-background-color: #ecb693;">
          <children>
-            <Circle fill="TRANSPARENT" radius="11.0" stroke="#999999" strokeType="INSIDE" />
-            <Circle fill="TRANSPARENT" radius="11.0" stroke="#999999" strokeType="INSIDE" />
-            <Circle fill="TRANSPARENT" radius="11.0" stroke="#999999" strokeType="INSIDE" />
-            <Circle fill="TRANSPARENT" radius="11.0" stroke="#999999" strokeType="INSIDE" />
-            <Circle fill="TRANSPARENT" radius="11.0" stroke="#999999" strokeType="INSIDE" />
-            <Circle fill="TRANSPARENT" radius="11.0" stroke="#999999" strokeType="INSIDE" />
-            <Circle fill="TRANSPARENT" radius="11.0" stroke="#999999" strokeType="INSIDE" />
-            <Circle fill="TRANSPARENT" radius="11.0" stroke="#999999" strokeType="INSIDE" />
-            <Circle fill="TRANSPARENT" radius="11.0" stroke="#999999" strokeType="INSIDE" />
-            <Circle fill="TRANSPARENT" radius="11.0" stroke="#999999" strokeType="INSIDE" />
+            <Circle fx:id="circle1" fill="TRANSPARENT" radius="11.0" stroke="#999999" strokeType="INSIDE" />
+            <Circle fx:id="circle2" fill="TRANSPARENT" radius="11.0" stroke="#999999" strokeType="INSIDE" />
+            <Circle fx:id="circle3" fill="TRANSPARENT" radius="11.0" stroke="#999999" strokeType="INSIDE" />
+            <Circle fx:id="circle4" fill="TRANSPARENT" radius="11.0" stroke="#999999" strokeType="INSIDE" />
+            <Circle fx:id="circle5" fill="TRANSPARENT" radius="11.0" stroke="#999999" strokeType="INSIDE" />
+            <Circle fx:id="circle6" fill="TRANSPARENT" radius="11.0" stroke="#999999" strokeType="INSIDE" />
+            <Circle fx:id="circle7" fill="TRANSPARENT" radius="11.0" stroke="#999999" strokeType="INSIDE" />
+            <Circle fx:id="circle8" fill="TRANSPARENT" radius="11.0" stroke="#999999" strokeType="INSIDE" />
+            <Circle fx:id="circle9" fill="TRANSPARENT" radius="11.0" stroke="#999999" strokeType="INSIDE" />
+            <Circle fx:id="circle10" fill="TRANSPARENT" radius="11.0" stroke="#999999" strokeType="INSIDE" />
          </children>
       </HBox>
       <JFXButton fx:id="startButton" layoutX="270.0" layoutY="272.0" onAction="#start" prefHeight="39.0" prefWidth="83.0" text="Begin" />
