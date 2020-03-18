@@ -6,6 +6,7 @@
 package CompetitivePlay;
 
 import SQL.SQLHandler;
+import UserHomePage.UserHome;
 import com.jfoenix.controls.JFXButton;
 import ip2.Question;
 import ip2.SwitchWindow;
@@ -17,6 +18,8 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -71,8 +74,8 @@ public class CompetitivePlayController implements Initializable {
 
     @FXML
     private Label label1;
-    
-        @FXML
+
+    @FXML
     private Button home;
 
     @FXML
@@ -102,7 +105,11 @@ public class CompetitivePlayController implements Initializable {
         class CountdownTimer extends TimerTask {
 
             public void run() {
-                endQuiz();
+                try {
+                    endQuiz();
+                } catch (SQLException ex) {
+                    Logger.getLogger(CompetitivePlayController.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
             }
         }
@@ -176,7 +183,7 @@ public class CompetitivePlayController implements Initializable {
     }
 
     @FXML
-    private void answer(ActionEvent event) {
+    private void answer(ActionEvent event) throws SQLException {
         if (event.getSource().equals(option1)) {
             if (option1.getText().equals(questions.get(qNo - 1).getCorrectAnswer())) {
                 score++;
@@ -201,7 +208,7 @@ public class CompetitivePlayController implements Initializable {
     }
 
     @FXML
-    private void nextQuestion() {
+    private void nextQuestion() throws SQLException {
         Question q = questions.get(qNo);
         questionDisplay.setText(q.getUserQuestion());
         String[] answers = {q.getCorrectAnswer(), q.getWrongAnswer1(), q.getWrongAnswer2(), q.getWrongAnswer3()};
@@ -226,17 +233,29 @@ public class CompetitivePlayController implements Initializable {
     }
 
     @FXML
-    private void endQuiz() {
-        System.out.println(score);
+    private void endQuiz() throws SQLException {
         countdown.cancel();
 
         option1.setVisible(false);
         option2.setVisible(false);
         option3.setVisible(false);
         option4.setVisible(false);
+
         finishButton.setVisible(true);
         finishButton.requestFocus();
+
         questionDisplay.clear();
+
+        SQLHandler sql = new SQLHandler();
+
+        //Create comp table if it doesnt exist
+        sql.createCompTables(Integer.valueOf(currentUser.getCompetitiveBankID()));
+
+        int quizNo = sql.getCompQuizNo(Integer.valueOf(currentUser.getCompetitiveBankID()));
+
+        sql.addCompScore(Integer.valueOf(currentUser.getCompetitiveBankID()), ++quizNo, score);
+        sql.updateTotalCompScore(Integer.valueOf(currentUser.getCompetitiveBankID()), score);
+
     }
 
     @FXML
@@ -259,18 +278,7 @@ public class CompetitivePlayController implements Initializable {
 
     @FXML
     private void returnHome(ActionEvent event) throws IOException {
-        Parent root;
-        root = FXMLLoader.load(getClass().getResource("/UserHomePage/UserHome.fxml"));
-
-        Scene scene = new Scene(root);
-        Stage reg = new Stage(StageStyle.DECORATED);
-        reg.setTitle("Home");
-        reg.setScene(scene);
-
-        reg.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+        SwitchWindow.switchWindow((Stage) returnhome.getScene().getWindow(), new UserHome(currentUser));
     }
 
 }
-
-//30 seconds per quiz - not question
