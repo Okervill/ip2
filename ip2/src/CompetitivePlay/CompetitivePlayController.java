@@ -9,6 +9,7 @@ import SQL.SQLHandler;
 import UserHomePage.UserHome;
 import com.jfoenix.controls.JFXButton;
 import ip2.Question;
+import ip2.SwitchWindow;
 import ip2.User;
 import java.io.IOException;
 import java.net.URL;
@@ -57,8 +58,6 @@ public class CompetitivePlayController implements Initializable {
     @FXML
     private Label label1, label2, label3, scoreDisplay;
 
-    @FXML
-    private Label label1;
 
     @FXML
     private Button home;
@@ -84,11 +83,13 @@ public class CompetitivePlayController implements Initializable {
         class CountdownTimer extends TimerTask {
 
             public void run() {
+                
                 try {
                     endQuiz();
                 } catch (SQLException ex) {
                     Logger.getLogger(CompetitivePlayController.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                
 
             }
         }
@@ -214,7 +215,7 @@ public class CompetitivePlayController implements Initializable {
     }
 
     @FXML
-    private void answer(ActionEvent event) {
+    private void answer(ActionEvent event) throws SQLException {
 
         if (event.getSource().equals(option1)) {
             if (option1.getText().equals(questions.get(qNo - 1).getCorrectAnswer())) {
@@ -257,6 +258,7 @@ public class CompetitivePlayController implements Initializable {
     @FXML
     private void nextQuestion() throws SQLException {
         Question q = questions.get(qNo);
+        System.out.println(qNo);
         questionDisplay.setText(q.getUserQuestion());
         String[] answers = {q.getCorrectAnswer(), q.getWrongAnswer1(), q.getWrongAnswer2(), q.getWrongAnswer3()};
         ArrayList num = new ArrayList<>();
@@ -280,7 +282,7 @@ public class CompetitivePlayController implements Initializable {
     }
 
     @FXML
-    private void endQuiz() {
+    private void endQuiz() throws SQLException {
         System.out.println(score);
       
         countdown.cancel();

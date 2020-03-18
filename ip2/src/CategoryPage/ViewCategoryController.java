@@ -5,11 +5,9 @@
  */
 package CategoryPage;
 
-import QuestionPage.EditPage;
 import SQL.SQLHandler;
 import com.jfoenix.controls.JFXButton;
 import ip2.Category;
-import ip2.Question;
 import ip2.Shaker;
 import ip2.SwitchWindow;
 import ip2.User;

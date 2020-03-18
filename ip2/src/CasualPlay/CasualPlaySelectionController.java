@@ -14,6 +14,8 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 import java.util.logging.Level;
@@ -49,6 +51,7 @@ public class CasualPlaySelectionController implements Initializable {
 
     @FXML
     private Button playGame;
+    String tempSelection;
 
     @FXML
     private TableView<Category> table;
@@ -56,45 +59,69 @@ public class CasualPlaySelectionController implements Initializable {
     private TableColumn<Category, String> col_name;
 
     ObservableList<Category> data = FXCollections.observableArrayList();
-    
-    @FXML
-     private TextField search;
 
     @FXML
-    public void playGame(ActionEvent event) throws IOException {
+    private TextField search;
 
-       try {
-        TablePosition pos = (TablePosition) table.getSelectionModel().getSelectedCells().get(0);
-        int index = pos.getRow();
-        Category item = table.getItems().get(index);
+    @FXML
+    private int fetchCatId(String catId) throws SQLException {
 
-        System.out.println("You have selected " + item.getCategoryName());
+        SQLHandler sql = new SQLHandler();
+        List categoryInfo = sql.searchCategoriesTable(catId);
 
-        String tempSelection = (String) item.getCategoryName();
-        
-        CasualGame.setUserSelection(tempSelection);
-        
-       } catch (Exception e) {
-         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        int tempcategoryId = (int) categoryInfo.get(0);
+
+        return tempcategoryId;
+
+    }
+
+    @FXML
+    public void playGame(ActionEvent event) throws IOException, SQLException {
+
+        try {
+
+            TablePosition pos = (TablePosition) table.getSelectionModel().getSelectedCells().get(0);
+            int index = pos.getRow();
+            Category item = table.getItems().get(index);
+
+            System.out.println("You have selected " + item.getCategoryName());
+
+            tempSelection = (String) item.getCategoryName();
+
+            CasualGame.setUserSelection(tempSelection);
+
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Select Category");
             alert.setHeaderText("Please select a category to continue");
             alert.showAndWait();
             return;
         }
+        int catID = fetchCatId(tempSelection);
+        SQLHandler sql = new SQLHandler();
+        ArrayList<Question> allq = sql.getQnAFromCategory(catID);
 
+        if (allq.size() < 1) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("No questions");
+            alert.setHeaderText("Sorry, there has been no questions found in this category!");
+            alert.showAndWait();
+            return;
+
+        } else {
 //        System.out.println(game.getUserSelection());
-        Parent root;
-        root = FXMLLoader.load(getClass().getResource("/CasualPlay/CasualQuiz.fxml"));
+            Parent root;
+            root = FXMLLoader.load(getClass().getResource("/CasualPlay/CasualQuiz.fxml"));
 
-        Scene scene = new Scene(root);
-        Stage reg = new Stage(StageStyle.DECORATED);
-        reg.setTitle("Home");
-        reg.setScene(scene);
+            Scene scene = new Scene(root);
+            Stage reg = new Stage(StageStyle.DECORATED);
+            reg.setTitle("Home");
+            reg.setScene(scene);
 
-        reg.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+            reg.show();
+            ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+        }
 
-       
     }
 
     @FXML
@@ -135,22 +162,22 @@ public class CasualPlaySelectionController implements Initializable {
 
         col_name.setCellValueFactory(new PropertyValueFactory<>("CategoryName"));
         table.setItems(data);
-        
-         FilteredList<Category> filtCat = new FilteredList<>(data, e -> true);
-        search.setOnKeyReleased(e ->{
-            search.textProperty().addListener((observableValue, oldValue, newValue) ->{
-            filtCat.setPredicate((Predicate<? super Category>) category->{
-               if(newValue == null || newValue.isEmpty()){
-                   return true;
-               }
-               String lowerCaseFilter = newValue.toLowerCase();
-               if(category.getCategoryName().toLowerCase().contains(lowerCaseFilter)){
-                   return true;
-               }
-               
-                return false;
+
+        FilteredList<Category> filtCat = new FilteredList<>(data, e -> true);
+        search.setOnKeyReleased(e -> {
+            search.textProperty().addListener((observableValue, oldValue, newValue) -> {
+                filtCat.setPredicate((Predicate<? super Category>) category -> {
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    if (category.getCategoryName().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    }
+
+                    return false;
+                });
             });
-        });
             SortedList<Category> sortedData = new SortedList<>(filtCat);
             sortedData.comparatorProperty().bind(table.comparatorProperty());
             table.setItems(sortedData);
