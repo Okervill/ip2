@@ -49,6 +49,15 @@
     -fx-prompt-text-fill: -fx-primarytext;
 
 }
+
+.search
+{
+     -fx-text-fill: black;
+    -fx-font-size : 12pt;
+   
+    -fx-prompt-text-fill: -fx-grey;
+
+}
 .combo-box
 {
     -jfx-focus-color: -fx-secondary;

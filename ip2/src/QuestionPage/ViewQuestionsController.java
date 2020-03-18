@@ -7,6 +7,7 @@ package QuestionPage;
 
 import SQL.SQLHandler;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import ip2.Question;
 import ip2.SwitchWindow;
 import java.io.IOException;
@@ -15,8 +16,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,6 +34,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -52,11 +59,10 @@ public class ViewQuestionsController implements Initializable {
     @FXML
     private JFXButton editQuest;
 
+  
+    
     @FXML
-    private StackPane stackpane;
-
-    @FXML
-    private AnchorPane mainContainer;
+     private TextField search;
 
     /**
      * Initializes the controller class.
@@ -87,7 +93,27 @@ public class ViewQuestionsController implements Initializable {
 
         col_quest.setCellValueFactory(new PropertyValueFactory<>("UserQuestion"));
         col_answer.setCellValueFactory(new PropertyValueFactory<>("CorrectAnswer"));
-
+       
+        ObservableList<Question> data = FXCollections.observableArrayList(allQuestions);
+        FilteredList<Question> filtQuest = new FilteredList<>(data, e -> true);
+        search.setOnKeyReleased(e ->{
+            search.textProperty().addListener((observableValue, oldValue, newValue) ->{
+            filtQuest.setPredicate((Predicate<? super Question>) question->{
+               if(newValue == null || newValue.isEmpty()){
+                   return true;
+               }
+               String lowerCaseFilter = newValue.toLowerCase();
+               if(question.getUserQuestion().toLowerCase().contains(lowerCaseFilter)){
+                   return true;
+               }
+               
+                return false;
+            });
+        });
+            SortedList<Question> sortedData = new SortedList<>(filtQuest);
+            sortedData.comparatorProperty().bind(table.comparatorProperty());
+            table.setItems(sortedData);
+        });
     }
 
     @FXML
@@ -124,7 +150,7 @@ public class ViewQuestionsController implements Initializable {
             reg.show();
             ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
         } catch (Exception e) {
-             Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Delete");
             alert.setHeaderText("Please select a question to delete");
             alert.showAndWait();
@@ -145,7 +171,7 @@ public class ViewQuestionsController implements Initializable {
 
             SwitchWindow.switchWindow((Stage) editQuest.getScene().getWindow(), new EditPage(currentQuestion));
         } catch (Exception e) {
-           Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Edit");
             alert.setHeaderText("Please select a question to edit");
             alert.showAndWait();
