@@ -8,9 +8,7 @@ package CompetitivePlay;
 import SQL.SQLHandler;
 import com.jfoenix.controls.JFXButton;
 import ip2.Question;
-import ip2.SwitchWindow;
 import ip2.User;
-import java.awt.Color;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -41,20 +39,10 @@ public class CompetitivePlayController implements Initializable {
 
     User currentUser;
     @FXML
-    private JFXButton option1;
-    @FXML
-    private JFXButton option3;
-    @FXML
-    private JFXButton option4;
-    @FXML
-    private JFXButton option2;
-    @FXML
-    private JFXButton startButton;
-    @FXML
-    private TextArea questionDisplay;
+    private JFXButton option1, option2, option3, option4, startButton, returnhome, previousScoreButton, finishButton, highscore;
 
     @FXML
-    private JFXButton returnhome;
+    private TextArea questionDisplay;
 
     private int qNo = 0;
     ArrayList<Question> questions = new ArrayList<>();
@@ -64,65 +52,18 @@ public class CompetitivePlayController implements Initializable {
     Timer countdown = new Timer();
 
     @FXML
-    private JFXButton casual;
-
-    @FXML
-    private JFXButton previousScoreButton;
-    @FXML
-    private JFXButton finishButton;
-
-    @FXML
-    private Label label1;
+    private Label label1, label2, label3, scoreDisplay;
 
     @FXML
     private Button home;
 
     @FXML
-    private Label label2;
-
-    @FXML
-    private Label label3;
-
-    @FXML
     private HBox scorebox;
 
-    @FXML
-    private HBox circlehbox;
 
     @FXML
-    private Label scoreDisplay;
+    private Circle circle1, circle2, circle3, circle4, circle5, circle6, circle7, circle8, circle9, circle10;
 
-    @FXML
-    private JFXButton highscore;
-    @FXML
-    private Circle circle1;
-
-    @FXML
-    private Circle circle2;
-
-    @FXML
-    private Circle circle3;
-
-    @FXML
-    private Circle circle4;
-
-    @FXML
-    private Circle circle5;
-
-    @FXML
-    private Circle circle6;
-
-    @FXML
-    private Circle circle7;
-
-    @FXML
-    private Circle circle8;
-
-    @FXML
-    private Circle circle9;
-
-    @FXML
-    private Circle circle10;
     int questionno = 0;
 
     /**
@@ -235,8 +176,8 @@ public class CompetitivePlayController implements Initializable {
         }
 
     }
-    
-     @FXML
+
+    @FXML
     private void changeCircleRed() {
         if (questionno == 0) {
             circle1.setFill(javafx.scene.paint.Color.RED);
@@ -269,35 +210,35 @@ public class CompetitivePlayController implements Initializable {
             if (option1.getText().equals(questions.get(qNo - 1).getCorrectAnswer())) {
                 changeCircleGreen();
                 score++;
-            }else{
+            } else {
                 changeCircleRed();
             }
             nextQuestion();
-            
+
         } else if (event.getSource().equals(option2)) {
             if (option2.getText().equals(questions.get(qNo - 1).getCorrectAnswer())) {
                 score++;
-                 changeCircleGreen();
-            }else{
+                changeCircleGreen();
+            } else {
                 changeCircleRed();
             }
             nextQuestion();
         } else if (event.getSource().equals(option3)) {
             if (option3.getText().equals(questions.get(qNo - 1).getCorrectAnswer())) {
                 score++;
-                 changeCircleGreen();
-            }else{
+                changeCircleGreen();
+            } else {
                 changeCircleRed();
             }
             nextQuestion();
         } else if (event.getSource().equals(option4)) {
             if (option4.getText().equals(questions.get(qNo - 1).getCorrectAnswer())) {
                 score++;
-                 changeCircleGreen();
-            }else{
+                changeCircleGreen();
+            } else {
                 changeCircleRed();
             }
-            
+
             nextQuestion();
         }
         questionno++;

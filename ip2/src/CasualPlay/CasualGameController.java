@@ -43,32 +43,18 @@ public class CasualGameController implements Initializable {
     int score = 0;
 
     @FXML
-    private JFXButton option1;
-    @FXML
-    private JFXButton option3;
-    @FXML
-    private JFXButton option4;
-    @FXML
-    private JFXButton option2;
+    private JFXButton option1, option2, option3, option4;
+
     @FXML
     private TextArea questionDisplay;
     @FXML
-    private Label scoreDisplay;
-  
+    private Label scoreDisplay, label1, label2, label3;
+
     @FXML
     private JFXButton previousScoreButton;
 
     @FXML
-    private Label label1;
-
-    @FXML
     private Button home;
-
-    @FXML
-    private Label label2;
-
-    @FXML
-    private Label label3;
 
     @FXML
     private HBox scorebox;
