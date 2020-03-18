@@ -431,11 +431,76 @@ public class SQLHandler {
 
     public void createCompTables(int id) throws SQLException {
         String sql = "CREATE TABLE IF NOT EXISTS comp_" + id + " (\n"
-                + "    id integer PRIMARY KEY,\n"
+                + "    quizNo integer PRIMARY KEY,\n"
                 + "    score integer NOT NULL\n"
                 + ");";
-        
+
         Statement stmt = conn.createStatement();
         stmt.execute(sql);
+    }
+
+    public int getUserScores(String cbankid) throws SQLException {
+        int output = 0;
+        String sql = "Select * from CompetitiveBank where CompetitiveBankID = \"" + cbankid + "\"";
+        query = conn.prepareStatement(sql);
+        ResultSet rs = query.executeQuery();
+        while (rs.next()) {
+            output = Integer.valueOf(rs.getString("Quiz 1"));
+        }
+
+        query.close();
+        return output;
+    }
+
+    public int getCompQuizNo(int id) throws SQLException {
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM comp_" + id;
+        query = conn.prepareStatement(sql);
+        ResultSet rs = query.executeQuery();
+        while (rs.next()) {
+            count = rs.getInt(1);
+        }
+        if(count == 0){
+            createCompTotalScore(id);
+        }
+        return count;
+    }
+
+    public void addCompScore(int id, int quizNo, int score) throws SQLException {
+        String sql = "INSERT INTO comp_" + id + " (quizNo, Score) VALUES(?,?)";
+        query = conn.prepareStatement(sql);
+
+        query.setInt(1, quizNo);
+        query.setInt(2, score);
+
+        query.executeUpdate();
+        query.close();
+    }
+    
+    public void createCompTotalScore(int id) throws SQLException {
+        String sql = "INSERT INTO CompetitiveBank (CompetitiveBankID, 'Quiz 1') VALUES(?,?)";
+        query = conn.prepareStatement(sql);
+        
+        query.setString(1, String.valueOf(id));
+        query.setString(2, "0");
+        
+        query.executeUpdate();
+        query.close();
+    }
+            
+    public void updateTotalCompScore(int id, int score) throws SQLException {
+
+        int currentTotal;
+        SQLHandler sql = new SQLHandler();
+        currentTotal = sql.getUserScores(String.valueOf(id));
+
+        String sqlstring = "UPDATE CompetitiveBank SET 'Quiz 1' = ? WHERE CompetitiveBankID = \"" + id + "\"";
+
+        query = conn.prepareStatement(sqlstring);
+
+        query.setInt(1, currentTotal + score);
+
+        query.executeUpdate();
+        query.close();
     }
 }

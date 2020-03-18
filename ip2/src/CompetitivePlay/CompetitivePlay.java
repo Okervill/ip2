@@ -5,11 +5,8 @@
  */
 package CompetitivePlay;
 
-import AdminHomePage.AdminHomeController;
 import ip2.User;
-import java.sql.SQLException;
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
