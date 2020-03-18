@@ -26,7 +26,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
@@ -58,13 +61,11 @@ public class CompetitivePlayController implements Initializable {
     @FXML
     private Label label1, label2, label3, scoreDisplay;
 
-
     @FXML
     private Button home;
 
     @FXML
     private HBox scorebox;
-
 
     @FXML
     private Circle circle1, circle2, circle3, circle4, circle5, circle6, circle7, circle8, circle9, circle10;
@@ -83,13 +84,12 @@ public class CompetitivePlayController implements Initializable {
         class CountdownTimer extends TimerTask {
 
             public void run() {
-                
+
                 try {
                     endQuiz();
                 } catch (SQLException ex) {
                     Logger.getLogger(CompetitivePlayController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
 
             }
         }
@@ -284,7 +284,7 @@ public class CompetitivePlayController implements Initializable {
     @FXML
     private void endQuiz() throws SQLException {
         System.out.println(score);
-      
+
         countdown.cancel();
 
         option1.setVisible(false);
@@ -324,13 +324,24 @@ public class CompetitivePlayController implements Initializable {
         previousScoreButton.setVisible(true);
         returnhome.setVisible(true);
         scoreDisplay.setText("" + score);
-    
 
     }
 
     @FXML
     private void returnHome(ActionEvent event) throws IOException {
         SwitchWindow.switchWindow((Stage) returnhome.getScene().getWindow(), new UserHome(currentUser));
+    }
+
+    @FXML
+    private void home(ActionEvent event) throws IOException {
+
+        Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure u wish to return home? Your score will not be counted.", ButtonType.YES, ButtonType.CANCEL);
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.YES) {
+            SwitchWindow.switchWindow((Stage) home.getScene().getWindow(), new UserHome(currentUser));
+        }
+
     }
 
 }

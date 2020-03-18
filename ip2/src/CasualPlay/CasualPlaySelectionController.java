@@ -6,6 +6,10 @@
 package CasualPlay;
 
 import SQL.SQLHandler;
+import UserHomePage.UserHomeController;
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import ip2.Category;
 import ip2.Question;
 import ip2.User;
@@ -37,6 +41,8 @@ import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -47,6 +53,11 @@ import javafx.stage.StageStyle;
  */
 public class CasualPlaySelectionController implements Initializable {
 
+    @FXML
+    private JFXHamburger hamburger;
+
+    @FXML
+    private JFXDrawer drawer;
     User currentUser;
 
     @FXML
@@ -147,7 +158,29 @@ public class CasualPlaySelectionController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        drawer.setDisable(true);
+        try {
+            VBox box = FXMLLoader.load(getClass().getResource("/UserHomePage/pullout.fxml"));
+            drawer.setSidePane(box);
 
+            HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
+            transition.setRate(-1);
+            hamburger.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
+                transition.setRate(transition.getRate() * -1);
+                transition.play();
+
+                if (drawer.isOpened()) {
+                    drawer.close();
+                    drawer.setDisable(true);
+                } else {
+                    drawer.open();
+                    drawer.setDisable(false);
+                }
+            }
+            );
+        } catch (IOException ex) {
+            Logger.getLogger(UserHomeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         try {
 
             Connection conn = SQLHandler.getConn();

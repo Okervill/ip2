@@ -17,8 +17,8 @@
       <JFXButton fx:id="option2" layoutX="338.0" layoutY="216.0" onAction="#answer" prefHeight="66.0" prefWidth="214.0" styleClass="compbutton" stylesheets="@../Resources/stylesheet.css" />
       <JFXButton fx:id="option3" layoutX="71.0" layoutY="323.0" onAction="#answer" prefHeight="66.0" prefWidth="214.0" styleClass="compbutton" stylesheets="@../Resources/stylesheet.css" />
       <JFXButton fx:id="option4" layoutX="338.0" layoutY="323.0" onAction="#answer" prefHeight="66.0" prefWidth="214.0" styleClass="compbutton" stylesheets="@../Resources/stylesheet.css" />
-      <TextArea fx:id="questionDisplay" layoutX="69.0" layoutY="64.0" prefHeight="131.0" prefWidth="486.0" wrapText="true" />
-      <Button fx:id="home" layoutX="561.0" layoutY="3.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="42.0" style="-fx-border-color: transparent;">
+      <TextArea fx:id="questionDisplay" editable="false" layoutX="69.0" layoutY="64.0" prefHeight="131.0" prefWidth="486.0" wrapText="true" />
+      <Button fx:id="home" layoutX="561.0" layoutY="3.0" mnemonicParsing="false" onAction="#home" prefHeight="39.0" prefWidth="42.0" style="-fx-border-color: transparent;">
          <graphic>
             <ImageView fitHeight="33.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                <image>
