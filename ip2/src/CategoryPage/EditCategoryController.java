@@ -15,6 +15,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,6 +24,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -69,13 +72,30 @@ public class EditCategoryController implements Initializable {
         ArrayList<String> allCategories = new ArrayList<>();
         SQLHandler sql = new SQLHandler();
         allCategories = sql.getAllCategories();
+        Pattern pattern = Pattern.compile("[^A-Za-z]");
+        Matcher match = pattern.matcher(name);
+        boolean val = match.find();
 
-      
+        if (allCategories.contains(name)) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Category Error");
+            alert.setHeaderText("This category name already exists, please choose another");
+            alert.showAndWait();
+            return;
+        }
         if (name.isEmpty()) {
 
             addCategoryFailed();
-
-        } else {
+            }
+        if (val==true)
+        {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Category Error");
+            alert.setHeaderText("Invalid category name, please choose another");
+            alert.showAndWait();
+            return;
+        }
+         else {
 
             Category newcategory = new Category(catid, name);
             newcategory.editCategory(newcategory);

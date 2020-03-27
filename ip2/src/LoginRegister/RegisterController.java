@@ -16,6 +16,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -62,6 +64,11 @@ public class RegisterController implements Initializable {
         ArrayList<String> allUsers = new ArrayList<>();
         SQLHandler sql = new SQLHandler();
         allUsers = sql.getAllUsers();
+        Pattern pattern = Pattern.compile("[^A-Za-z0-9]");
+        Matcher match = pattern.matcher(username);
+        Matcher match2=pattern.matcher(password);
+        boolean valUser = match.find();
+        boolean valPass = match2.find();
 
         if (allUsers.contains(username)) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -71,6 +78,32 @@ public class RegisterController implements Initializable {
             return;
         }
 
+        if (valUser==true){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Username Error");
+            alert.setHeaderText("Username cannot contain special characters, please choose another");
+            alert.showAndWait();
+            return;
+        }    
+        if (valPass==true){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Password Error");
+            alert.setHeaderText("Password cannot contain special characters, please choose another");
+            alert.showAndWait();
+        }
+        if (password.length()<8||password.length()>32){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Password Error");
+            alert.setHeaderText("Password must be between 8-32 characters");
+            alert.showAndWait();
+        }
+         if (username.length()<4){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Username Error");
+            alert.setHeaderText("Username must be at least 4 characters");
+            alert.showAndWait();
+        }
+        
         if (firstname.isEmpty() || surname.isEmpty() || username.isEmpty() || password.isEmpty()) {
             registerFailed();
         } else {
