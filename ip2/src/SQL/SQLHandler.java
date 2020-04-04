@@ -57,15 +57,15 @@ public class SQLHandler {
     //-----------------------------//
     // ADD NEW DATA TO LOGIN TABLE //
     //-----------------------------//
-    public void createUser(String userid, String CompetitiveBankID, String CasualBankID, String CategoriesAnsweredID, String firstname, String surname, String username, String password, String admin, String userscore) throws SQLException {
+    public void createUser(int userid, int CompetitiveBankID, int CasualBankID, int CategoriesAnsweredID, String firstname, String surname, String username, String password, String admin, String userscore) throws SQLException {
 
         String sql = "INSERT INTO Users (UserID, CompetitiveBankID, CasualBankID, CategoriesAnsweredID, FirstName, Surname, Username, Password, isAdmin, UserScore) VALUES(?,?,?,?,?,?,?,?,?,?)";
         query = conn.prepareStatement(sql);
 
-        query.setString(1, userid);
-        query.setString(2, CompetitiveBankID);
-        query.setString(3, CasualBankID);
-        query.setString(4, CategoriesAnsweredID);
+        query.setInt(1, userid);
+        query.setInt(2, CompetitiveBankID);
+        query.setInt(3, CasualBankID);
+        query.setInt(4, CategoriesAnsweredID);
         query.setString(5, firstname);
         query.setString(6, surname);
         query.setString(7, username);
