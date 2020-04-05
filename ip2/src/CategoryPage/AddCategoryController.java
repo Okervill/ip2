@@ -18,6 +18,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -61,7 +63,9 @@ public class AddCategoryController implements Initializable {
         ArrayList<String> allCategories = new ArrayList<>();
         SQLHandler sql = new SQLHandler();
         allCategories = sql.getAllCategories();
-        
+        Pattern pattern = Pattern.compile("[^A-Za-z]");
+        Matcher match = pattern.matcher(categoryName);
+        boolean val = match.find();
         
         if (allCategories.contains(categoryName)) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -73,7 +77,16 @@ public class AddCategoryController implements Initializable {
 
         if (categoryName.isEmpty()) {
             addCategoryFailed();
-        } else {
+        } 
+        if (val==true)
+        {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Category Error");
+            alert.setHeaderText("Invalid category name, please choose another");
+            alert.showAndWait();
+            return;
+        }
+        else {
 
             Category newCategory = new Category(categoryName);
             newCategory.createCategory(newCategory);

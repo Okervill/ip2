@@ -27,8 +27,8 @@ public class PreviousScore extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        stage.getIcons().add(new Image("/Resources/quiz.png"));
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/HighscorePage/Highscore.fxml"));
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/PreviousScore/PreviousScore.fxml"));
         Parent root = (Parent) loader.load();
 
         PreviousScoreController controller = loader.getController();

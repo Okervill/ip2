@@ -6,6 +6,7 @@
 package ip2;
 
 import SQL.SQLHandler;
+import static java.lang.Integer.parseInt;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -15,10 +16,10 @@ import java.util.ArrayList;
  */
 public class User {
 
-    private final String userid;
-    private final String CompetitiveBankID;
-    private final String CasualBankID;
-    private final String CategoriesAnsweredID;
+    private final int userid;
+    private final int CompetitiveBankID;
+    private final int CasualBankID;
+    private final int CategoriesAnsweredID;
     private final String firstname;
     private final String surname;
     private final String username;
@@ -31,7 +32,7 @@ public class User {
         SQLHandler sql = new SQLHandler();
         int usercount = sql.getAllUsers().size();
 
-        userid = String.valueOf(usercount++);
+        userid = Integer.valueOf(usercount++);
         CompetitiveBankID = userid;
         CasualBankID = userid;
         CategoriesAnsweredID = userid;
@@ -47,10 +48,10 @@ public class User {
         SQLHandler sql = new SQLHandler();
         ArrayList<String> userInfo = sql.searchUsersTable(user);
 
-        userid = userInfo.get(0);
-        CompetitiveBankID = userInfo.get(1);
-        CasualBankID = userInfo.get(2);
-        CategoriesAnsweredID = userInfo.get(3);
+        userid = parseInt(userInfo.get(0));
+        CompetitiveBankID = parseInt(userInfo.get(1));
+        CasualBankID = parseInt(userInfo.get(2));
+        CategoriesAnsweredID = parseInt(userInfo.get(3));
         firstname = userInfo.get(4);
         surname = userInfo.get(5);
         username = userInfo.get(6);
@@ -64,19 +65,19 @@ public class User {
         sql.createUser(user.getUserID(), user.getCompetitiveBankID(), user.getCasualBankID(), user.getCategoriesAnsweredID(), user.getFirstname(), user.getSurname(), user.getUsername(), user.getPassword(), user.getUserType(), user.getUserScore());
     }
 
-    public String getUserID() {
+    public int getUserID() {
         return this.userid;
     }
 
-    public String getCompetitiveBankID() {
+    public int getCompetitiveBankID() {
         return this.CompetitiveBankID;
     }
 
-    public String getCasualBankID() {
+    public int getCasualBankID() {
         return this.CasualBankID;
     }
 
-    public String getCategoriesAnsweredID() {
+    public int getCategoriesAnsweredID() {
         return this.CategoriesAnsweredID;
     }
 

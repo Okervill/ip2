@@ -7,6 +7,7 @@ package PreviousScore;
 
 import SQL.SQLHandler;
 import ip2.HighScore;
+import ip2.LeaderBoardScore;
 import ip2.User;
 import java.io.IOException;
 import java.net.URL;
@@ -44,12 +45,12 @@ public class PreviousScoreController implements Initializable {
     @FXML
     private Label userLabel;
     @FXML
-    private TableView<HighScore> highScoreTable;
+    private TableView<LeaderBoardScore> highScoreTable;
     @FXML
-    private TableColumn<HighScore, String> name;
+    private TableColumn<LeaderBoardScore, String> name;
     @FXML
-    private TableColumn<HighScore, String> name1;
-    ObservableList<HighScore> data = FXCollections.observableArrayList();
+    private TableColumn<LeaderBoardScore, String> name1;
+    ObservableList<LeaderBoardScore> data = FXCollections.observableArrayList();
 
     @FXML
     public void backButton(ActionEvent event) throws IOException {
@@ -71,25 +72,24 @@ public class PreviousScoreController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Platform.runLater(() -> {
-            System.out.println(currentUser.getUserID());
+       Platform.runLater(() -> {
             try {
                 //System.out.println(currentUser);
                 Connection conn = SQLHandler.getConn();
-                ResultSet rs = conn.createStatement().executeQuery("Select * FROM CompetitiveBank where competitiveBankId = \"" + currentUser.getCompetitiveBankID() + "\"");
+                String sql = "select Username,UserScore from Users where isAdmin = \"" + "false" + "\"";
+                ResultSet rs = conn.createStatement().executeQuery(sql);
                 while (rs.next()) {
-                    data.add(new HighScore(rs.getString("CompetitiveBankId"), rs.getString("Quiz 1")));
+                    data.add(new LeaderBoardScore(rs.getString("Username"),rs.getString("UserScore")));
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(PreviousScoreController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-
-        name.setCellValueFactory(new PropertyValueFactory<>("competitiveBankId"));
-        name1.setCellValueFactory(new PropertyValueFactory<>("quiz"));
+         name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        name1.setCellValueFactory(new PropertyValueFactory<>("score"));
         highScoreTable.setItems(data);
 
-        });
+      });
     }
 
     public void setData(User user) {

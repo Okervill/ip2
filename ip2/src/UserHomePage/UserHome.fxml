@@ -100,7 +100,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <JFXButton fx:id="casual" layoutX="2.0" layoutY="283.0" style="-fx-border-color: transparent;">
+      <JFXButton fx:id="leaderboard" onAction="#previousScore" layoutX="2.0" layoutY="283.0" style="-fx-border-color: transparent;">
          <graphic>
             <ImageView fitHeight="41.0" fitWidth="47.0" opacity="0.49" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -110,7 +110,7 @@
          </graphic>
       </JFXButton>
       <JFXDrawer fx:id="drawer" defaultDrawerSize="250.0" prefHeight="340.0" prefWidth="250.0" />
-      <JFXButton fx:id="previousScoreButton" layoutX="395.0" layoutY="283.0" style="-fx-border-color: transparent;">
+      <JFXButton fx:id="previousScoreButton"  layoutX="395.0" layoutY="283.0" style="-fx-border-color: transparent;">
          <graphic>
             <ImageView fitHeight="41.0" fitWidth="47.0" opacity="0.49" pickOnBounds="true" preserveRatio="true">
                <image>
