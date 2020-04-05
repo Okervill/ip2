@@ -11,15 +11,15 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="340.0" prefWidth="468.0" style="-fx-background-color: e8a87c;" stylesheets="@../Resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CasualPlay.CasualPlaySelectionController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="418.0" prefWidth="541.0" style="-fx-background-color: e8a87c;" stylesheets="@../Resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CasualPlay.CasualPlaySelectionController">
    <children>
-      <TableView fx:id="table" layoutX="45.0" layoutY="70.0" prefHeight="200.0" prefWidth="380.0">
+      <TableView fx:id="table" layoutX="81.0" layoutY="73.0" prefHeight="254.0" prefWidth="380.0">
          <columns>
             <TableColumn fx:id="col_name" prefWidth="380.0" text="Category" />
          </columns>
       </TableView>
-      <JFXButton fx:id="playGame" layoutX="194.0" layoutY="282.0" onAction="#playGame" prefHeight="44.0" prefWidth="97.0" text="Start" />
-      <Button fx:id="home" layoutX="409.0" layoutY="6.0" mnemonicParsing="false" onAction="#homeButton" prefHeight="39.0" prefWidth="42.0" style="-fx-border-color: transparent;">
+      <JFXButton fx:id="playGame" layoutX="222.0" layoutY="341.0" onAction="#playGame" prefHeight="44.0" prefWidth="97.0" text="Start" />
+      <Button fx:id="home" layoutX="470.0" layoutY="8.0" mnemonicParsing="false" onAction="#homeButton" prefHeight="39.0" prefWidth="42.0" style="-fx-border-color: transparent;">
          <graphic>
             <ImageView fitHeight="33.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -28,8 +28,8 @@
             </ImageView>
          </graphic>
       </Button>
-      <TextField fx:id="search" layoutX="148.0" layoutY="13.0" prefHeight="20.0" prefWidth="173.0" promptText="Search for category" styleClass="search" />
-      <JFXHamburger fx:id="hamburger" layoutX="376.0" layoutY="22.0" />
-      <JFXDrawer fx:id="drawer" defaultDrawerSize="250.0" prefHeight="340.0" prefWidth="250.0" />
+      <TextField fx:id="search" layoutX="185.0" layoutY="16.0" prefHeight="20.0" prefWidth="173.0" promptText="Search for category" styleClass="search" />
+      <JFXHamburger fx:id="hamburger" layoutX="437.0" layoutY="24.0" />
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="250.0" prefHeight="418.0" prefWidth="250.0" />
    </children>
 </Pane>
