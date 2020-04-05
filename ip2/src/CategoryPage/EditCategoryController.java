@@ -10,6 +10,8 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import ip2.Category;
 import ip2.Shaker;
+import ip2.SwitchWindow;
+import ip2.User;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -32,6 +34,7 @@ import javafx.stage.StageStyle;
  */
 public class EditCategoryController implements Initializable {
 
+    User currentUser;
     int catid;
     Category currentCategory;
     @FXML
@@ -50,17 +53,7 @@ public class EditCategoryController implements Initializable {
 
     @FXML
     public void cancelButton(ActionEvent event) throws IOException {
-        Parent root;
-        root = FXMLLoader.load(getClass().getResource("/CategoryPage/ViewCategoryTable.fxml"));
-
-        Scene scene = new Scene(root);
-        Stage reg = new Stage(StageStyle.DECORATED);
-        reg.setTitle("Home");
-        reg.setScene(scene);
-
-        reg.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
-
+        SwitchWindow.switchWindow((Stage) cancel.getScene().getWindow(), new ViewCategory(currentUser));
     }
 
     @FXML
@@ -70,7 +63,6 @@ public class EditCategoryController implements Initializable {
         SQLHandler sql = new SQLHandler();
         allCategories = sql.getAllCategories();
 
-      
         if (name.isEmpty()) {
 
             addCategoryFailed();
@@ -80,16 +72,7 @@ public class EditCategoryController implements Initializable {
             Category newcategory = new Category(catid, name);
             newcategory.editCategory(newcategory);
 
-            Parent root;
-            root = FXMLLoader.load(getClass().getResource("/CategoryPage/ViewCategoryTable.fxml"));
-
-            Scene scene = new Scene(root);
-            Stage reg = new Stage(StageStyle.DECORATED);
-            reg.setTitle("Home");
-            reg.setScene(scene);
-
-            reg.show();
-            ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+               SwitchWindow.switchWindow((Stage) addNewCategoryButton.getScene().getWindow(), new ViewCategory(currentUser));
 
         }
 

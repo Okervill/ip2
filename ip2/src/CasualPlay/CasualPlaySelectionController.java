@@ -5,13 +5,17 @@
  */
 package CasualPlay;
 
+import CompetitivePlay.CompetitivePlay;
 import SQL.SQLHandler;
+import UserHomePage.UserHome;
 import UserHomePage.UserHomeController;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import ip2.Category;
 import ip2.Question;
+import ip2.SwitchWindow;
 import ip2.User;
 import java.io.IOException;
 import java.net.URL;
@@ -32,8 +36,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -44,7 +46,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -59,7 +60,8 @@ public class CasualPlaySelectionController implements Initializable {
     @FXML
     private JFXDrawer drawer;
     User currentUser;
-
+    @FXML
+    private Button home;
     @FXML
     private Button playGame;
     String tempSelection;
@@ -120,33 +122,15 @@ public class CasualPlaySelectionController implements Initializable {
             return;
 
         } else {
-//        System.out.println(game.getUserSelection());
-            Parent root;
-            root = FXMLLoader.load(getClass().getResource("/CasualPlay/CasualQuiz.fxml"));
 
-            Scene scene = new Scene(root);
-            Stage reg = new Stage(StageStyle.DECORATED);
-            reg.setTitle("Home");
-            reg.setScene(scene);
-
-            reg.show();
-            ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+            SwitchWindow.switchWindow((Stage) playGame.getScene().getWindow(), new CasualGame(currentUser));
         }
 
     }
 
     @FXML
     public void homeButton(ActionEvent event) throws IOException {
-        Parent root;
-        root = FXMLLoader.load(getClass().getResource("/UserHomePage/UserHome.fxml"));
-
-        Scene scene = new Scene(root);
-        Stage reg = new Stage(StageStyle.DECORATED);
-        reg.setTitle("Home");
-        reg.setScene(scene);
-
-        reg.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+        SwitchWindow.switchWindow((Stage) home.getScene().getWindow(), new UserHome(currentUser));
 
     }
 

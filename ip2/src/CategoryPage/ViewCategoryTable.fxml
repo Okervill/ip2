@@ -16,7 +16,7 @@
             <TableColumn fx:id="name" prefWidth="380.0" text="Category" />
          </columns>
       </TableView>
-      <JFXButton layoutX="30.0" layoutY="308.0" onAction="#addCategoryButton" prefHeight="44.0" prefWidth="97.0" text="Add" />
+      <JFXButton fx:id="addCat" layoutX="30.0" layoutY="308.0" onAction="#addCategoryButton" prefHeight="44.0" prefWidth="97.0" text="Add" />
       <JFXButton fx:id="editCat" layoutX="237.0" layoutY="308.0" onAction="#editCategoryButton" prefHeight="44.0" prefWidth="97.0" text="Edit" />
       <JFXButton fx:id="deleteButton" layoutX="452.0" layoutY="308.0" onAction="#deleteCategory" prefHeight="44.0" prefWidth="97.0" text="Delete" />
       <Button fx:id="home" layoutX="507.0" layoutY="7.0" mnemonicParsing="false" onAction="#homeButton" prefHeight="39.0" prefWidth="42.0" style="-fx-border-color: transparent;">

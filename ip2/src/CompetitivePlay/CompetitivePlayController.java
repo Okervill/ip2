@@ -81,20 +81,6 @@ public class CompetitivePlayController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        class CountdownTimer extends TimerTask {
-
-            public void run() {
-
-                try {
-                    endQuiz();
-                } catch (SQLException ex) {
-                    Logger.getLogger(CompetitivePlayController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-            }
-        }
-        countdown.schedule(new CountdownTimer(), 30000, 60000);
-
         startButton.setVisible(true);
         finishButton.setVisible(false);
         option1.setVisible(false);
@@ -119,7 +105,19 @@ public class CompetitivePlayController implements Initializable {
 
     @FXML
     private void start(ActionEvent event) throws SQLException {
+        class CountdownTimer extends TimerTask {
 
+            public void run() {
+
+                try {
+                    endQuiz();
+                } catch (SQLException ex) {
+                    Logger.getLogger(CompetitivePlayController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+        }
+        countdown.schedule(new CountdownTimer(), 30000, 60000);
         ArrayList<Question> questions = getQuestions();
         if (questions.isEmpty()) {
             return;
@@ -339,6 +337,7 @@ public class CompetitivePlayController implements Initializable {
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.YES) {
+            countdown.cancel();
             SwitchWindow.switchWindow((Stage) home.getScene().getWindow(), new UserHome(currentUser));
         }
 

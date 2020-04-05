@@ -11,6 +11,8 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import ip2.Question;
 import ip2.Shaker;
+import ip2.SwitchWindow;
+import ip2.User;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -38,6 +40,7 @@ import javafx.stage.StageStyle;
  */
 public class AddQuestionController implements Initializable {
 
+    User currentUser;
     @FXML
     private JFXTextField correctAns;
 
@@ -54,7 +57,7 @@ public class AddQuestionController implements Initializable {
     private JFXTextField wrongAns3;
 
     @FXML
-    private JFXButton addQuest;
+    private JFXButton addQuest, finButton;
 
     @FXML
     private JFXComboBox<String> categoryCombo;
@@ -67,7 +70,6 @@ public class AddQuestionController implements Initializable {
         String wrong2 = wrongAns2.getText();
         String wrong3 = wrongAns3.getText();
 
-
         if (answer.isEmpty() || question.isEmpty() || wrong1.isEmpty() || wrong2.isEmpty() || wrong3.isEmpty() || categoryCombo.getSelectionModel().isEmpty()) {
 
             addQuestionFailed();
@@ -79,40 +81,17 @@ public class AddQuestionController implements Initializable {
 
             Question newQuestion = new Question(categoryId, question, answer, wrong1, wrong2, wrong3);
             newQuestion.createQuestion(newQuestion);
-            Parent root;
-            root = FXMLLoader.load(getClass().getResource("AddQuestion.fxml"));
-
-            Scene scene = new Scene(root);
-            Stage reg = new Stage(StageStyle.DECORATED);
-            reg.setTitle("Home");
-            reg.setScene(scene);
-
-            reg.show();
-            ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+           SwitchWindow.switchWindow((Stage) addQuest.getScene().getWindow(), new AddQuestion());
 
         }
     }
-    
-    @FXML
-    private void cancelButton(ActionEvent event) throws SQLException, IOException {
-        Parent root;
-        root = FXMLLoader.load(getClass().getResource("/QuestionPage/ViewQuestions.fxml"));
 
-        Scene scene = new Scene(root);
-        Stage reg = new Stage(StageStyle.DECORATED);
-        reg.setTitle("Home");
-        reg.setScene(scene);
-
-        reg.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
-    }
 
     private int fetchCatInfo(String tempcat) throws SQLException {
         SQLHandler sql = new SQLHandler();
         List categoryInfo = sql.searchCategoriesTable(tempcat);
 
         int tempcategoryId = (int) categoryInfo.get(0);
-        
 
         return tempcategoryId;
 
@@ -123,19 +102,10 @@ public class AddQuestionController implements Initializable {
         shake.shake();
         questionArea.requestFocus();
     }
-    
-     @FXML
+
+    @FXML
     public void finishButton(ActionEvent event) throws IOException {
-        Parent root;
-        root = FXMLLoader.load(getClass().getResource("/QuestionPage/ViewQuestions.fxml"));
-
-        Scene scene = new Scene(root);
-        Stage view = new Stage(StageStyle.DECORATED);
-        view.setTitle("View");
-        view.setScene(scene);
-
-        view.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+        SwitchWindow.switchWindow((Stage) finButton.getScene().getWindow(), new QuestionPage(currentUser));
 
     }
 
@@ -151,6 +121,10 @@ public class AddQuestionController implements Initializable {
         ObservableList<String> data = FXCollections.observableArrayList(allCategories);
 
         categoryCombo.setItems(data);
+    }
+
+    public void setData(User user) {
+        currentUser = user;
     }
 
 }

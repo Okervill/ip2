@@ -5,11 +5,13 @@
  */
 package QuestionPage;
 
+import AdminHomePage.AdminHome;
 import SQL.SQLHandler;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import ip2.Question;
 import ip2.SwitchWindow;
+import ip2.User;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -48,6 +50,7 @@ import javafx.stage.StageStyle;
  */
 public class ViewQuestionsController implements Initializable {
 
+    User currentUser;
     @FXML
     private TableView<Question> table;
     @FXML
@@ -57,12 +60,13 @@ public class ViewQuestionsController implements Initializable {
     ArrayList<String> allQuestions = new ArrayList<>();
     String quest;
     @FXML
-    private JFXButton editQuest;
+    private JFXButton editQuest, addQuest, deleteQuest;
 
-  
-    
     @FXML
-     private TextField search;
+    private TextField search;
+
+    @FXML
+    private Button home;
 
     /**
      * Initializes the controller class.
@@ -93,23 +97,23 @@ public class ViewQuestionsController implements Initializable {
 
         col_quest.setCellValueFactory(new PropertyValueFactory<>("UserQuestion"));
         col_answer.setCellValueFactory(new PropertyValueFactory<>("CorrectAnswer"));
-       
+
         ObservableList<Question> data = FXCollections.observableArrayList(allQuestions);
         FilteredList<Question> filtQuest = new FilteredList<>(data, e -> true);
-        search.setOnKeyReleased(e ->{
-            search.textProperty().addListener((observableValue, oldValue, newValue) ->{
-            filtQuest.setPredicate((Predicate<? super Question>) question->{
-               if(newValue == null || newValue.isEmpty()){
-                   return true;
-               }
-               String lowerCaseFilter = newValue.toLowerCase();
-               if(question.getUserQuestion().toLowerCase().contains(lowerCaseFilter)){
-                   return true;
-               }
-               
-                return false;
+        search.setOnKeyReleased(e -> {
+            search.textProperty().addListener((observableValue, oldValue, newValue) -> {
+                filtQuest.setPredicate((Predicate<? super Question>) question -> {
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    if (question.getUserQuestion().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    }
+
+                    return false;
+                });
             });
-        });
             SortedList<Question> sortedData = new SortedList<>(filtQuest);
             sortedData.comparatorProperty().bind(table.comparatorProperty());
             table.setItems(sortedData);
@@ -139,16 +143,7 @@ public class ViewQuestionsController implements Initializable {
             Question currentQuestion = search(quest);
             currentQuestion.deleteQuestion(currentQuestion);
 
-            Parent root;
-            root = FXMLLoader.load(getClass().getResource("ViewQuestions.fxml"));
-
-            Scene scene = new Scene(root);
-            Stage reg = new Stage(StageStyle.DECORATED);
-            reg.setTitle("Questions");
-            reg.setScene(scene);
-
-            reg.show();
-            ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+            SwitchWindow.switchWindow((Stage) deleteQuest.getScene().getWindow(), new QuestionPage(currentUser));
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Delete");
@@ -170,6 +165,7 @@ public class ViewQuestionsController implements Initializable {
             currentQuestion = search(quest);
 
             SwitchWindow.switchWindow((Stage) editQuest.getScene().getWindow(), new EditPage(currentQuestion));
+            
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Edit");
@@ -201,30 +197,16 @@ public class ViewQuestionsController implements Initializable {
     @FXML
     private void addQuestion(ActionEvent event) throws IOException, SQLException {
 
-        Parent root;
-        root = FXMLLoader.load(getClass().getResource("/QuestionPage/AddQuestion.fxml"));
-
-        Scene scene = new Scene(root);
-        Stage add = new Stage(StageStyle.DECORATED);
-        add.setTitle("Add Question");
-        add.setScene(scene);
-
-        add.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+        SwitchWindow.switchWindow((Stage) addQuest.getScene().getWindow(), new AddQuestion());
     }
 
     @FXML
     private void homeButton(ActionEvent event) throws IOException, SQLException {
 
-        Parent root;
-        root = FXMLLoader.load(getClass().getResource("/AdminHomePage/AdminHome.fxml"));
+        SwitchWindow.switchWindow((Stage) home.getScene().getWindow(), new AdminHome(currentUser));
+    }
 
-        Scene scene = new Scene(root);
-        Stage add = new Stage(StageStyle.DECORATED);
-        add.setTitle("Admin");
-        add.setScene(scene);
-
-        add.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+    public void setData(User user) {
+        currentUser = user;
     }
 }

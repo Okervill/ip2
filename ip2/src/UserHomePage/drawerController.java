@@ -6,6 +6,7 @@
 package UserHomePage;
 
 import AdminHomePage.AdminHome;
+import CasualPlay.CasualGameSelector;
 import CasualPlay.CasualPlaySelection;
 import CompetitivePlay.CompetitivePlay;
 import com.jfoenix.controls.JFXButton;
@@ -45,7 +46,7 @@ public class drawerController implements Initializable {
     
      @FXML
     public void casualLoad(ActionEvent event) throws IOException {
-        SwitchWindow.switchWindow((Stage) casual.getScene().getWindow(), new CasualPlaySelection(currentUser));
+        SwitchWindow.switchWindow((Stage) casual.getScene().getWindow(), new CasualGameSelector(currentUser));
     }
     
     @FXML

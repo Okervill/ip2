@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package PreviousScore;
+package CasualPlay;
 
 import ip2.User;
 import javafx.application.Application;
@@ -13,25 +8,18 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-/**
- *
- * @author Patrick
- */
-public class PreviousScore extends Application {
+public class CasualGameSelector extends Application {
 
     User currentUser;
 
-    public PreviousScore(User user) {
-        currentUser = user;
-    }
-
+    
     @Override
     public void start(Stage stage) throws Exception {
         stage.getIcons().add(new Image("/Resources/quiz.png"));
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/HighscorePage/Highscore.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/CasualPlay/CasualPlaySelect.fxml"));
         Parent root = (Parent) loader.load();
 
-        PreviousScoreController controller = loader.getController();
+        CasualPlaySelectionController controller = loader.getController();
 
         controller.setData(currentUser);
 
@@ -44,5 +32,10 @@ public class PreviousScore extends Application {
         stage.centerOnScreen();
 
     }
+
+    public CasualGameSelector(User user){
+        currentUser = user;
+    }
+
 
 }

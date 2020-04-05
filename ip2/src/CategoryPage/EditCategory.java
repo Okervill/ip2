@@ -12,6 +12,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -23,7 +24,7 @@ public class EditCategory extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-
+ stage.getIcons().add(new Image("/Resources/quiz.png"));
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/CategoryPage/EditCategory.fxml"));
         Parent root = (Parent) loader.load();
         
