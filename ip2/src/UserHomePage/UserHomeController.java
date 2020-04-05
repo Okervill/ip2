@@ -5,11 +5,13 @@
  */
 package UserHomePage;
 
+import CasualPlay.CasualGameSelector;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import CompetitivePlay.CompetitivePlay;
+import LoginRegister.Login;
 import ip2.SwitchWindow;
 import ip2.User;
 import java.io.IOException;
@@ -63,7 +65,8 @@ public class UserHomeController implements Initializable {
 
     @FXML
     private Label compLabel3;
-
+ @FXML
+    private Button logout;
     @FXML
     private Button casualInfo;
 
@@ -147,31 +150,13 @@ public class UserHomeController implements Initializable {
 
     @FXML
     public void casualPlay(ActionEvent event) throws IOException {
-        Parent root;
-        root = FXMLLoader.load(getClass().getResource("/CasualPlay/CasualPlaySelect.fxml"));
-
-        Scene scene = new Scene(root);
-        Stage reg = new Stage(StageStyle.DECORATED);
-        reg.setTitle("Casual Play Selection");
-        reg.setScene(scene);
-
-        reg.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+        SwitchWindow.switchWindow((Stage) casualPlayButton.getScene().getWindow(), new CasualGameSelector(currentUser));
 
     } 
 
     @FXML
     public void logoutButton(ActionEvent event) throws IOException {
-        Parent root;
-        root = FXMLLoader.load(getClass().getResource("/LoginRegister/Login.fxml"));
-
-        Scene scene = new Scene(root);
-        Stage reg = new Stage(StageStyle.DECORATED);
-        reg.setTitle("Home");
-        reg.setScene(scene);
-
-        reg.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+        SwitchWindow.switchWindow((Stage) logout.getScene().getWindow(), new Login());
 
     }
 

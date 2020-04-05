@@ -5,6 +5,7 @@
  */
 package CategoryPage;
 
+import AdminHomePage.AdminHome;
 import SQL.SQLHandler;
 import com.jfoenix.controls.JFXButton;
 import ip2.Category;
@@ -28,10 +29,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -40,7 +38,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  *
@@ -58,14 +55,16 @@ public class ViewCategoryController implements Initializable {
 
     ObservableList<Category> data = FXCollections.observableArrayList();
     @FXML
-    private Button deleteButton;
+    private Button deleteButton, home;
 
     @FXML
     private JFXButton editCat;
-    
-     
+
     @FXML
-     private TextField search;
+    private JFXButton addCat;
+
+    @FXML
+    private TextField search;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -85,22 +84,21 @@ public class ViewCategoryController implements Initializable {
         name.setCellValueFactory(new PropertyValueFactory<>("CategoryName"));
         categoryTable.setItems(data);
 
-        
-         FilteredList<Category> filtCat = new FilteredList<>(data, e -> true);
-        search.setOnKeyReleased(e ->{
-            search.textProperty().addListener((observableValue, oldValue, newValue) ->{
-            filtCat.setPredicate((Predicate<? super Category>) category->{
-               if(newValue == null || newValue.isEmpty()){
-                   return true;
-               }
-               String lowerCaseFilter = newValue.toLowerCase();
-               if(category.getCategoryName().toLowerCase().contains(lowerCaseFilter)){
-                   return true;
-               }
-               
-                return false;
+        FilteredList<Category> filtCat = new FilteredList<>(data, e -> true);
+        search.setOnKeyReleased(e -> {
+            search.textProperty().addListener((observableValue, oldValue, newValue) -> {
+                filtCat.setPredicate((Predicate<? super Category>) category -> {
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    if (category.getCategoryName().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    }
+
+                    return false;
+                });
             });
-        });
             SortedList<Category> sortedData = new SortedList<>(filtCat);
             sortedData.comparatorProperty().bind(categoryTable.comparatorProperty());
             categoryTable.setItems(sortedData);
@@ -149,16 +147,8 @@ public class ViewCategoryController implements Initializable {
 
             Category currentCategory = search(catname);
             currentCategory.deleteCategory(currentCategory);
-            Parent root;
-            root = FXMLLoader.load(getClass().getResource("ViewCategoryTable.fxml"));
-
-            Scene scene = new Scene(root);
-            Stage reg = new Stage(StageStyle.DECORATED);
-            reg.setTitle("Home");
-            reg.setScene(scene);
-
-            reg.show();
-            ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+            SwitchWindow.switchWindow((Stage) deleteButton.getScene().getWindow(), new ViewCategory(currentUser));
+           
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Delete Error");
@@ -170,16 +160,7 @@ public class ViewCategoryController implements Initializable {
 
     @FXML
     private void addCategoryButton(ActionEvent event) throws SQLException, IOException {
-        Parent root;
-        root = FXMLLoader.load(getClass().getResource("AddCategory.fxml"));
-
-        Scene scene = new Scene(root);
-        Stage reg = new Stage(StageStyle.DECORATED);
-        reg.setTitle("Home");
-        reg.setScene(scene);
-
-        reg.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+        SwitchWindow.switchWindow((Stage) addCat.getScene().getWindow(), new AddCategory());
 
     }
 
@@ -198,16 +179,9 @@ public class ViewCategoryController implements Initializable {
 
     @FXML
     public void homeButton(ActionEvent event) throws IOException {
-        Parent root;
-        root = FXMLLoader.load(getClass().getResource("/AdminHomePage/AdminHome.fxml"));
+     
 
-        Scene scene = new Scene(root);
-        Stage reg = new Stage(StageStyle.DECORATED);
-        reg.setTitle("Home");
-        reg.setScene(scene);
-
-        reg.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+                   SwitchWindow.switchWindow((Stage) home.getScene().getWindow(), new AdminHome(currentUser));
 
     }
 

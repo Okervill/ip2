@@ -5,6 +5,7 @@
  */
 package ip2;
 
+import javafx.scene.image.Image;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -23,17 +24,18 @@ public class Ip2 extends Application {
 
     @Override
     public void start(Stage primaryStage) throws SQLException, IOException {
-
+        primaryStage.getIcons().add(new Image("/Resources/quiz.png"));
         Parent root = FXMLLoader.load(getClass().getResource("/LoginRegister/Login.fxml"));
 
         Scene scene = new Scene(root);
 
         primaryStage.setScene(scene);
         primaryStage.setTitle("Login");
+
         primaryStage.show();
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         launch(args);
     }
 

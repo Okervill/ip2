@@ -57,7 +57,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <JFXButton layoutX="253.0" layoutY="463.0" onAction="#cancelButton" prefHeight="39.0" prefWidth="91.0" text="Cancel" />
+      <JFXButton fx:id="cancel" layoutX="253.0" layoutY="463.0" onAction="#cancelButton" prefHeight="39.0" prefWidth="91.0" text="Cancel" />
       <JFXButton fx:id="addQuest" layoutX="76.0" layoutY="463.0" onAction="#addQuestion" prefHeight="39.0" prefWidth="91.0" text="Finish" />
    </children>
 </Pane>

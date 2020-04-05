@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PreviousScore;
+package CategoryPage;
 
-import ip2.User;
+import QuestionPage.*;
+import ip2.Category;
+import ip2.Question;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,28 +17,23 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Patrick
+ * @author erino
  */
-public class PreviousScore extends Application {
-
-    User currentUser;
-
-    public PreviousScore(User user) {
-        currentUser = user;
-    }
+public class AddCategory extends Application {
+    Category currentCategory;
 
     @Override
     public void start(Stage stage) throws Exception {
-        stage.getIcons().add(new Image("/Resources/quiz.png"));
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/HighscorePage/Highscore.fxml"));
+ stage.getIcons().add(new Image("/Resources/quiz.png"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/CategoryPage/AddCategory.fxml"));
         Parent root = (Parent) loader.load();
-
-        PreviousScoreController controller = loader.getController();
-
-        controller.setData(currentUser);
-
+        
+        AddCategoryController controller = loader.getController();
+        
+    
+        
         Scene scene = new Scene(root);
-
+        
         stage.setScene(scene);
         stage.setTitle("Home");
 
@@ -45,4 +42,9 @@ public class PreviousScore extends Application {
 
     }
 
+    
+    
+  
+    
+ 
 }

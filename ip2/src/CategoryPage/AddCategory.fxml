@@ -10,7 +10,7 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="221.0" prefWidth="355.0" stylesheets="@../Resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CategoryPage.AddCategoryController">
    <children>
       <JFXTextField fx:id="getCategoryName" alignment="CENTER" labelFloat="true" layoutX="88.0" layoutY="74.0" promptText="Enter Category Name" />
-      <Button fx:id="home" layoutX="298.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="42.0" style="-fx-border-color: transparent;" />
+    
       <JFXButton fx:id="addNewCategoryButton" layoutX="74.0" layoutY="147.0" onAction="#addNewCategory" prefHeight="39.0" prefWidth="85.0" text="Add" />
       <Label layoutX="116.0" layoutY="10.0" text="Add Category" textFill="WHITE">
          <font>

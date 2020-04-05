@@ -29,7 +29,7 @@
          </font></JFXTextField>
       <JFXComboBox fx:id="categoryCombo" layoutX="111.0" layoutY="405.0" prefHeight="25.0" prefWidth="113.0" />
       <JFXButton fx:id="addQuest" layoutX="66.0" layoutY="453.0" onAction="#addQuestion" prefHeight="39.0" prefWidth="91.0" text="Add" />
-      <JFXButton layoutX="256.0" layoutY="453.0" onAction="#finishButton" prefHeight="39.0" prefWidth="91.0" text="Finish" />
+      <JFXButton fx:id="finButton" layoutX="256.0" layoutY="453.0" onAction="#finishButton" prefHeight="39.0" prefWidth="91.0" text="Finish" />
       <Label layoutX="139.0" layoutY="14.0" text="Add Question" textFill="WHITE">
          <font>
             <Font name="System Bold" size="19.0" />

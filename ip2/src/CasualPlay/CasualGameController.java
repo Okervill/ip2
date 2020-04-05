@@ -6,8 +6,10 @@
 package CasualPlay;
 
 import SQL.SQLHandler;
+import UserHomePage.UserHome;
 import com.jfoenix.controls.JFXButton;
 import ip2.Question;
+import ip2.SwitchWindow;
 import ip2.User;
 import java.io.IOException;
 import java.net.URL;
@@ -223,16 +225,7 @@ public class CasualGameController implements Initializable {
 
     @FXML
     public void home(ActionEvent event) throws IOException {
-        Parent root;
-        root = FXMLLoader.load(getClass().getResource("/UserHomePage/UserHome.fxml"));
-
-        Scene scene = new Scene(root);
-        Stage reg = new Stage(StageStyle.DECORATED);
-        reg.setTitle("Home");
-        reg.setScene(scene);
-
-        reg.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+        SwitchWindow.switchWindow((Stage) home.getScene().getWindow(), new UserHome(currentUser));
 
     }
 

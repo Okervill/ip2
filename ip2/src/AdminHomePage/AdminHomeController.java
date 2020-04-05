@@ -5,6 +5,11 @@
  */
 package AdminHomePage;
 
+import CategoryPage.ViewCategory;
+import LoginRegister.Login;
+import QuestionPage.QuestionPage;
+import com.jfoenix.controls.JFXButton;
+import ip2.SwitchWindow;
 import ip2.User;
 import java.io.IOException;
 import java.net.URL;
@@ -12,13 +17,9 @@ import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -28,10 +29,18 @@ import javafx.stage.StageStyle;
 public class AdminHomeController implements Initializable {
 
     User currentUser;
+    @FXML
+    private JFXButton catButton;
 
+    @FXML
+    private JFXButton questButton;
+
+    @FXML
+    private Button logout;
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
@@ -41,49 +50,22 @@ public class AdminHomeController implements Initializable {
 
         });
     }
-    
+
     @FXML
     public void logoutButton(ActionEvent event) throws IOException {
-        Parent root;
-        root = FXMLLoader.load(getClass().getResource("/LoginRegister/Login.fxml"));
-
-        Scene scene = new Scene(root);
-        Stage reg = new Stage(StageStyle.DECORATED);
-        reg.setTitle("Home");
-        reg.setScene(scene);
-
-        reg.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+      SwitchWindow.switchWindow((Stage) logout.getScene().getWindow(), new Login());
 
     }
-    
+
     @FXML
     public void categoryPage(ActionEvent event) throws IOException {
-        Parent root;
-        root = FXMLLoader.load(getClass().getResource("/CategoryPage/ViewCategoryTable.fxml"));
-
-        Scene scene = new Scene(root);
-        Stage reg = new Stage(StageStyle.DECORATED);
-        reg.setTitle("Home");
-        reg.setScene(scene);
-        reg.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+        SwitchWindow.switchWindow((Stage) catButton.getScene().getWindow(), new ViewCategory(currentUser));
 
     }
-    
+
     @FXML
     public void questionPage(ActionEvent event) throws IOException {
-        Parent root;
-        root = FXMLLoader.load(getClass().getResource("/QuestionPage/ViewQuestions.fxml"));
-
-        Scene scene = new Scene(root);
-        Stage reg = new Stage(StageStyle.DECORATED);
-        reg.setTitle("Home");
-        reg.setScene(scene);
-
-        reg.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
-
+       SwitchWindow.switchWindow((Stage) catButton.getScene().getWindow(), new QuestionPage(currentUser));
     }
 
     public void setData(User user) {
