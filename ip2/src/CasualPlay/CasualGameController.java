@@ -104,7 +104,7 @@ public class CasualGameController implements Initializable {
     }
    
     @FXML
-    private void answer(ActionEvent event) {
+    private void answer(ActionEvent event) throws SQLException {
         if (event.getSource().equals(option1)) {
             if (option1.getText().equals(questions.get(qNo - 1).getCorrectAnswer())) {
                 score++;
@@ -134,7 +134,7 @@ public class CasualGameController implements Initializable {
         }
     }
 
-    private void nextQuestion() {
+    private void nextQuestion() throws SQLException {
         if (qNo < qsize) {
 
           
@@ -162,7 +162,7 @@ public class CasualGameController implements Initializable {
         }
     }
 
-    private void endQuiz() {
+    private void endQuiz() throws SQLException {
 
         option1.setVisible(false);
         option2.setVisible(false);
@@ -180,6 +180,10 @@ public class CasualGameController implements Initializable {
         home.setVisible(true);
         scoreDisplay.setText("" + score);
         outOf.setText("" + qsize);
+        
+        SQLHandler sql = new SQLHandler();
+        
+        sql.createCasualTables(Integer.valueOf(currentUser.getCasualBankID()));
     }
 
     @Override

@@ -439,6 +439,20 @@ public class SQLHandler {
         stmt.execute(sql);
     }
 
+    public void createCasualTables(int id) throws SQLException {
+        String sql = "CREATE TABLE IF NOT EXISTS casual_" + id + "(\n"
+                + " UserID integer,\n"
+                + " CategoryID integer,\n"
+                + " hasFinished boolean NOT NULL,\n"
+                + " PRIMARY KEY (UserID),\n"
+                + " FOREIGN KEY (CategoryID)"
+                + ");";
+
+        Statement stmt = conn.createStatement();
+        stmt.execute(sql);
+
+    }
+
     public int getUserScores(String cbankid) throws SQLException {
         int output = 0;
         String sql = "Select * from CompetitiveBank where CompetitiveBankID = \"" + cbankid + "\"";
@@ -460,7 +474,7 @@ public class SQLHandler {
         while (rs.next()) {
             count = rs.getInt(1);
         }
-        if(count == 0){
+        if (count == 0) {
             createCompTotalScore(id);
         }
         return count;
@@ -476,18 +490,18 @@ public class SQLHandler {
         query.executeUpdate();
         query.close();
     }
-    
+
     public void createCompTotalScore(int id) throws SQLException {
         String sql = "INSERT INTO CompetitiveBank (CompetitiveBankID, 'Quiz 1') VALUES(?,?)";
         query = conn.prepareStatement(sql);
-        
+
         query.setString(1, String.valueOf(id));
         query.setString(2, "0");
-        
+
         query.executeUpdate();
         query.close();
     }
-            
+
     public void updateTotalCompScore(int id, int score) throws SQLException {
 
         int currentTotal;
