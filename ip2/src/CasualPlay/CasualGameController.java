@@ -6,8 +6,10 @@
 package CasualPlay;
 
 import SQL.SQLHandler;
+import UserHomePage.UserHome;
 import com.jfoenix.controls.JFXButton;
 import ip2.Question;
+import ip2.SwitchWindow;
 import ip2.User;
 import java.io.IOException;
 import java.net.URL;
@@ -42,13 +44,15 @@ public class CasualGameController implements Initializable {
 
     int score = 0;
 
+ 
+
     @FXML
     private JFXButton option1, option2, option3, option4;
 
     @FXML
     private TextArea questionDisplay;
     @FXML
-    private Label scoreDisplay, label1, label2, label3;
+    private Label scoreDisplay, label1, label2, label3, outOf, correct;
 
     @FXML
     private JFXButton previousScoreButton;
@@ -58,21 +62,24 @@ public class CasualGameController implements Initializable {
 
     @FXML
     private HBox scorebox;
+    int qsize;
 
     private ArrayList<Question> getQuestions(int catID) throws SQLException {
 
         SQLHandler sql = new SQLHandler();
         ArrayList<Question> allq = sql.getQnAFromCategory(catID);
 
-        if (allq.size() < 10) {
-            System.out.println("Less than 10 questions found");
+        if (allq.size() < 1) {
+            System.out.println("No questions found");
             return null;
         }
+        qsize = allq.size();
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < allq.size(); i++) {
             int x = getRandom(allq.size());
             if (questions.contains(allq.get(x))) {
                 i = i - 1;
+
             } else {
                 questions.add(allq.get(x));
             }
@@ -95,51 +102,61 @@ public class CasualGameController implements Initializable {
         return tempcategoryId;
 
     }
-
+   
     @FXML
     private void answer(ActionEvent event) {
         if (event.getSource().equals(option1)) {
             if (option1.getText().equals(questions.get(qNo - 1).getCorrectAnswer())) {
                 score++;
+             
+                correct.setText("" + score);
             }
             nextQuestion();
         } else if (event.getSource().equals(option2)) {
             if (option2.getText().equals(questions.get(qNo - 1).getCorrectAnswer())) {
                 score++;
+               
+                correct.setText("" + score);
             }
             nextQuestion();
         } else if (event.getSource().equals(option3)) {
             if (option3.getText().equals(questions.get(qNo - 1).getCorrectAnswer())) {
                 score++;
+               correct.setText("" + score);
             }
             nextQuestion();
         } else if (event.getSource().equals(option4)) {
             if (option4.getText().equals(questions.get(qNo - 1).getCorrectAnswer())) {
                 score++;
+               correct.setText("" + score);
             }
             nextQuestion();
         }
     }
 
     private void nextQuestion() {
-        Question q = questions.get(qNo);
-        questionDisplay.setText(q.getUserQuestion());
-        String[] answers = {q.getCorrectAnswer(), q.getWrongAnswer1(), q.getWrongAnswer2(), q.getWrongAnswer3()};
-        ArrayList num = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            int x = getRandom(4);
-            if (num.contains(x)) {
-                i = i - 1;
-            } else {
-                num.add(x);
+        if (qNo < qsize) {
+
+          
+            Question q = questions.get(qNo);
+            
+            questionDisplay.setText(q.getUserQuestion());
+            String[] answers = {q.getCorrectAnswer(), q.getWrongAnswer1(), q.getWrongAnswer2(), q.getWrongAnswer3()};
+            ArrayList num = new ArrayList<>();
+            for (int i = 0; i < 4; i++) {
+                int x = getRandom(4);
+                if (num.contains(x)) {
+                    i = i - 1;
+                } else {
+                    num.add(x);
+                }
             }
-        }
-        option1.setText(answers[(int) num.get(0)]);
-        option2.setText(answers[(int) num.get(1)]);
-        option3.setText(answers[(int) num.get(2)]);
-        option4.setText(answers[(int) num.get(3)]);
-        if (qNo < 9) {
+            option1.setText(answers[(int) num.get(0)]);
+            option2.setText(answers[(int) num.get(1)]);
+            option3.setText(answers[(int) num.get(2)]);
+            option4.setText(answers[(int) num.get(3)]);
             qNo++;
+
         } else {
             endQuiz();
         }
@@ -152,6 +169,7 @@ public class CasualGameController implements Initializable {
         option3.setVisible(false);
         option4.setVisible(false);
         questionDisplay.setVisible(false);
+        
 
         scoreDisplay.setVisible(true);
         scorebox.setVisible(true);
@@ -161,7 +179,7 @@ public class CasualGameController implements Initializable {
         previousScoreButton.setVisible(true);
         home.setVisible(true);
         scoreDisplay.setText("" + score);
-
+        outOf.setText("" + qsize);
     }
 
     @Override
@@ -188,10 +206,8 @@ public class CasualGameController implements Initializable {
             option3.setVisible(true);
             option4.setVisible(true);
             questionDisplay.setVisible(true);
-
-            System.out.println(questions);
-
-            System.out.println(catID);
+            correct.setVisible(true);
+            
 
             nextQuestion();
         } catch (SQLException ex) {
@@ -205,16 +221,7 @@ public class CasualGameController implements Initializable {
 
     @FXML
     public void home(ActionEvent event) throws IOException {
-        Parent root;
-        root = FXMLLoader.load(getClass().getResource("/UserHomePage/UserHome.fxml"));
-
-        Scene scene = new Scene(root);
-        Stage reg = new Stage(StageStyle.DECORATED);
-        reg.setTitle("Home");
-        reg.setScene(scene);
-
-        reg.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+        SwitchWindow.switchWindow((Stage) home.getScene().getWindow(), new UserHome(currentUser));
 
     }
 

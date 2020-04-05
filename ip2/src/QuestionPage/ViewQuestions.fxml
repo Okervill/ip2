@@ -17,10 +17,10 @@
                 <TableColumn fx:id="col_answer" prefWidth="120.0" text="Answer" />
             </columns>
         </TableView>
-        <JFXButton layoutX="42.0" layoutY="308.0" onAction="#addQuestion" prefHeight="44.0" prefWidth="97.0" text="Add" />
+        <JFXButton fx:id="addQuest" layoutX="42.0" layoutY="308.0" onAction="#addQuestion" prefHeight="44.0" prefWidth="97.0" text="Add" />
         <JFXButton fx:id="editQuest" layoutX="252.0" layoutY="308.0" onAction="#editQuestion" prefHeight="44.0" prefWidth="97.0" text="Edit" />
      
-        <JFXButton layoutX="477.0" layoutY="308.0" onAction="#deleteQuestion" prefHeight="44.0" prefWidth="97.0" text="Delete" />
+        <JFXButton fx:id="deleteQuest" layoutX="477.0" layoutY="308.0" onAction="#deleteQuestion" prefHeight="44.0" prefWidth="97.0" text="Delete" />
       <Button fx:id="home" layoutX="536.0" layoutY="7.0" mnemonicParsing="false" onAction="#homeButton" prefHeight="39.0" prefWidth="42.0" style="-fx-border-color: transparent;">
          <graphic>
             <ImageView fitHeight="33.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">

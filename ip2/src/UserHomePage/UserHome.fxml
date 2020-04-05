@@ -92,7 +92,7 @@
             <Font size="13.0" />
          </font>
       </Label>
-      <Button layoutX="380.0" layoutY="5.0" mnemonicParsing="false" onAction="#logoutButton" style="-fx-background-color: transparent; -fx-border-color: transparent;" styleClass="quest-button" text="Sign Out" textFill="WHITE" underline="true">
+      <Button fx:id = "logout" layoutX="380.0" layoutY="5.0" mnemonicParsing="false" onAction="#logoutButton" style="-fx-background-color: transparent; -fx-border-color: transparent;" styleClass="quest-button" text="Sign Out" textFill="WHITE" underline="true">
          <font>
             <Font size="15.0" />
          </font>
