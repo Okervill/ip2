@@ -13,6 +13,7 @@ import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import CompetitivePlay.CompetitivePlay;
 
 import LoginRegister.Login;
+import PreviousScore.PreviousScore;
 import ip2.SwitchWindow;
 import ip2.User;
 import java.io.IOException;
@@ -66,7 +67,7 @@ public class UserHomeController implements Initializable {
 
     @FXML
     private Label compLabel3;
- @FXML
+    @FXML
     private Button logout;
     @FXML
     private Button casualInfo;
@@ -122,22 +123,12 @@ public class UserHomeController implements Initializable {
             }
         });
     }
-    
-   @FXML
-    public void previousScore(ActionEvent event) throws IOException{
-      Parent root;
-        root = FXMLLoader.load(getClass().getResource("/PreviousScore/PreviousScore.fxml"));
 
-        Scene scene = new Scene(root);
-        Stage reg = new Stage(StageStyle.DECORATED);
-        reg.setTitle("Casual Play Selection");
-        reg.setScene(scene);
-
-        reg.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+    @FXML
+    public void previousScore(ActionEvent event) throws IOException {
+        SwitchWindow.switchWindow((Stage) leaderboard.getScene().getWindow(), new PreviousScore(currentUser));
     }
-    
-    
+
 //    @FXML
 //    private Button highScoreButton;
 //
@@ -148,12 +139,11 @@ public class UserHomeController implements Initializable {
 //         SwitchWindow.switchWindow((Stage) leaderboard.getScene().getWindow(), new PreviousScore(currentUser));
 //
 //    }
-
     @FXML
     public void casualPlay(ActionEvent event) throws IOException {
         SwitchWindow.switchWindow((Stage) casualPlayButton.getScene().getWindow(), new CasualGameSelector(currentUser));
 
-    } 
+    }
 
     @FXML
     public void logoutButton(ActionEvent event) throws IOException {

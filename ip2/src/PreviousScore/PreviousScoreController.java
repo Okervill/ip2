@@ -5,9 +5,16 @@
  */
 package PreviousScore;
 
+import LoginRegister.Login;
 import SQL.SQLHandler;
+import UserHomePage.UserHome;
+import UserHomePage.UserHomeController;
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import ip2.HighScore;
 import ip2.LeaderBoardScore;
+import ip2.SwitchWindow;
 import ip2.User;
 import java.io.IOException;
 import java.net.URL;
@@ -31,6 +38,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -41,9 +50,14 @@ import javafx.stage.StageStyle;
  */
 public class PreviousScoreController implements Initializable {
 
+    @FXML
+    private JFXHamburger hamburger;
+
+    @FXML
+    private JFXDrawer drawer;
     User currentUser;
     @FXML
-    private Label userLabel;
+    private Button home;
     @FXML
     private TableView<LeaderBoardScore> highScoreTable;
     @FXML
@@ -53,17 +67,8 @@ public class PreviousScoreController implements Initializable {
     ObservableList<LeaderBoardScore> data = FXCollections.observableArrayList();
 
     @FXML
-    public void backButton(ActionEvent event) throws IOException {
-        Parent root;
-        root = FXMLLoader.load(getClass().getResource("/UserHomePage/UserHome.fxml"));
-
-        Scene scene = new Scene(root);
-        Stage reg = new Stage(StageStyle.DECORATED);
-        reg.setTitle("Home");
-        reg.setScene(scene);
-
-        reg.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+    public void homeButton(ActionEvent event) throws IOException {
+        SwitchWindow.switchWindow((Stage) home.getScene().getWindow(), new UserHome(currentUser));
 
     }
 
@@ -72,24 +77,47 @@ public class PreviousScoreController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       Platform.runLater(() -> {
+        Platform.runLater(() -> {
             try {
                 //System.out.println(currentUser);
                 Connection conn = SQLHandler.getConn();
                 String sql = "select Username,UserScore from Users where isAdmin = \"" + "false" + "\"";
                 ResultSet rs = conn.createStatement().executeQuery(sql);
                 while (rs.next()) {
-                    data.add(new LeaderBoardScore(rs.getString("Username"),rs.getString("UserScore")));
+                    data.add(new LeaderBoardScore(rs.getString("Username"), rs.getString("UserScore")));
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(PreviousScoreController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-         name.setCellValueFactory(new PropertyValueFactory<>("name"));
-        name1.setCellValueFactory(new PropertyValueFactory<>("score"));
-        highScoreTable.setItems(data);
+            name.setCellValueFactory(new PropertyValueFactory<>("name"));
+            name1.setCellValueFactory(new PropertyValueFactory<>("score"));
+            highScoreTable.setItems(data);
 
-      });
+        });
+       
+        try {
+            VBox box = FXMLLoader.load(getClass().getResource("/UserHomePage/pullout.fxml"));
+            drawer.setSidePane(box);
+
+            HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
+            transition.setRate(-1);
+            hamburger.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
+                transition.setRate(transition.getRate() * -1);
+                transition.play();
+
+                if (drawer.isOpened()) {
+                    drawer.close();
+                    drawer.setDisable(true);
+                } else {
+                    drawer.open();
+                    drawer.setDisable(false);
+                }
+            }
+            );
+        } catch (IOException ex) {
+            Logger.getLogger(UserHomeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void setData(User user) {
