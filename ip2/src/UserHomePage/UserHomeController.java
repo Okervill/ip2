@@ -11,6 +11,7 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import CompetitivePlay.CompetitivePlay;
+
 import LoginRegister.Login;
 import ip2.SwitchWindow;
 import ip2.User;
@@ -53,7 +54,7 @@ public class UserHomeController implements Initializable {
     @FXML
     private JFXButton competitivePlayButton;
     @FXML
-    private JFXButton casualPlayButton;
+    private JFXButton casualPlayButton, leaderboard;
     @FXML
     private Label casuallabel1;
 
@@ -123,9 +124,9 @@ public class UserHomeController implements Initializable {
     }
     
     @FXML
-    public void previousScore(ActionEvent event) throws IOException{
+    public void highScore(ActionEvent event) throws IOException{
       Parent root;
-        root = FXMLLoader.load(getClass().getResource("/PreviousScore/PreviousScore.fxml"));
+        root = FXMLLoader.load(getClass().getClassLoader().getResource("/Resources/HighScoreView.fxml"));
 
         Scene scene = new Scene(root);
         Stage reg = new Stage(StageStyle.DECORATED);
@@ -144,7 +145,7 @@ public class UserHomeController implements Initializable {
 //    public void highscoreButton(ActionEvent event) throws IOException {     
 //        //System.out.println(currentUser);
 //
-//         SwitchWindow.switchWindow((Stage) highScoreButton.getScene().getWindow(), new PreviousScore(currentUser));
+//         SwitchWindow.switchWindow((Stage) leaderboard.getScene().getWindow(), new PreviousScore(currentUser));
 //
 //    }
 

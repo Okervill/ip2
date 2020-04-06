@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package HighScore;
+package HighScoreTable;
 
 import ip2.User;
 import javafx.application.Application;
@@ -17,11 +17,11 @@ import javafx.stage.Stage;
  *
  * @author Patrick
  */
-public class HighScore extends Application {
+public class HighScorePage extends Application {
 
     User currentUser;
 
-    public HighScore(User user) {
+    public HighScorePage(User user) {
         currentUser = user;
     }
 
