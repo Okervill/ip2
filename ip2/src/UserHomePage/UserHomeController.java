@@ -123,10 +123,10 @@ public class UserHomeController implements Initializable {
         });
     }
     
-    @FXML
-    public void highScore(ActionEvent event) throws IOException{
+   @FXML
+    public void previousScore(ActionEvent event) throws IOException{
       Parent root;
-        root = FXMLLoader.load(getClass().getClassLoader().getResource("/Resources/HighScoreView.fxml"));
+        root = FXMLLoader.load(getClass().getResource("/PreviousScore/PreviousScore.fxml"));
 
         Scene scene = new Scene(root);
         Stage reg = new Stage(StageStyle.DECORATED);

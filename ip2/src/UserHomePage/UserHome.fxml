@@ -96,11 +96,9 @@
          <font>
             <Font size="15.0" />
          </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
+        
       </Button>
-      <JFXButton fx:id="leaderboard" layoutX="5.0" layoutY="355.0" onAction="#highScore" style="-fx-border-color: transparent;">
+      <JFXButton fx:id="leaderboard" layoutX="5.0" layoutY="355.0" onAction="#previousScore" style="-fx-border-color: transparent;">
          <graphic>
             <ImageView fitHeight="41.0" fitWidth="47.0" opacity="0.49" pickOnBounds="true" preserveRatio="true">
                <image>
