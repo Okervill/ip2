@@ -7,19 +7,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PreviousScore.PreviousScoreController">
+<AnchorPane id="AnchorPane" prefHeight="418.0" prefWidth="600.0" stylesheets="@../Resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PreviousScore.PreviousScoreController">
    <children>
-      <Label fx:id="userLabel" layoutX="14.0" layoutY="-3.0" prefHeight="34.0" prefWidth="323.0" text="Welcome to the quiz!">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
       <Button layoutX="541.0" layoutY="2.0" mnemonicParsing="false" onAction="#backButton" text="Back" />
-        <TableView fx:id="highScoreTable" layoutX="134.0" layoutY="56.0" prefHeight="206.0" prefWidth="341.0">
+        <TableView fx:id="highScoreTable" layoutX="85.0" layoutY="51.0" prefHeight="298.0" prefWidth="430.0">
         <columns>
-          <TableColumn fx:id="name" prefWidth="170.0" text="Players" />
-            <TableColumn fx:id="name1" prefWidth="170.0" text="User Score" />
+          <TableColumn fx:id="name" prefWidth="214.5" text="Players" />
+            <TableColumn fx:id="name1" prefWidth="214.5" text="User Score" />
         </columns>
       </TableView>
+      <Label layoutX="245.0" layoutY="11.0" text="High Scores" textFill="WHITE">
+         <font>
+            <Font name="SansSerif Bold" size="19.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
