@@ -475,7 +475,7 @@ public class SQLHandler {
             count = rs.getInt(1);
         }
         if (count == 0) {
-            createCompTotalScore(id);
+            createCompQuiz(id);
         }
         return count;
     }
@@ -491,7 +491,7 @@ public class SQLHandler {
         query.close();
     }
 
-    public void createCompTotalScore(int id) throws SQLException {
+    public void createCompQuiz(int id) throws SQLException {
         String sql = "INSERT INTO CompetitiveBank (CompetitiveBankID, 'Quiz 1') VALUES(?,?)";
         query = conn.prepareStatement(sql);
 
