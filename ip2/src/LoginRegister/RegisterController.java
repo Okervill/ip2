@@ -6,6 +6,7 @@
 package LoginRegister;
 
 import SQL.SQLHandler;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import ip2.Hash;
@@ -44,6 +45,8 @@ public class RegisterController implements Initializable {
     private Button registerButton;
     @FXML
     private Button loginButton;
+    @FXML
+    private JFXCheckBox check13;
 
     /**
      * Initializes the controller class.
@@ -57,7 +60,10 @@ public class RegisterController implements Initializable {
     private void register(ActionEvent event) throws SQLException {
         String firstname, surname, username, password;
         firstname = getFirstname.getText();
+        firstname = firstname.substring(0, 1).toUpperCase() + firstname.substring(1).toLowerCase();
+
         surname = getSurname.getText();
+        surname = surname.substring(0, 1).toUpperCase() + surname.substring(1).toLowerCase();
         username = getUsername.getText();
         password = getPassword.getText();
 
@@ -66,7 +72,7 @@ public class RegisterController implements Initializable {
         allUsers = sql.getAllUsers();
         Pattern pattern = Pattern.compile("[^A-Za-z0-9]");
         Matcher match = pattern.matcher(username);
-        Matcher match2=pattern.matcher(password);
+        Matcher match2 = pattern.matcher(password);
         boolean valUser = match.find();
         boolean valPass = match2.find();
 
@@ -78,34 +84,36 @@ public class RegisterController implements Initializable {
             return;
         }
 
-        if (valUser==true){
+        if (valUser == true) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Username Error");
             alert.setHeaderText("Username cannot contain special characters, please choose another");
             alert.showAndWait();
             return;
-        }    
-        if (valPass==true){
+        }
+        if (valPass == true) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Password Error");
             alert.setHeaderText("Password cannot contain special characters, please choose another");
             alert.showAndWait();
         }
-        if (password.length()<8||password.length()>32){
+        if (password.length() < 8 || password.length() > 32) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Password Error");
             alert.setHeaderText("Password must be between 8-32 characters");
             alert.showAndWait();
         }
-         if (username.length()<4){
+        if (username.length() < 4) {
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Username Error");
             alert.setHeaderText("Username must be at least 4 characters");
             alert.showAndWait();
         }
-        
-        if (firstname.isEmpty() || surname.isEmpty() || username.isEmpty() || password.isEmpty()) {
+
+        if (firstname.isEmpty() || surname.isEmpty() || username.isEmpty() || password.isEmpty() || !check13.isSelected()) {
             registerFailed();
+
         } else {
             Hash h = new Hash();
             password = h.hash(password);
@@ -124,6 +132,7 @@ public class RegisterController implements Initializable {
         Shaker shake = new Shaker(registerButton);
         shake.shake();
         getFirstname.requestFocus();
+        getUsername.getStyleClass().add("wrong");
     }
 
     @FXML

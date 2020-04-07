@@ -27,14 +27,13 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -82,46 +81,12 @@ public class UserHomeController implements Initializable {
     private Label casualLabel2;
 
     @FXML
-    public void handleMouseEvents() {
-        casualInfo.addEventHandler(MouseEvent.MOUSE_ENTERED,
-                new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-                casuallabel1.setVisible(true);
-                casualLabel2.setVisible(true);
-                casualLabel3.setVisible(true);
-            }
-        });
+    private Pane pane;
+    private Stage myStage;
 
-        casualInfo.addEventHandler(MouseEvent.MOUSE_EXITED,
-                new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-                casuallabel1.setVisible(false);
-                casualLabel2.setVisible(false);
-                casualLabel3.setVisible(false);
-            }
-        });
-
-        compInfo.addEventHandler(MouseEvent.MOUSE_ENTERED,
-                new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-                compLabel1.setVisible(true);
-                compLabel2.setVisible(true);
-                compLabel3.setVisible(true);
-            }
-        });
-
-        compInfo.addEventHandler(MouseEvent.MOUSE_EXITED,
-                new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-                compLabel1.setVisible(false);
-                compLabel2.setVisible(false);
-                compLabel3.setVisible(false);
-            }
-        });
+    @FXML
+    public void setStage(Stage stage) {
+        myStage = stage;
     }
 
     @FXML
@@ -165,7 +130,36 @@ public class UserHomeController implements Initializable {
 
             @Override
             public void run() {
+
                 userLabel.setText(currentUser.getFirstname());
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserHomePage/pullout.fxml"));
+                    VBox box = loader.load();
+                    drawer.setSidePane(box);
+                    drawerController controller = loader.getController();
+
+                    controller.setData(currentUser);
+
+                    HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
+                    transition.setRate(-1);
+                    hamburger.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
+                        transition.setRate(transition.getRate() * -1);
+                        transition.play();
+
+                        if (drawer.isOpened()) {
+                            drawer.close();
+                            drawer.setDisable(true);
+                        } else {
+                            drawer.open();
+                            drawer.setDisable(false);
+
+                        }
+                    }
+                    );
+                } catch (IOException ex) {
+                    Logger.getLogger(UserHomeController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
         });
 
@@ -176,28 +170,6 @@ public class UserHomeController implements Initializable {
         compLabel1.setVisible(false);
         compLabel2.setVisible(false);
         compLabel3.setVisible(false);
-        try {
-            VBox box = FXMLLoader.load(getClass().getResource("pullout.fxml"));
-            drawer.setSidePane(box);
-
-            HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
-            transition.setRate(-1);
-            hamburger.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
-                transition.setRate(transition.getRate() * -1);
-                transition.play();
-
-                if (drawer.isOpened()) {
-                    drawer.close();
-                    drawer.setDisable(true);
-                } else {
-                    drawer.open();
-                    drawer.setDisable(false);
-                }
-            }
-            );
-        } catch (IOException ex) {
-            Logger.getLogger(UserHomeController.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
         handleMouseEvents();
 
@@ -211,6 +183,119 @@ public class UserHomeController implements Initializable {
     @FXML
     private void competitvePlay(ActionEvent event) {
         SwitchWindow.switchWindow((Stage) competitivePlayButton.getScene().getWindow(), new CompetitivePlay(currentUser));
+    }
+
+    @FXML
+    public void handleMouseEvents() {
+        hamburger.addEventHandler(MouseEvent.MOUSE_ENTERED,
+                new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+
+                myStage.getScene().setCursor(Cursor.HAND);
+            }
+        });
+
+        hamburger.addEventHandler(MouseEvent.MOUSE_EXITED,
+                new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+
+                myStage.getScene().setCursor(Cursor.DEFAULT);
+            }
+        });
+
+        casualPlayButton.addEventHandler(MouseEvent.MOUSE_ENTERED,
+                new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+
+                myStage.getScene().setCursor(Cursor.HAND);
+            }
+        });
+
+        casualPlayButton.addEventHandler(MouseEvent.MOUSE_EXITED,
+                new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+
+                myStage.getScene().setCursor(Cursor.DEFAULT);
+            }
+        });
+        competitivePlayButton.addEventHandler(MouseEvent.MOUSE_ENTERED,
+                new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+
+                myStage.getScene().setCursor(Cursor.HAND);
+            }
+        });
+
+        competitivePlayButton.addEventHandler(MouseEvent.MOUSE_EXITED,
+                new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+
+                myStage.getScene().setCursor(Cursor.DEFAULT);
+            }
+        });
+
+        logout.addEventHandler(MouseEvent.MOUSE_ENTERED,
+                new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+
+                myStage.getScene().setCursor(Cursor.HAND);
+            }
+        });
+
+        logout.addEventHandler(MouseEvent.MOUSE_EXITED,
+                new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+
+                myStage.getScene().setCursor(Cursor.DEFAULT);
+            }
+        });
+        casualInfo.addEventHandler(MouseEvent.MOUSE_ENTERED,
+                new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                casuallabel1.setVisible(true);
+                casualLabel2.setVisible(true);
+                casualLabel3.setVisible(true);
+            }
+        });
+
+        casualInfo.addEventHandler(MouseEvent.MOUSE_EXITED,
+                new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                casuallabel1.setVisible(false);
+                casualLabel2.setVisible(false);
+                casualLabel3.setVisible(false);
+            }
+        });
+
+        compInfo.addEventHandler(MouseEvent.MOUSE_ENTERED,
+                new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                compLabel1.setVisible(true);
+                compLabel2.setVisible(true);
+                compLabel3.setVisible(true);
+            }
+        });
+
+        compInfo.addEventHandler(MouseEvent.MOUSE_EXITED,
+                new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                compLabel1.setVisible(false);
+                compLabel2.setVisible(false);
+                compLabel3.setVisible(false);
+            }
+        });
     }
 
 }

@@ -7,7 +7,11 @@ package CompetitivePlay;
 
 import SQL.SQLHandler;
 import UserHomePage.UserHome;
+import UserHomePage.UserHomeController;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import ip2.Question;
 import ip2.SwitchWindow;
 import ip2.User;
@@ -32,7 +36,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -45,6 +51,13 @@ import javafx.stage.StageStyle;
 public class CompetitivePlayController implements Initializable {
 
     User currentUser;
+
+    @FXML
+    private JFXHamburger hamburger;
+
+    @FXML
+    private JFXDrawer drawer;
+
     @FXML
     private JFXButton option1, option2, option3, option4, startButton, returnhome, previousScoreButton, finishButton, highscore;
 
@@ -80,8 +93,31 @@ public class CompetitivePlayController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        try {
+            drawer.setDisable(true);
+            VBox box = FXMLLoader.load(getClass().getResource("/UserHomePage/pullout.fxml"));
+            drawer.setSidePane(box);
 
+            HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
+            transition.setRate(-1);
+            hamburger.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
+                transition.setRate(transition.getRate() * -1);
+                transition.play();
+
+                if (drawer.isOpened()) {
+                    drawer.close();
+                    drawer.setDisable(true);
+                } else {
+                    drawer.open();
+                    drawer.setDisable(false);
+                }
+            }
+            );
+        } catch (IOException ex) {
+            Logger.getLogger(UserHomeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         startButton.setVisible(true);
+        
         finishButton.setVisible(false);
         option1.setVisible(false);
         option2.setVisible(false);
@@ -122,6 +158,9 @@ public class CompetitivePlayController implements Initializable {
         if (questions.isEmpty()) {
             return;
         }
+        drawer.setDisable(true);
+        drawer.close();
+        hamburger.setVisible(false);
         startButton.setVisible(false);
         option1.setVisible(true);
         option2.setVisible(true);

@@ -32,17 +32,27 @@ import javafx.stage.StageStyle;
  */
 public class drawerController implements Initializable {
 
-    User currentUser;
+     User currentUser;
     @FXML
     private JFXButton competitive;
 
     @FXML
-    private JFXButton casual;
+    private JFXButton casual, account;
 
     @FXML
     public void competitiveLoad(ActionEvent event) throws IOException {
+        
         SwitchWindow.switchWindow((Stage) competitive.getScene().getWindow(), new CompetitivePlay(currentUser));
+        
+            
+        
     }
+    @FXML
+    public void accountLoad(ActionEvent event) throws IOException {
+     
+       SwitchWindow.switchWindow((Stage) account.getScene().getWindow(), new Account(currentUser));
+    }
+     
     
      @FXML
     public void casualLoad(ActionEvent event) throws IOException {
@@ -65,6 +75,12 @@ public class drawerController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+    }
+    
+     public void setData(User user) {
+        this.currentUser = user;
+       
 
     }
 

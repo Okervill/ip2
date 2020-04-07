@@ -142,8 +142,9 @@ public class CasualPlaySelectionController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        drawer.setDisable(true);
+       
         try {
+             drawer.setDisable(true);
             VBox box = FXMLLoader.load(getClass().getResource("/UserHomePage/pullout.fxml"));
             drawer.setSidePane(box);
 

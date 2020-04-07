@@ -22,6 +22,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.SplitPane;
 import javafx.stage.Stage;
 
 /**
@@ -42,20 +43,25 @@ public class LoginController implements Initializable {
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
+
+      
     }
 
     @FXML
     private void login(ActionEvent event) throws SQLException {
-        String username = inputUser.getText();
-        String password = inputPass.getText();
+        String username = inputUser.getText().trim();
+        String password = inputPass.getText().trim();
 
         if (username.isEmpty() || password.isEmpty()) {
+            inputUser.getStyleClass().add("wrong");
             return;
         }
 
@@ -78,11 +84,11 @@ public class LoginController implements Initializable {
         inputPass.setText("");
         inputUser.requestFocus();
     }
-    
-    public void login(String user) throws SQLException{
+
+    public void login(String user) throws SQLException {
         User currentUser = new User(user);
         String userType = currentUser.getUserType();
-        if(userType.equals("true")){
+        if (userType.equals("true")) {
             SwitchWindow.switchWindow((Stage) loginButton.getScene().getWindow(), new AdminHome(currentUser));
         } else {
             SwitchWindow.switchWindow((Stage) loginButton.getScene().getWindow(), new UserHome(currentUser));
@@ -91,14 +97,12 @@ public class LoginController implements Initializable {
 
     @FXML
     private void loadRegister(ActionEvent event) {
-            SwitchWindow.switchWindow((Stage) registerButton.getScene().getWindow(), new RegisterUser());
+        SwitchWindow.switchWindow((Stage) registerButton.getScene().getWindow(), new RegisterUser());
     }
 
     @FXML
     private void swapFocusPassword(ActionEvent event) {
         inputPass.requestFocus();
     }
-    
-    
 
 }

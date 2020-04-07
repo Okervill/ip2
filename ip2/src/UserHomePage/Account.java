@@ -17,20 +17,20 @@ import javafx.stage.Stage;
  *
  * @author Patrick
  */
-public class UserHome extends Application {
+public class Account extends Application {
 
     User currentUser;
 
     @Override
     public void start(Stage stage) throws Exception {
-        stage.getIcons().add(new Image("/Resources/quiz.png"));
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserHomePage/UserHome.fxml"));
+stage.getIcons().add(new Image("/Resources/quiz.png"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserHomePage/account.fxml"));
         Parent root = (Parent) loader.load();
 
-        UserHomeController controller = loader.getController();
+        AccountController controller = loader.getController();
 
         controller.setData(currentUser);
-        controller.setStage(stage);
+
         Scene scene = new Scene(root);
 
         stage.setScene(scene);
@@ -40,11 +40,9 @@ public class UserHome extends Application {
         stage.centerOnScreen();
 
     }
-
-    public UserHome() {
-    }
-
-    public UserHome(User user) {
+    
+    
+    public Account(User user){
         currentUser = user;
     }
 }

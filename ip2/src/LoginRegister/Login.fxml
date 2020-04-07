@@ -10,9 +10,9 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane dividerPositions="0.6086956521739131" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../Resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginRegister.LoginController">
+<SplitPane dividerPositions="0.6086956521739131" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"  prefHeight="400.0" prefWidth="600.0" stylesheets="@../Resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginRegister.LoginController">
   <items>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="334.0" style="-fx-background-color: e8a87c;">
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="334.0" style="-fx-background-color: e8a87c;" SplitPane.resizableWithParent="false">
          <children>
             <JFXTextField fx:id="inputUser" labelFloat="true" layoutX="90.0" layoutY="131.0" onAction="#swapFocusPassword" prefHeight="25.0" prefWidth="178.0" promptText="Enter Username" />
             <JFXPasswordField fx:id="inputPass" labelFloat="true" layoutX="90.0" layoutY="209.0" onAction="#login" prefHeight="25.0" prefWidth="178.0" promptText="Enter Password" />
@@ -32,7 +32,7 @@
             <Line endX="78.0" layoutX="344.0" layoutY="53.0" startX="-85.0" stroke="#a8d6c9" strokeWidth="1.3" />
             <Line endX="25.0" layoutX="72.0" layoutY="53.0" startX="-85.0" stroke="#a8d6c9" strokeWidth="1.3" />
          </children></AnchorPane>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: white;" stylesheets="@../Resources/stylesheet.css">
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: white;" stylesheets="@../Resources/stylesheet.css" SplitPane.resizableWithParent="false">
          <children>
             <Label layoutX="53.0" layoutY="190.0" text="Don't have an account?" textFill="#605959" />
             <Button fx:id="registerButton" layoutX="57.0" layoutY="225.0" mnemonicParsing="false" onAction="#loadRegister" prefHeight="42.0" prefWidth="116.0" style="-fx-background-radius: 100; -fx-background-color: a8d6c9;" text="Register" textFill="WHITE">
