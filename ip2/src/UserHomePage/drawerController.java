@@ -7,6 +7,8 @@ package UserHomePage;
 
 import CasualPlay.CasualGameSelector;
 import CompetitivePlay.CompetitivePlay;
+import PreviousScore.PreviousScore;
+import ScoreHistory.ScoreHistory;
 import com.jfoenix.controls.JFXButton;
 import ip2.SwitchWindow;
 import ip2.User;
@@ -15,13 +17,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  *
@@ -34,7 +31,7 @@ public class drawerController implements Initializable {
     private JFXButton competitive;
 
     @FXML
-    private JFXButton casual, account;
+    private JFXButton casual, account, previousscore, highscore;
 
     @FXML
     public void competitiveLoad(ActionEvent event) throws IOException {
@@ -57,17 +54,13 @@ public class drawerController implements Initializable {
     }
     
     @FXML
+    public void highScore(ActionEvent event) throws IOException{
+      SwitchWindow.switchWindow((Stage) highscore.getScene().getWindow(), new ScoreHistory(currentUser));
+    }
+    
+     @FXML
     public void previousScore(ActionEvent event) throws IOException{
-      Parent root;
-        root = FXMLLoader.load(getClass().getResource("/PreviousScore/PreviousScore.fxml"));
-
-        Scene scene = new Scene(root);
-        Stage reg = new Stage(StageStyle.DECORATED);
-        reg.setTitle("Casual Play Selection");
-        reg.setScene(scene);
-
-        reg.show();
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+      SwitchWindow.switchWindow((Stage) highscore.getScene().getWindow(), new PreviousScore(currentUser));
     }
 
     @Override

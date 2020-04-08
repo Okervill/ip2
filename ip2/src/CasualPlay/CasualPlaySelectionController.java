@@ -9,6 +9,7 @@ import CompetitivePlay.CompetitivePlay;
 import SQL.SQLHandler;
 import UserHomePage.UserHome;
 import UserHomePage.UserHomeController;
+import UserHomePage.drawerController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
@@ -28,6 +29,7 @@ import java.util.ResourceBundle;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -115,12 +117,11 @@ public class CasualPlaySelectionController implements Initializable {
         ArrayList<Question> allq = sql.getQnAFromCategory(catID, currentUser.getCasualBankID());
 
         if (allq.size() < 1) {
-            sql.deleteAnQuestions(catID,currentUser.getCasualBankID());
+            sql.deleteAnQuestions(catID, currentUser.getCasualBankID());
 
-        } 
-        
+        }
+
         SwitchWindow.switchWindow((Stage) playGame.getScene().getWindow(), new CasualGame(currentUser));
-       
 
     }
 
@@ -138,30 +139,39 @@ public class CasualPlaySelectionController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       
-        try {
-             drawer.setDisable(true);
-            VBox box = FXMLLoader.load(getClass().getResource("/UserHomePage/pullout.fxml"));
-            drawer.setSidePane(box);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserHomePage/pullout.fxml"));
+                    VBox box = loader.load();
+                    drawer.setSidePane(box);
+                    drawerController controller = loader.getController();
 
-            HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
-            transition.setRate(-1);
-            hamburger.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
-                transition.setRate(transition.getRate() * -1);
-                transition.play();
+                    controller.setData(currentUser);
 
-                if (drawer.isOpened()) {
-                    drawer.close();
-                    drawer.setDisable(true);
-                } else {
-                    drawer.open();
-                    drawer.setDisable(false);
+                    HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
+                    transition.setRate(-1);
+                    hamburger.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
+                        transition.setRate(transition.getRate() * -1);
+                        transition.play();
+
+                        if (drawer.isOpened()) {
+                            drawer.close();
+                            drawer.setDisable(true);
+                        } else {
+                            drawer.open();
+                            drawer.setDisable(false);
+
+                        }
+                    }
+                    );
+                } catch (IOException ex) {
+                    Logger.getLogger(UserHomeController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            );
-        } catch (IOException ex) {
-            Logger.getLogger(UserHomeController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        });
         try {
 
             Connection conn = SQLHandler.getConn();

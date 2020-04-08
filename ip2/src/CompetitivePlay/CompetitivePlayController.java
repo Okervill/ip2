@@ -8,6 +8,7 @@ package CompetitivePlay;
 import SQL.SQLHandler;
 import UserHomePage.UserHome;
 import UserHomePage.UserHomeController;
+import UserHomePage.drawerController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
@@ -24,6 +25,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -93,29 +95,39 @@ public class CompetitivePlayController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-            drawer.setDisable(true);
-            VBox box = FXMLLoader.load(getClass().getResource("/UserHomePage/pullout.fxml"));
-            drawer.setSidePane(box);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserHomePage/pullout.fxml"));
+                    VBox box = loader.load();
+                    drawer.setSidePane(box);
+                    drawerController controller = loader.getController();
 
-            HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
-            transition.setRate(-1);
-            hamburger.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
-                transition.setRate(transition.getRate() * -1);
-                transition.play();
+                    controller.setData(currentUser);
 
-                if (drawer.isOpened()) {
-                    drawer.close();
-                    drawer.setDisable(true);
-                } else {
-                    drawer.open();
-                    drawer.setDisable(false);
+                    HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
+                    transition.setRate(-1);
+                    hamburger.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
+                        transition.setRate(transition.getRate() * -1);
+                        transition.play();
+
+                        if (drawer.isOpened()) {
+                            drawer.close();
+                            drawer.setDisable(true);
+                        } else {
+                            drawer.open();
+                            drawer.setDisable(false);
+
+                        }
+                    }
+                    );
+                } catch (IOException ex) {
+                    Logger.getLogger(UserHomeController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            );
-        } catch (IOException ex) {
-            Logger.getLogger(UserHomeController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        });
         startButton.setVisible(true);
         
         finishButton.setVisible(false);

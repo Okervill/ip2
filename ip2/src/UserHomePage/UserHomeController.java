@@ -169,7 +169,7 @@ public class UserHomeController implements Initializable {
             }
         });
 
-        drawer.setDisable(true);
+   
         casuallabel1.setVisible(false);
         casualLabel2.setVisible(false);
         casualLabel3.setVisible(false);

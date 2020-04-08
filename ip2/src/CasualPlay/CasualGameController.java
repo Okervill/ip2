@@ -227,6 +227,7 @@ public class CasualGameController implements Initializable {
             Logger.getLogger(CasualGameController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+            
             });
     }
 

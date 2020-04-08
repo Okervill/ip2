@@ -8,6 +8,7 @@ package ScoreHistory;
 import SQL.SQLHandler;
 import UserHomePage.UserHome;
 import UserHomePage.UserHomeController;
+import UserHomePage.drawerController;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
@@ -31,6 +32,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.SortType;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
@@ -73,9 +75,9 @@ public class ScoreHistoryController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
             try {
-             //  System.out.println(currentUser.getCompetitiveBankID());
+                //  System.out.println(currentUser.getCompetitiveBankID());
                 Connection conn = SQLHandler.getConn();
-                String sql = "select quizNo,score from comp_"+ currentUser.getCompetitiveBankID() +"";
+                String sql = "select quizNo,score from comp_" + currentUser.getCompetitiveBankID() + "";
                 System.out.println(sql);
                 ResultSet rs = conn.createStatement().executeQuery(sql);
                 while (rs.next()) {
@@ -87,32 +89,41 @@ public class ScoreHistoryController implements Initializable {
 
             n.setCellValueFactory(new PropertyValueFactory<>("quizNo"));
             n1.setCellValueFactory(new PropertyValueFactory<>("score"));
-            highScoreTable1.setItems(data);
+          
+           highScoreTable1.setItems(data);
+            n.setSortType(SortType.DESCENDING);
+            highScoreTable1.getSortOrder().add(n);
+
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserHomePage/pullout.fxml"));
+                VBox box = loader.load();
+                drawer.setSidePane(box);
+                drawerController controller = loader.getController();
+
+                controller.setData(currentUser);
+
+                HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
+                transition.setRate(-1);
+                hamburger.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
+                    transition.setRate(transition.getRate() * -1);
+                    transition.play();
+
+                    if (drawer.isOpened()) {
+                        drawer.close();
+                        drawer.setDisable(true);
+                    } else {
+                        drawer.open();
+                        drawer.setDisable(false);
+
+                    }
+                }
+                );
+            } catch (IOException ex) {
+                Logger.getLogger(UserHomeController.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         });
-       
-        try {
-            VBox box = FXMLLoader.load(getClass().getResource("/UserHomePage/pullout.fxml"));
-            drawer.setSidePane(box);
 
-            HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
-            transition.setRate(-1);
-            hamburger.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
-                transition.setRate(transition.getRate() * -1);
-                transition.play();
-
-                if (drawer.isOpened()) {
-                    drawer.close();
-                    drawer.setDisable(true);
-                } else {
-                    drawer.open();
-                    drawer.setDisable(false);
-                }
-            }
-            );
-        } catch (IOException ex) {
-            Logger.getLogger(UserHomeController.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     public void setData(User user) {
