@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PreviousScore;
+package ScoreHistory;
 
-import LoginRegister.Login;
 import SQL.SQLHandler;
 import UserHomePage.UserHome;
 import UserHomePage.UserHomeController;
@@ -13,7 +12,6 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import ip2.HighScore;
-import ip2.LeaderBoardScore;
 import ip2.SwitchWindow;
 import ip2.User;
 import java.io.IOException;
@@ -31,24 +29,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
  *
  * @author Patrick
  */
-public class PreviousScoreController implements Initializable {
+public class ScoreHistoryController implements Initializable {
 
     @FXML
     private JFXHamburger hamburger;
@@ -59,12 +53,12 @@ public class PreviousScoreController implements Initializable {
     @FXML
     private Button home;
     @FXML
-    private TableView<LeaderBoardScore> highScoreTable;
+    private TableView<HighScore> highScoreTable1;
     @FXML
-    private TableColumn<LeaderBoardScore, String> name;
+    private TableColumn<HighScore, String> n;
     @FXML
-    private TableColumn<LeaderBoardScore, String> name1;
-    ObservableList<LeaderBoardScore> data = FXCollections.observableArrayList();
+    private TableColumn<HighScore, String> n1;
+    ObservableList<HighScore> data = FXCollections.observableArrayList();
 
     @FXML
     public void homeButton(ActionEvent event) throws IOException {
@@ -79,20 +73,21 @@ public class PreviousScoreController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
             try {
-               //System.out.println(currentUser+"ddddd");
+             //  System.out.println(currentUser.getCompetitiveBankID());
                 Connection conn = SQLHandler.getConn();
-                String sql = "select Username,UserScore from Users where isAdmin = \"" + "false" + "\"";
+                String sql = "select quizNo,score from comp_"+ currentUser.getCompetitiveBankID() +"";
+                System.out.println(sql);
                 ResultSet rs = conn.createStatement().executeQuery(sql);
                 while (rs.next()) {
-                    data.add(new LeaderBoardScore(rs.getString("Username"), rs.getString("UserScore")));
+                    data.add(new HighScore(rs.getString("quizNo"), rs.getString("score")));
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(PreviousScoreController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ScoreHistoryController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            name.setCellValueFactory(new PropertyValueFactory<>("name"));
-            name1.setCellValueFactory(new PropertyValueFactory<>("score"));
-            highScoreTable.setItems(data);
+            n.setCellValueFactory(new PropertyValueFactory<>("quizNo"));
+            n1.setCellValueFactory(new PropertyValueFactory<>("score"));
+            highScoreTable1.setItems(data);
 
         });
        
