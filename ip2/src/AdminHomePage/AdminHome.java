@@ -23,13 +23,13 @@ public class AdminHome extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-stage.getIcons().add(new Image("/Resources/quiz.png"));
+        stage.getIcons().add(new Image("/Resources/quiz.png"));
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/AdminHomePage/AdminHome.fxml"));
         Parent root = (Parent) loader.load();
 
         AdminHomeController controller = loader.getController();
         controller.setData(currentUser);
-
+        controller.setStage(stage);
         Scene scene = new Scene(root);
 
         stage.setScene(scene);
