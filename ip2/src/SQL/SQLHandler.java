@@ -193,7 +193,7 @@ public class SQLHandler {
     //------------------------------------//
     public ArrayList<Question> getQnAFromCategory(int categoryID, int id) throws SQLException {
         ArrayList<Question> output = new ArrayList<>();
-        String sql = "SELECT * FROM Questions WHERE CategoryID='" + categoryID + "'";
+        String sql = "SELECT * FROM Questions WHERE CategoryID='" + categoryID + "' AND QuestionID NOT IN (SELECT QuestionID from casual_"+id+")";
 
 //        = \"" + searchQuery + "\""
         query = conn.prepareStatement(sql);
@@ -528,5 +528,11 @@ public class SQLHandler {
         query.executeUpdate();
         query.close();
     }
-    
+    public void deleteAnQuestions(int catID,int id) throws SQLException{
+        String sql = "DELETE from casual_" + id + " WHERE CategoryID='" + catID + "'";
+        query = conn.prepareStatement(sql);
+
+        query.executeUpdate();
+        query.close();
+    }
 }

@@ -115,16 +115,12 @@ public class CasualPlaySelectionController implements Initializable {
         ArrayList<Question> allq = sql.getQnAFromCategory(catID, currentUser.getCasualBankID());
 
         if (allq.size() < 1) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("No questions");
-            alert.setHeaderText("Sorry, there has been no questions found in this category!");
-            alert.showAndWait();
-            return;
+            sql.deleteAnQuestions(catID,currentUser.getCasualBankID());
 
-        } else {
-
-            SwitchWindow.switchWindow((Stage) playGame.getScene().getWindow(), new CasualGame(currentUser));
-        }
+        } 
+        
+        SwitchWindow.switchWindow((Stage) playGame.getScene().getWindow(), new CasualGame(currentUser));
+       
 
     }
 

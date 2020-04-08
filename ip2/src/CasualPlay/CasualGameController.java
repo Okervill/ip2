@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -65,7 +66,7 @@ public class CasualGameController implements Initializable {
     int qsize;
 
     
-    private ArrayList<Question> getQuestions(int catID) throws SQLException {
+    private ArrayList<Question> getQuestions(int catID, int userId) throws SQLException {
 
         SQLHandler sql = new SQLHandler();
         
@@ -194,7 +195,9 @@ public class CasualGameController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+    Platform.runLater(new Runnable() {
+        @Override
+            public void run() {
         try {
             scoreDisplay.setVisible(false);
             scorebox.setVisible(false);
@@ -206,7 +209,7 @@ public class CasualGameController implements Initializable {
 
             int catID = fetchCatInfo(categorySelected);
 
-            ArrayList<Question> questions = getQuestions(catID);
+            questions = getQuestions(catID, currentUser.getCasualBankID());
             if (questions.isEmpty()) {
                 return;
             }
@@ -223,6 +226,8 @@ public class CasualGameController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(CasualGameController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+            });
     }
 
     public void setData(User user) {
