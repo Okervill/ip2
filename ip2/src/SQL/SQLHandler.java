@@ -455,11 +455,11 @@ public class SQLHandler {
 
     public int getUserScores(String cbankid) throws SQLException {
         int output = 0;
-        String sql = "Select * from CompetitiveBank where CompetitiveBankID = \"" + cbankid + "\"";
+        String sql = "Select UserScore from Users where CompetitiveBankID = \"" + cbankid + "\"";
         query = conn.prepareStatement(sql);
         ResultSet rs = query.executeQuery();
         while (rs.next()) {
-            output = Integer.valueOf(rs.getString("Quiz 1"));
+            output = Integer.valueOf(rs.getString("UserScore"));
         }
 
         query.close();
@@ -473,9 +473,6 @@ public class SQLHandler {
         ResultSet rs = query.executeQuery();
         while (rs.next()) {
             count = rs.getInt(1);
-        }
-        if (count == 0) {
-            createCompQuiz(id);
         }
         return count;
     }
@@ -491,24 +488,13 @@ public class SQLHandler {
         query.close();
     }
 
-    public void createCompQuiz(int id) throws SQLException {
-        String sql = "INSERT INTO CompetitiveBank (CompetitiveBankID, 'Quiz 1') VALUES(?,?)";
-        query = conn.prepareStatement(sql);
-
-        query.setString(1, String.valueOf(id));
-        query.setString(2, "0");
-
-        query.executeUpdate();
-        query.close();
-    }
-
     public void updateTotalCompScore(int id, int score) throws SQLException {
 
         int currentTotal;
         SQLHandler sql = new SQLHandler();
         currentTotal = sql.getUserScores(String.valueOf(id));
 
-        String sqlstring = "UPDATE CompetitiveBank SET 'Quiz 1' = ? WHERE CompetitiveBankID = \"" + id + "\"";
+        String sqlstring = "UPDATE Users SET 'UserScore' = ? WHERE CompetitiveBankID = \"" + id + "\"";
 
         query = conn.prepareStatement(sqlstring);
 
