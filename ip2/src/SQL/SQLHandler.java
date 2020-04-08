@@ -191,9 +191,9 @@ public class SQLHandler {
     //------------------------------------//
     // GET ALL QUESTIONS FROM SPECIFIC CATEGORY //
     //------------------------------------//
-    public ArrayList<Question> getQnAFromCategory(int categoryID) throws SQLException {
+    public ArrayList<Question> getQnAFromCategory(int categoryID, int id) throws SQLException {
         ArrayList<Question> output = new ArrayList<>();
-        String sql = "SELECT * FROM Questions WHERE CategoryID='" + categoryID + "'";
+        String sql = "SELECT * FROM Questions WHERE CategoryID='" + categoryID + "' AND QuestionID NOT IN (SELECT QuestionID from casual_"+id+")";
 
 //        = \"" + searchQuery + "\""
         query = conn.prepareStatement(sql);
@@ -441,11 +441,11 @@ public class SQLHandler {
 
     public void createCasualTables(int id) throws SQLException {
         String sql = "CREATE TABLE IF NOT EXISTS casual_" + id + "(\n"
-                + " UserID integer,\n"
+                + " QuestionID integer,\n"
                 + " CategoryID integer,\n"
-                + " hasFinished boolean NOT NULL,\n"
-                + " PRIMARY KEY (UserID),\n"
-                + " FOREIGN KEY (CategoryID)"
+                + " PRIMARY KEY (QuestionID),\n"
+                + " FOREIGN KEY (CategoryID) REFERENCES Questions(CategoryID),\n"
+                + " FOREIGN KEY (QuestionID) REFERENCES Questions(QuestionID)"
                 + ");";
 
         Statement stmt = conn.createStatement();
@@ -455,11 +455,11 @@ public class SQLHandler {
 
     public int getUserScores(String cbankid) throws SQLException {
         int output = 0;
-        String sql = "Select * from CompetitiveBank where CompetitiveBankID = \"" + cbankid + "\"";
+        String sql = "Select UserScore from Users where CompetitiveBankID = \"" + cbankid + "\"";
         query = conn.prepareStatement(sql);
         ResultSet rs = query.executeQuery();
         while (rs.next()) {
-            output = Integer.valueOf(rs.getString("Quiz 1"));
+            output = Integer.valueOf(rs.getString("UserScore"));
         }
 
         query.close();
@@ -473,9 +473,6 @@ public class SQLHandler {
         ResultSet rs = query.executeQuery();
         while (rs.next()) {
             count = rs.getInt(1);
-        }
-        if (count == 0) {
-            createCompQuiz(id);
         }
         return count;
     }
@@ -491,28 +488,35 @@ public class SQLHandler {
         query.close();
     }
 
-    public void createCompQuiz(int id) throws SQLException {
-        String sql = "INSERT INTO CompetitiveBank (CompetitiveBankID, 'Quiz 1') VALUES(?,?)";
-        query = conn.prepareStatement(sql);
-
-        query.setString(1, String.valueOf(id));
-        query.setString(2, "0");
-
-        query.executeUpdate();
-        query.close();
-    }
-
     public void updateTotalCompScore(int id, int score) throws SQLException {
 
         int currentTotal;
         SQLHandler sql = new SQLHandler();
         currentTotal = sql.getUserScores(String.valueOf(id));
 
-        String sqlstring = "UPDATE CompetitiveBank SET 'Quiz 1' = ? WHERE CompetitiveBankID = \"" + id + "\"";
+        String sqlstring = "UPDATE Users SET 'UserScore' = ? WHERE CompetitiveBankID = \"" + id + "\"";
 
         query = conn.prepareStatement(sqlstring);
 
         query.setInt(1, currentTotal + score);
+
+        query.executeUpdate();
+        query.close();
+    }
+    
+    public void addAnsweredQuestions(int id, int questID, int catID) throws SQLException {
+        String sql = "INSERT INTO casual_" + id + " (QuestionID, CategoryID) VALUES(?,?)";
+        query = conn.prepareStatement(sql);
+
+        query.setInt(1, questID);
+        query.setInt(2, catID);
+
+        query.executeUpdate();
+        query.close();
+    }
+    public void deleteAnQuestions(int catID,int id) throws SQLException{
+        String sql = "DELETE from casual_" + id + " WHERE CategoryID='" + catID + "'";
+        query = conn.prepareStatement(sql);
 
         query.executeUpdate();
         query.close();
