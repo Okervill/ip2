@@ -60,10 +60,10 @@ public class RegisterController implements Initializable {
     private void register(ActionEvent event) throws SQLException {
         String firstname, surname, username, password;
         firstname = getFirstname.getText();
-        firstname = firstname.substring(0, 1).toUpperCase() + firstname.substring(1).toLowerCase();
+       
 
         surname = getSurname.getText();
-        surname = surname.substring(0, 1).toUpperCase() + surname.substring(1).toLowerCase();
+       
         username = getUsername.getText();
         password = getPassword.getText();
 
@@ -111,10 +111,12 @@ public class RegisterController implements Initializable {
             alert.showAndWait();
         }
 
-        if (firstname.isEmpty() || surname.isEmpty() || username.isEmpty() || password.isEmpty() || !check13.isSelected()) {
+        if (allUsers.contains(username) || valUser == true || valPass == true || (password.length() < 8 || password.length() > 32) || username.length() < 4 || firstname.isEmpty() || surname.isEmpty() || username.isEmpty() || password.isEmpty() || !check13.isSelected()) {
             registerFailed();
 
         } else {
+             surname = surname.substring(0, 1).toUpperCase() + surname.substring(1).toLowerCase();
+              firstname = firstname.substring(0, 1).toUpperCase() + firstname.substring(1).toLowerCase();
             Hash h = new Hash();
             password = h.hash(password);
             User newUser = new User(firstname, surname, username, password, "false", "0");

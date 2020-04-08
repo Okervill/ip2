@@ -80,8 +80,6 @@ public class UserHomeController implements Initializable {
     @FXML
     private Label casualLabel2;
 
-    @FXML
-    private Pane pane;
     private Stage myStage;
 
     @FXML

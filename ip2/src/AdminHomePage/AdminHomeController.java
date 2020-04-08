@@ -16,9 +16,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
@@ -37,6 +40,13 @@ public class AdminHomeController implements Initializable {
 
     @FXML
     private Button logout;
+    
+      private Stage myStage;
+
+    @FXML
+    public void setStage(Stage stage) {
+        myStage = stage;
+    }
 
     /**
      * Initializes the controller class.
@@ -65,11 +75,36 @@ public class AdminHomeController implements Initializable {
 
     @FXML
     public void questionPage(ActionEvent event) throws IOException {
-       SwitchWindow.switchWindow((Stage) catButton.getScene().getWindow(), new QuestionPage(currentUser));
+       SwitchWindow.switchWindow((Stage) questButton.getScene().getWindow(), new QuestionPage(currentUser));
     }
 
     public void setData(User user) {
         currentUser = user;
     }
+    
+     @FXML
+    public void handleMouseEvents() {
+      
+        
+        logout.addEventHandler(MouseEvent.MOUSE_ENTERED,
+                new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+
+                myStage.getScene().setCursor(Cursor.HAND);
+            }
+        });
+
+        logout.addEventHandler(MouseEvent.MOUSE_EXITED,
+                new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+
+                myStage.getScene().setCursor(Cursor.DEFAULT);
+            }
+        });
+        
+    }
+
 
 }
