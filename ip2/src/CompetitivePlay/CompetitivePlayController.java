@@ -251,6 +251,8 @@ public class CompetitivePlayController implements Initializable {
 
     }
 
+    
+    
     @FXML
     private void answer(ActionEvent event) throws SQLException {
 

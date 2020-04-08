@@ -191,7 +191,7 @@ public class SQLHandler {
     //------------------------------------//
     // GET ALL QUESTIONS FROM SPECIFIC CATEGORY //
     //------------------------------------//
-    public ArrayList<Question> getQnAFromCategory(int categoryID) throws SQLException {
+    public ArrayList<Question> getQnAFromCategory(int categoryID, int id) throws SQLException {
         ArrayList<Question> output = new ArrayList<>();
         String sql = "SELECT * FROM Questions WHERE CategoryID='" + categoryID + "'";
 
@@ -441,11 +441,11 @@ public class SQLHandler {
 
     public void createCasualTables(int id) throws SQLException {
         String sql = "CREATE TABLE IF NOT EXISTS casual_" + id + "(\n"
-                + " UserID integer,\n"
+                + " QuestionID integer,\n"
                 + " CategoryID integer,\n"
-                + " hasFinished boolean NOT NULL,\n"
-                + " PRIMARY KEY (UserID),\n"
-                + " FOREIGN KEY (CategoryID)"
+                + " PRIMARY KEY (QuestionID),\n"
+                + " FOREIGN KEY (CategoryID) REFERENCES Questions(CategoryID),\n"
+                + " FOREIGN KEY (QuestionID) REFERENCES Questions(QuestionID)"
                 + ");";
 
         Statement stmt = conn.createStatement();
@@ -517,4 +517,16 @@ public class SQLHandler {
         query.executeUpdate();
         query.close();
     }
+    
+    public void addAnsweredQuestions(int id, int questID, int catID) throws SQLException {
+        String sql = "INSERT INTO casual_" + id + " (QuestionID, CategoryID) VALUES(?,?)";
+        query = conn.prepareStatement(sql);
+
+        query.setInt(1, questID);
+        query.setInt(2, catID);
+
+        query.executeUpdate();
+        query.close();
+    }
+    
 }

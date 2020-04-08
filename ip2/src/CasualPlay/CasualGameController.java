@@ -39,7 +39,7 @@ public class CasualGameController implements Initializable {
     String categorySelected = CasualGame.getUserSelection();
 
     ArrayList<Question> questions = new ArrayList<>();
-
+    ArrayList<Question> answQuestions = new ArrayList<>();
     private int qNo = 0;
 
     int score = 0;
@@ -64,10 +64,12 @@ public class CasualGameController implements Initializable {
     private HBox scorebox;
     int qsize;
 
+    
     private ArrayList<Question> getQuestions(int catID) throws SQLException {
 
         SQLHandler sql = new SQLHandler();
-        ArrayList<Question> allq = sql.getQnAFromCategory(catID);
+        
+        ArrayList<Question> allq = sql.getQnAFromCategory(catID, currentUser.getCasualBankID());
 
         if (allq.size() < 1) {
             System.out.println("No questions found");
@@ -102,32 +104,34 @@ public class CasualGameController implements Initializable {
         return tempcategoryId;
 
     }
-   
+  
     @FXML
     private void answer(ActionEvent event) throws SQLException {
         if (event.getSource().equals(option1)) {
             if (option1.getText().equals(questions.get(qNo - 1).getCorrectAnswer())) {
                 score++;
-             
+                answQuestions.add(questions.get(qNo - 1));
                 correct.setText("" + score);
             }
             nextQuestion();
         } else if (event.getSource().equals(option2)) {
             if (option2.getText().equals(questions.get(qNo - 1).getCorrectAnswer())) {
                 score++;
-               
+                answQuestions.add(questions.get(qNo - 1));
                 correct.setText("" + score);
             }
             nextQuestion();
         } else if (event.getSource().equals(option3)) {
             if (option3.getText().equals(questions.get(qNo - 1).getCorrectAnswer())) {
                 score++;
+                answQuestions.add(questions.get(qNo - 1));
                correct.setText("" + score);
             }
             nextQuestion();
         } else if (event.getSource().equals(option4)) {
             if (option4.getText().equals(questions.get(qNo - 1).getCorrectAnswer())) {
                 score++;
+                answQuestions.add(questions.get(qNo - 1));
                correct.setText("" + score);
             }
             nextQuestion();
@@ -136,10 +140,7 @@ public class CasualGameController implements Initializable {
 
     private void nextQuestion() throws SQLException {
         if (qNo < qsize) {
-
-          
             Question q = questions.get(qNo);
-            
             questionDisplay.setText(q.getUserQuestion());
             String[] answers = {q.getCorrectAnswer(), q.getWrongAnswer1(), q.getWrongAnswer2(), q.getWrongAnswer3()};
             ArrayList num = new ArrayList<>();
@@ -183,8 +184,13 @@ public class CasualGameController implements Initializable {
         
         SQLHandler sql = new SQLHandler();
         
-        sql.createCasualTables(Integer.valueOf(currentUser.getCasualBankID()));
+        sql.createCasualTables(currentUser.getCasualBankID());
+        for (Question q:answQuestions){
+            sql.addAnsweredQuestions(currentUser.getCasualBankID(), q.getQuestionId(), q.getCategoryId());
+        
     }
+    }
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
