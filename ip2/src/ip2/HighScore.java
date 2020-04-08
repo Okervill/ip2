@@ -5,7 +5,6 @@
  */
 package ip2;
 
-import SQL.SQLHandler;
 import java.sql.SQLException;
 
 /**
@@ -13,30 +12,21 @@ import java.sql.SQLException;
  * @author user
  */
 public class HighScore {
-        private  String competitiveBankId;
-        private  String quiz;
+        private  String quizNo;
+        private  String score;
         
-        public HighScore(String quiz) throws SQLException{
-        
-        SQLHandler sql = new SQLHandler();
-        int catcount = sql.getAllHighscore().size();
-        
-        
-        this.competitiveBankId = String.valueOf(catcount++);
-        this.quiz=quiz;
+        public HighScore(String quizNo,String score) throws SQLException{
+            this.quizNo=quizNo;
+            this.score=score;
         }
+
         
-        public HighScore(String competitiveBankId, String quiz){
-        this.competitiveBankId=competitiveBankId;
-        this.quiz=quiz;
-        }
-        
-       public String getCompetitiveBankId(){
-         return this.competitiveBankId;
+       public String getQuizNo(){
+         return this.quizNo;
      }
        
-     public String getQuiz(){
-         return this.quiz;
+     public String getScore(){
+         return this.score;
      }
      
      
