@@ -14,6 +14,7 @@ import CompetitivePlay.CompetitivePlay;
 
 import LoginRegister.Login;
 import PreviousScore.PreviousScore;
+import ScoreHistory.ScoreHistory;
 import ip2.SwitchWindow;
 import ip2.User;
 import java.io.IOException;
@@ -54,7 +55,7 @@ public class UserHomeController implements Initializable {
     @FXML
     private JFXButton competitivePlayButton;
     @FXML
-    private JFXButton casualPlayButton, leaderboard;
+    private JFXButton casualPlayButton, leaderboard,previousScoreButton;
     @FXML
     private Label casuallabel1;
 
@@ -92,6 +93,11 @@ public class UserHomeController implements Initializable {
     @FXML
     public void previousScore(ActionEvent event) throws IOException {
         SwitchWindow.switchWindow((Stage) leaderboard.getScene().getWindow(), new PreviousScore(currentUser));
+    }
+    
+        @FXML
+    public void scoreHistory(ActionEvent event) throws IOException {
+        SwitchWindow.switchWindow((Stage) previousScoreButton.getScene().getWindow(), new ScoreHistory(currentUser));
     }
 
 //    @FXML
