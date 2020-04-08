@@ -184,8 +184,6 @@ public class CasualGameController implements Initializable {
         outOf.setText("" + qsize);
         
         SQLHandler sql = new SQLHandler();
-        
-        sql.createCasualTables(currentUser.getCasualBankID());
         for (Question q:answQuestions){
             sql.addAnsweredQuestions(currentUser.getCasualBankID(), q.getQuestionId(), q.getCategoryId());
         
