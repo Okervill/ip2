@@ -14,11 +14,14 @@ import CompetitivePlay.CompetitivePlay;
 
 import LoginRegister.Login;
 import PreviousScore.PreviousScore;
+import SQL.SQLHandler;
 import ScoreHistory.ScoreHistory;
 import ip2.SwitchWindow;
 import ip2.User;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,6 +47,8 @@ import javafx.stage.Stage;
 public class UserHomeController implements Initializable {
 
     User currentUser;
+    
+    int bankid;
     @FXML
     private JFXHamburger hamburger;
 
@@ -55,7 +60,7 @@ public class UserHomeController implements Initializable {
     @FXML
     private JFXButton competitivePlayButton;
     @FXML
-    private JFXButton casualPlayButton, leaderboard,previousScoreButton;
+    private JFXButton casualPlayButton, leaderboard, previousScoreButton;
     @FXML
     private Label casuallabel1;
 
@@ -94,8 +99,8 @@ public class UserHomeController implements Initializable {
     public void previousScore(ActionEvent event) throws IOException {
         SwitchWindow.switchWindow((Stage) leaderboard.getScene().getWindow(), new PreviousScore(currentUser));
     }
-    
-        @FXML
+
+    @FXML
     public void scoreHistory(ActionEvent event) throws IOException {
         SwitchWindow.switchWindow((Stage) previousScoreButton.getScene().getWindow(), new ScoreHistory(currentUser));
     }
@@ -122,6 +127,8 @@ public class UserHomeController implements Initializable {
 
     }
 
+
+
     /**
      * Initializes the controller class.
      *
@@ -130,13 +137,13 @@ public class UserHomeController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // changed from lambra to anonymous inner class
-        // doesn't give null pointer error anymore.
+       
+
         Platform.runLater(new Runnable() {
 
             @Override
             public void run() {
-
+             
                 userLabel.setText(currentUser.getFirstname());
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserHomePage/pullout.fxml"));
@@ -169,7 +176,6 @@ public class UserHomeController implements Initializable {
             }
         });
 
-   
         casuallabel1.setVisible(false);
         casualLabel2.setVisible(false);
         casualLabel3.setVisible(false);

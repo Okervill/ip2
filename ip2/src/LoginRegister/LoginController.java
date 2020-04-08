@@ -52,7 +52,6 @@ public class LoginController implements Initializable {
         // TODO
         
 
-      
     }
 
     @FXML

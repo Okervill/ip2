@@ -193,7 +193,7 @@ public class SQLHandler {
     //------------------------------------//
     public ArrayList<Question> getQnAFromCategory(int categoryID, int id) throws SQLException {
         ArrayList<Question> output = new ArrayList<>();
-        String sql = "SELECT * FROM Questions WHERE CategoryID='" + categoryID + "' AND QuestionID NOT IN (SELECT QuestionID from casual_"+id+")";
+        String sql = "SELECT * FROM Questions WHERE CategoryID='" + categoryID + "' AND QuestionID NOT IN (SELECT QuestionID from casual_" + id + ")";
 
 //        = \"" + searchQuery + "\""
         query = conn.prepareStatement(sql);
@@ -439,6 +439,7 @@ public class SQLHandler {
         stmt.execute(sql);
     }
 
+   
     public void createCasualTables(int id) throws SQLException {
         String sql = "CREATE TABLE IF NOT EXISTS casual_" + id + "(\n"
                 + " QuestionID integer,\n"
@@ -503,7 +504,7 @@ public class SQLHandler {
         query.executeUpdate();
         query.close();
     }
-    
+
     public void addAnsweredQuestions(int id, int questID, int catID) throws SQLException {
         String sql = "INSERT INTO casual_" + id + " (QuestionID, CategoryID) VALUES(?,?)";
         query = conn.prepareStatement(sql);
@@ -514,7 +515,8 @@ public class SQLHandler {
         query.executeUpdate();
         query.close();
     }
-    public void deleteAnQuestions(int catID,int id) throws SQLException{
+
+    public void deleteAnQuestions(int catID, int id) throws SQLException {
         String sql = "DELETE from casual_" + id + " WHERE CategoryID='" + catID + "'";
         query = conn.prepareStatement(sql);
 

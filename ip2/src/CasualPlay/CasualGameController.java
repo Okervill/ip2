@@ -45,8 +45,6 @@ public class CasualGameController implements Initializable {
 
     int score = 0;
 
- 
-
     @FXML
     private JFXButton option1, option2, option3, option4;
 
@@ -65,14 +63,16 @@ public class CasualGameController implements Initializable {
     private HBox scorebox;
     int qsize;
 
-    
+    ArrayList<Question> allq;
+
     private ArrayList<Question> getQuestions(int catID, int userId) throws SQLException {
 
         SQLHandler sql = new SQLHandler();
-        
-        ArrayList<Question> allq = sql.getQnAFromCategory(catID, currentUser.getCasualBankID());
+
+        allq = sql.getQnAFromCategory(catID, currentUser.getCasualBankID());
 
         if (allq.size() < 1) {
+
             System.out.println("No questions found");
             return null;
         }
@@ -105,7 +105,7 @@ public class CasualGameController implements Initializable {
         return tempcategoryId;
 
     }
-  
+
     @FXML
     private void answer(ActionEvent event) throws SQLException {
         if (event.getSource().equals(option1)) {
@@ -126,14 +126,14 @@ public class CasualGameController implements Initializable {
             if (option3.getText().equals(questions.get(qNo - 1).getCorrectAnswer())) {
                 score++;
                 answQuestions.add(questions.get(qNo - 1));
-               correct.setText("" + score);
+                correct.setText("" + score);
             }
             nextQuestion();
         } else if (event.getSource().equals(option4)) {
             if (option4.getText().equals(questions.get(qNo - 1).getCorrectAnswer())) {
                 score++;
                 answQuestions.add(questions.get(qNo - 1));
-               correct.setText("" + score);
+                correct.setText("" + score);
             }
             nextQuestion();
         }
@@ -171,7 +171,6 @@ public class CasualGameController implements Initializable {
         option3.setVisible(false);
         option4.setVisible(false);
         questionDisplay.setVisible(false);
-        
 
         scoreDisplay.setVisible(true);
         scorebox.setVisible(true);
@@ -182,51 +181,60 @@ public class CasualGameController implements Initializable {
         home.setVisible(true);
         scoreDisplay.setText("" + score);
         outOf.setText("" + qsize);
-        
-        SQLHandler sql = new SQLHandler();
-        for (Question q:answQuestions){
-            sql.addAnsweredQuestions(currentUser.getCasualBankID(), q.getQuestionId(), q.getCategoryId());
-        
+
+        int catID = fetchCatInfo(categorySelected);
+
+        SQLHandler sql3 = new SQLHandler();
+        for (Question q : answQuestions) {
+            sql3.addAnsweredQuestions(currentUser.getCasualBankID(), q.getQuestionId(), q.getCategoryId());
+
+            SQLHandler sql = new SQLHandler();
+            ArrayList<Question> allquest = sql.getQnAFromCategory(catID, currentUser.getCasualBankID());
+
+            if (allquest.size() < 1) {
+                SQLHandler sql2 = new SQLHandler();
+
+                sql2.deleteAnQuestions(catID, currentUser.getCasualBankID());
+            }
+        }
     }
-    }
-    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    Platform.runLater(new Runnable() {
-        @Override
+        Platform.runLater(new Runnable() {
+            @Override
             public void run() {
-        try {
-            scoreDisplay.setVisible(false);
-            scorebox.setVisible(false);
-            label3.setVisible(false);
-            label2.setVisible(false);
-            label1.setVisible(false);
-            previousScoreButton.setVisible(false);
-            home.setVisible(false);
+                try {
+                    scoreDisplay.setVisible(false);
+                    scorebox.setVisible(false);
+                    label3.setVisible(false);
+                    label2.setVisible(false);
+                    label1.setVisible(false);
+                    previousScoreButton.setVisible(false);
+                    home.setVisible(false);
 
-            int catID = fetchCatInfo(categorySelected);
+                    int catID = fetchCatInfo(categorySelected);
 
-            questions = getQuestions(catID, currentUser.getCasualBankID());
-            if (questions.isEmpty()) {
-                return;
+                    questions = getQuestions(catID, currentUser.getCasualBankID());
+                    if (questions.isEmpty()) {
+                        return;
+                    }
+
+                    option1.setVisible(true);
+                    option2.setVisible(true);
+                    option3.setVisible(true);
+                    option4.setVisible(true);
+                    questionDisplay.setVisible(true);
+                    correct.setVisible(true);
+
+                    nextQuestion();
+                } catch (SQLException ex) {
+                    Logger.getLogger(CasualGameController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
-            option1.setVisible(true);
-            option2.setVisible(true);
-            option3.setVisible(true);
-            option4.setVisible(true);
-            questionDisplay.setVisible(true);
-            correct.setVisible(true);
-            
-
-            nextQuestion();
-        } catch (SQLException ex) {
-            Logger.getLogger(CasualGameController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-            
-            });
+        );
     }
 
     public void setData(User user) {

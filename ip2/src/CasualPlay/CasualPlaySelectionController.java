@@ -112,12 +112,17 @@ public class CasualPlaySelectionController implements Initializable {
             alert.showAndWait();
             return;
         }
-        int catID = fetchCatId(tempSelection);
+       int catID = fetchCatId(tempSelection);
         SQLHandler sql = new SQLHandler();
         ArrayList<Question> allq = sql.getQnAFromCategory(catID, currentUser.getCasualBankID());
 
         if (allq.size() < 1) {
-            sql.deleteAnQuestions(catID, currentUser.getCasualBankID());
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("No Questions");
+            alert.setHeaderText("Sorry this category doesn't have any questions yet!");
+            alert.showAndWait();
+            return;
+           
 
         }
 
