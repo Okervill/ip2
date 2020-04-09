@@ -141,7 +141,7 @@ public class UserHomeController implements Initializable {
 
             @Override
             public void run() {
-             
+             System.out.println(currentUser.getUserScore());
                 userLabel.setText(currentUser.getFirstname());
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserHomePage/pullout.fxml"));

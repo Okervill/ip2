@@ -73,7 +73,7 @@
                   <Font name="SansSerif Bold" size="20.0" />
                </font>
             </Label>
-            <Label textFill="WHITE">
+            <Label fx:id="rank" textFill="WHITE">
                <font>
                   <Font name="SansSerif Bold" size="15.0" />
                </font>

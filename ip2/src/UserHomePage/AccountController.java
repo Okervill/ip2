@@ -44,7 +44,7 @@ public class AccountController implements Initializable {
     private JFXDrawer drawer;
 
     @FXML
-    private Label firstName;
+    private Label firstName, rank;
 
     @FXML
     private Label secName;
@@ -64,11 +64,13 @@ public class AccountController implements Initializable {
 
             @Override
             public void run() {
+              
+                
                 firstName.setText(currentUser.getFirstname());
                 secName.setText(currentUser.getSurname());
                 userName.setText(currentUser.getUsername());
                 highScore.setText(currentUser.getUserScore());
-                
+        
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserHomePage/pullout.fxml"));
                     VBox box = loader.load();

@@ -94,7 +94,7 @@ public class PreviousScoreController implements Initializable {
             name.setCellValueFactory(new PropertyValueFactory<>("name"));
             name1.setCellValueFactory(new PropertyValueFactory<>("score"));
             highScoreTable.setItems(data);
-            name1.setSortType(TableColumn.SortType.ASCENDING);
+            name1.setSortType(TableColumn.SortType.DESCENDING);
             highScoreTable.getSortOrder().add(name1);
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserHomePage/pullout.fxml"));
