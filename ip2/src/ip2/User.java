@@ -25,7 +25,7 @@ public class User {
     private final String username;
     private final String password;
     private final String admin;
-    private final String userscore;
+    private String userscore;
 
     public User(String first, String sur, String user, String pass, String isAdmin, String usrscore) throws SQLException {
 
@@ -103,5 +103,9 @@ public class User {
 
     public String getUserScore() {
         return this.userscore;
+    }
+    
+    public void setUserScore(int score){
+        this.userscore = String.valueOf(score);
     }
 }
