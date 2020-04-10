@@ -74,7 +74,7 @@ public class LoginController implements Initializable {
 
         if (user.size() < 9) {
             loginFailed();
-        } else if (!h.verifyHash(password, user.get(7))) {
+        } else if (!h.verifyHash(password, user.get(5))) {
             loginFailed();
         } else {
             login(username);
