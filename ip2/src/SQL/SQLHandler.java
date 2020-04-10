@@ -507,8 +507,26 @@ public class SQLHandler {
         stmt.execute(sql2);
         stmt.execute(sql3);
         
-     
-        
+    }
+    public void editUsername(int UserId, String username) throws SQLException {
+
+        String sql = "UPDATE Users SET Username = ?  WHERE UserID = \"" + UserId + "\"";
+
+        query = conn.prepareStatement(sql);
+
+        query.setString(1, username);
+        query.executeUpdate();
+        query.close();
     }
 
+    public void editPassword(int userID, String password) throws SQLException {
+        String sql = "UPDATE Users SET Password = ?  WHERE UserID = \"" + userID + "\"";
+
+        query = conn.prepareStatement(sql);
+
+        query.setString(1, password);
+        query.executeUpdate();
+        query.close();
+
+    }
 }

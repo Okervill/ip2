@@ -19,8 +19,8 @@ public class User {
     private final int userid;
     private final String firstname;
     private final String surname;
-    private final String username;
-    private final String password;
+    private String username;
+    private String password;
     private final String admin;
     private String userscore;
 
@@ -38,6 +38,16 @@ public class User {
         userscore = usrscore;
     }
 
+    public User(int userid,String first,String sur, String user, String pass, String isAdmin, String usrscore){
+        this.userid=userid;
+        this.firstname=first;
+        this.surname=sur;
+        this.username=user;
+        this.password=pass;
+        this.admin=isAdmin;
+        this.userscore=usrscore;        
+    }
+    
     public User(String user) throws SQLException {
         SQLHandler sql = new SQLHandler();
         ArrayList<String> userInfo = sql.searchUsersTable(user);
@@ -47,8 +57,8 @@ public class User {
         surname = userInfo.get(2);
         username = userInfo.get(3);
         password = userInfo.get(4);
-        admin = userInfo.get(7);
-        userscore = userInfo.get(7);
+        admin = userInfo.get(5);
+        userscore = userInfo.get(6);
     }
 
     public void createUser(User user) throws SQLException {
@@ -86,5 +96,19 @@ public class User {
     
     public void setUserScore(int score){
         this.userscore = String.valueOf(score);
+    }
+    public void setUsername(String username){
+        this.username=username;
+    }
+    public void setPassword(String password){
+        this.password=password;
+    }
+    public void editUsername(User user) throws SQLException {
+        SQLHandler sql = new SQLHandler();
+        sql.editUsername(user.getUserID(), user.getUsername());
+    }
+    public void editPassword(User user) throws SQLException {
+        SQLHandler sql = new SQLHandler();
+        sql.editPassword(user.getUserID(), user.getPassword());
     }
 }

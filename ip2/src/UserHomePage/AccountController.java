@@ -5,6 +5,7 @@
  */
 package UserHomePage;
 
+import CategoryPage.EditCategory;
 import LoginRegister.Login;
 import SQL.SQLHandler;
 import com.jfoenix.controls.JFXDrawer;
@@ -68,6 +69,10 @@ public class AccountController implements Initializable {
     int rankScore = 0;
     @FXML
     private Button deleteAccount;
+    @FXML 
+    private Button changeUsername;
+     @FXML 
+    private Button changePassword;
 
     /**
      * Initializes the controller class.
@@ -178,7 +183,14 @@ public class AccountController implements Initializable {
 
 }
     
-
+    @FXML
+    private void changeUsername(ActionEvent event){
+        SwitchWindow.switchWindow((Stage) changeUsername.getScene().getWindow(), new ChangeUsername(currentUser));
+    }
+    @FXML
+    private void changePassword(ActionEvent event){
+        SwitchWindow.switchWindow((Stage) changePassword.getScene().getWindow(), new ChangePassword(currentUser));
+    }
     public void setData(User user) {
         currentUser = user;
 

@@ -72,9 +72,9 @@ public class LoginController implements Initializable {
         SQLHandler sql = new SQLHandler();
         ArrayList<String> user = sql.searchUsersTable(username);
 
-        if (user.size() < 9) {
+        if (user.size() < 6) {
             loginFailed();
-        } else if (!h.verifyHash(password, user.get(5))) {
+        } else if (!h.verifyHash(password, user.get(4))) {
             loginFailed();
         } else {
             login(username);
