@@ -12,16 +12,16 @@ import java.sql.SQLException;
  * @author user
  */
 public class HighScore {
-        private  String quizNo;
+        private  int quizNo;
         private  String score;
         
-        public HighScore(String quizNo,String score) throws SQLException{
+        public HighScore(int quizNo,String score) throws SQLException{
             this.quizNo=quizNo;
             this.score=score;
         }
 
         
-       public String getQuizNo(){
+       public int getQuizNo(){
          return this.quizNo;
      }
        

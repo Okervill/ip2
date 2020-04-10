@@ -7,7 +7,7 @@ package UserHomePage;
 
 import CasualPlay.CasualGameSelector;
 import CompetitivePlay.CompetitivePlay;
-import PreviousScore.PreviousScore;
+import HighScoreView.HighScoreView;
 import ScoreHistory.ScoreHistory;
 import com.jfoenix.controls.JFXButton;
 import ip2.SwitchWindow;
@@ -26,7 +26,7 @@ import javafx.stage.Stage;
  */
 public class drawerController implements Initializable {
 
-     User currentUser;
+    User currentUser;
     @FXML
     private JFXButton competitive;
 
@@ -35,45 +35,41 @@ public class drawerController implements Initializable {
 
     @FXML
     public void competitiveLoad(ActionEvent event) throws IOException {
-        
+
         SwitchWindow.switchWindow((Stage) competitive.getScene().getWindow(), new CompetitivePlay(currentUser));
-        
-            
-        
+
     }
+
     @FXML
     public void accountLoad(ActionEvent event) throws IOException {
-     
-       SwitchWindow.switchWindow((Stage) account.getScene().getWindow(), new Account(currentUser));
+
+        SwitchWindow.switchWindow((Stage) account.getScene().getWindow(), new Account(currentUser));
     }
-     
-    
-     @FXML
+
+    @FXML
     public void casualLoad(ActionEvent event) throws IOException {
         SwitchWindow.switchWindow((Stage) casual.getScene().getWindow(), new CasualGameSelector(currentUser));
     }
-    
+
     @FXML
-    public void highScore(ActionEvent event) throws IOException{
-      SwitchWindow.switchWindow((Stage) highscore.getScene().getWindow(), new ScoreHistory(currentUser));
+    public void highScore(ActionEvent event) throws IOException {
+        SwitchWindow.switchWindow((Stage) highscore.getScene().getWindow(), new HighScoreView(currentUser));
     }
-    
-     @FXML
-    public void previousScore(ActionEvent event) throws IOException{
-      SwitchWindow.switchWindow((Stage) highscore.getScene().getWindow(), new PreviousScore(currentUser));
+
+    @FXML
+    public void previousScore(ActionEvent event) throws IOException {
+
+        SwitchWindow.switchWindow((Stage) highscore.getScene().getWindow(), new ScoreHistory(currentUser));
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
     }
-    
-     public void setData(User user) {
+
+    public void setData(User user) {
         this.currentUser = user;
-       
 
     }
-
- 
 
 }
