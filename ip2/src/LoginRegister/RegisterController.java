@@ -121,7 +121,7 @@ public class RegisterController implements Initializable {
             password = h.hash(password);
             User newUser = new User(firstname, surname, username, password, "false", "0");
             newUser.createUser(newUser);
-            sql.createCasualTables(newUser.getCasualBankID());
+            sql.createCasualTables(newUser.getUserID());
             SwitchWindow.switchWindow((Stage) registerButton.getScene().getWindow(), new Login());
         }
     }
