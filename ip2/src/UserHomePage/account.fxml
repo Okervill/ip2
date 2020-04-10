@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDrawer?>
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import javafx.geometry.Insets?>
@@ -12,7 +13,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="418.0" prefWidth="415.0" stylesheets="@../Resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserHomePage.AccountController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="418.0" prefWidth="415.0" stylesheets="@../Resources/stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserHomePage.AccountController">
    <children>
       <Button fx:id="home" layoutX="351.0" layoutY="1.0" mnemonicParsing="false" onAction="#home" prefHeight="39.0" prefWidth="42.0" style="-fx-border-color: transparent;" stylesheets="@../Resources/stylesheet.css">
          <graphic>
@@ -117,5 +118,6 @@
       <JFXHamburger fx:id="hamburger" layoutX="315.0" layoutY="16.0" />
       <ImageView fx:id="imageRank" fitHeight="47.0" fitWidth="56.0" layoutX="187.0" layoutY="324.0" pickOnBounds="true" preserveRatio="true" />
       <JFXDrawer fx:id="drawer" defaultDrawerSize="250.0" prefHeight="418.0" prefWidth="250.0" />
+      <JFXButton fx:id="deleteAccount" layoutX="297.0" layoutY="349.0" onAction="#deleteAccount" prefHeight="44.0" prefWidth="97.0" text="Delete" />
    </children>
 </Pane>

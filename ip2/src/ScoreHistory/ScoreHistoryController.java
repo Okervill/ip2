@@ -77,7 +77,7 @@ public class ScoreHistoryController implements Initializable {
             try {
                 //  System.out.println(currentUser.getCompetitiveBankID());
                 Connection conn = SQLHandler.getConn();
-                String sql = "select quizNo,score from comp_" + currentUser.getCompetitiveBankID() + "";
+                String sql = "select quizNo,score from comp_" + currentUser.getUserID() + "";
                 System.out.println(sql);
                 ResultSet rs = conn.createStatement().executeQuery(sql);
                 while (rs.next()) {

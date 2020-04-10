@@ -57,21 +57,18 @@ public class SQLHandler {
     //-----------------------------//
     // ADD NEW DATA TO LOGIN TABLE //
     //-----------------------------//
-    public void createUser(int userid, int CompetitiveBankID, int CasualBankID, int CategoriesAnsweredID, String firstname, String surname, String username, String password, String admin, String userscore) throws SQLException {
+    public void createUser(int userid,String firstname, String surname, String username, String password, String admin, String userscore) throws SQLException {
 
-        String sql = "INSERT INTO Users (UserID, CompetitiveBankID, CasualBankID, CategoriesAnsweredID, FirstName, Surname, Username, Password, isAdmin, UserScore) VALUES(?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Users (UserID, FirstName, Surname, Username, Password, isAdmin, UserScore) VALUES(?,?,?,?,?,?,?)";
         query = conn.prepareStatement(sql);
 
         query.setInt(1, userid);
-        query.setInt(2, CompetitiveBankID);
-        query.setInt(3, CasualBankID);
-        query.setInt(4, CategoriesAnsweredID);
-        query.setString(5, firstname);
-        query.setString(6, surname);
-        query.setString(7, username);
-        query.setString(8, password);
-        query.setString(9, admin);
-        query.setString(10, userscore);
+        query.setString(2, firstname);
+        query.setString(3, surname);
+        query.setString(4, username);
+        query.setString(5, password);
+        query.setString(6, admin);
+        query.setString(7, userscore);
 
         query.executeUpdate();
         query.close();
@@ -285,14 +282,11 @@ public class SQLHandler {
     public ArrayList searchUsersTable(String searchQuery) throws SQLException {
 
         ArrayList<String> output = new ArrayList<>();
-        String sql = "SELECT UserID, CompetitiveBankID, CasualBankID, CategoriesAnsweredID, FirstName, Surname, Username, Password, isAdmin, UserScore FROM Users WHERE Username = \"" + searchQuery + "\"";
+        String sql = "SELECT * FROM Users WHERE Username = \"" + searchQuery + "\"";
         query = conn.prepareStatement(sql);
         ResultSet rs = query.executeQuery();
         while (rs.next()) {
             output.add((rs.getString("UserID")));
-            output.add((rs.getString("CompetitiveBankID")));
-            output.add((rs.getString("CasualBankID")));
-            output.add((rs.getString("CategoriesAnsweredID")));
             output.add((rs.getString("Firstname")));
             output.add((rs.getString("Surname")));
             output.add((rs.getString("Username")));
@@ -408,26 +402,6 @@ public class SQLHandler {
         query.close();
     }
 
-    //------------------------------------//
-    // GET ALL USER HIGHSCORE FROM USER TABLE //
-    //------------------------------------//
-    public ArrayList getAllHighscore() throws SQLException {
-
-        ArrayList<String> output = new ArrayList<>();
-        String sql = "Select Quiz 1 from CompetitiveBank";
-        query = conn.prepareStatement(sql);
-        ResultSet rs = query.executeQuery();
-
-        while (rs.next()) {
-            //output.add(new HighScore(rs.getString("CompetitiveBankId"),rs.getString("Quiz 1")));
-            output.add(rs.getString("CompetitiveBankId"));
-            output.add(rs.getString("Quiz 1"));
-        }
-
-        query.close();
-        return output;
-
-    }
 
     public void createCompTables(int id) throws SQLException {
         String sql = "CREATE TABLE IF NOT EXISTS comp_" + id + " (\n"
@@ -456,7 +430,7 @@ public class SQLHandler {
 
     public int getUserScores(String cbankid) throws SQLException {
         int output = 0;
-        String sql = "Select UserScore from Users where CompetitiveBankID = \"" + cbankid + "\"";
+        String sql = "Select UserScore from Users where UserID = \"" + cbankid + "\"";
         query = conn.prepareStatement(sql);
         ResultSet rs = query.executeQuery();
         while (rs.next()) {
@@ -495,7 +469,7 @@ public class SQLHandler {
         SQLHandler sql = new SQLHandler();
         currentTotal = sql.getUserScores(String.valueOf(id));
 
-        String sqlstring = "UPDATE Users SET 'UserScore' = ? WHERE CompetitiveBankID = \"" + id + "\"";
+        String sqlstring = "UPDATE Users SET 'UserScore' = ? WHERE UserID = \"" + id + "\"";
 
         query = conn.prepareStatement(sqlstring);
 
@@ -523,4 +497,18 @@ public class SQLHandler {
         query.executeUpdate();
         query.close();
     }
+    
+    public void deleteAccount(int userId) throws SQLException{
+        String sql1 = "DROP TABLE comp_" + userId + "";
+        String sql2 = "DROP TABLE casual_" + userId + "";
+        String sql3 = " DELETE FROM Users WHERE UserID='"+userId+"'";
+       Statement stmt = conn.createStatement();
+        stmt.execute(sql1);
+        stmt.execute(sql2);
+        stmt.execute(sql3);
+        
+     
+        
+    }
+
 }

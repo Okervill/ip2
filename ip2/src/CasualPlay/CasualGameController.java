@@ -70,7 +70,7 @@ public class CasualGameController implements Initializable {
 
         SQLHandler sql = new SQLHandler();
 
-        allq = sql.getQnAFromCategory(catID, currentUser.getCasualBankID());
+        allq = sql.getQnAFromCategory(catID, currentUser.getUserID());
 
         if (allq.size() < 1) {
 
@@ -187,15 +187,15 @@ public class CasualGameController implements Initializable {
 
         SQLHandler sql3 = new SQLHandler();
         for (Question q : answQuestions) {
-            sql3.addAnsweredQuestions(currentUser.getCasualBankID(), q.getQuestionId(), q.getCategoryId());
+            sql3.addAnsweredQuestions(currentUser.getUserID(), q.getQuestionId(), q.getCategoryId());
 
             SQLHandler sql = new SQLHandler();
-            ArrayList<Question> allquest = sql.getQnAFromCategory(catID, currentUser.getCasualBankID());
+            ArrayList<Question> allquest = sql.getQnAFromCategory(catID, currentUser.getUserID());
 
             if (allquest.size() < 1) {
                 SQLHandler sql2 = new SQLHandler();
 
-                sql2.deleteAnQuestions(catID, currentUser.getCasualBankID());
+                sql2.deleteAnQuestions(catID, currentUser.getUserID());
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Finished Category");
                 alert.setHeaderText("Congratulations! You have finished this category. It will now be reset for you to practice again.");
@@ -221,7 +221,7 @@ public class CasualGameController implements Initializable {
 
                     int catID = fetchCatInfo(categorySelected);
 
-                    questions = getQuestions(catID, currentUser.getCasualBankID());
+                    questions = getQuestions(catID, currentUser.getUserID());
                     if (questions.isEmpty()) {
                         return;
                     }

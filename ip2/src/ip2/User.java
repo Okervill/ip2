@@ -17,9 +17,6 @@ import java.util.ArrayList;
 public class User {
 
     private final int userid;
-    private final int CompetitiveBankID;
-    private final int CasualBankID;
-    private final int CategoriesAnsweredID;
     private final String firstname;
     private final String surname;
     private final String username;
@@ -32,10 +29,7 @@ public class User {
         SQLHandler sql = new SQLHandler();
         int usercount = sql.getAllUsers().size();
 
-        userid = Integer.valueOf(usercount++);
-        CompetitiveBankID = userid;
-        CasualBankID = userid;
-        CategoriesAnsweredID = userid;
+        userid = Integer.valueOf(++usercount);
         firstname = first;
         surname = sur;
         username = user;
@@ -49,36 +43,21 @@ public class User {
         ArrayList<String> userInfo = sql.searchUsersTable(user);
 
         userid = parseInt(userInfo.get(0));
-        CompetitiveBankID = parseInt(userInfo.get(1));
-        CasualBankID = parseInt(userInfo.get(2));
-        CategoriesAnsweredID = parseInt(userInfo.get(3));
-        firstname = userInfo.get(4);
-        surname = userInfo.get(5);
-        username = userInfo.get(6);
-        password = userInfo.get(7);
-        admin = userInfo.get(8);
-        userscore = userInfo.get(9);
+        firstname = userInfo.get(1);
+        surname = userInfo.get(2);
+        username = userInfo.get(3);
+        password = userInfo.get(4);
+        admin = userInfo.get(7);
+        userscore = userInfo.get(7);
     }
 
     public void createUser(User user) throws SQLException {
         SQLHandler sql = new SQLHandler();
-        sql.createUser(user.getUserID(), user.getCompetitiveBankID(), user.getCasualBankID(), user.getCategoriesAnsweredID(), user.getFirstname(), user.getSurname(), user.getUsername(), user.getPassword(), user.getUserType(), user.getUserScore());
+        sql.createUser(user.getUserID(), user.getFirstname(), user.getSurname(), user.getUsername(), user.getPassword(), user.getUserType(), user.getUserScore());
     }
 
     public int getUserID() {
         return this.userid;
-    }
-
-    public int getCompetitiveBankID() {
-        return this.CompetitiveBankID;
-    }
-
-    public int getCasualBankID() {
-        return this.CasualBankID;
-    }
-
-    public int getCategoriesAnsweredID() {
-        return this.CategoriesAnsweredID;
     }
 
     public String getFirstname() {

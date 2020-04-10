@@ -5,12 +5,10 @@
  */
 package CasualPlay;
 
-import CompetitivePlay.CompetitivePlay;
 import SQL.SQLHandler;
 import UserHomePage.UserHome;
 import UserHomePage.UserHomeController;
 import UserHomePage.drawerController;
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
@@ -114,7 +112,7 @@ public class CasualPlaySelectionController implements Initializable {
         }
        int catID = fetchCatId(tempSelection);
         SQLHandler sql = new SQLHandler();
-        ArrayList<Question> allq = sql.getQnAFromCategory(catID, currentUser.getCasualBankID());
+        ArrayList<Question> allq = sql.getQnAFromCategory(catID, currentUser.getUserID());
 
         if (allq.size() < 1) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

@@ -355,12 +355,12 @@ public class CompetitivePlayController implements Initializable {
         SQLHandler sql = new SQLHandler();
 
         //Create comp table if it doesnt exist
-        sql.createCompTables(currentUser.getCompetitiveBankID());
+        sql.createCompTables(currentUser.getUserID());
 
-        int quizNo = sql.getCompQuizNo(currentUser.getCompetitiveBankID());
+        int quizNo = sql.getCompQuizNo(currentUser.getUserID());
 
-        sql.addCompScore(currentUser.getCompetitiveBankID(), ++quizNo, score);
-        sql.updateTotalCompScore(currentUser.getCompetitiveBankID(), score);
+        sql.addCompScore(currentUser.getUserID(), ++quizNo, score);
+        sql.updateTotalCompScore(currentUser.getUserID(), score);
        
 
     }
