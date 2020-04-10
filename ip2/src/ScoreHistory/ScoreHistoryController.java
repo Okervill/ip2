@@ -57,7 +57,7 @@ public class ScoreHistoryController implements Initializable {
     @FXML
     private TableView<HighScore> highScoreTable1;
     @FXML
-    private TableColumn<HighScore, Integer> n;
+    private TableColumn<HighScore, String> n;
     @FXML
     private TableColumn<HighScore, String> n1;
     ObservableList<HighScore> data = FXCollections.observableArrayList();
@@ -81,7 +81,7 @@ public class ScoreHistoryController implements Initializable {
                 System.out.println(sql);
                 ResultSet rs = conn.createStatement().executeQuery(sql);
                 while (rs.next()) {
-                    data.add(new HighScore(rs.getInt("quizNo"), rs.getString("score")));
+                    data.add(new HighScore(rs.getString("quizNo"), rs.getString("score")));
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(ScoreHistoryController.class.getName()).log(Level.SEVERE, null, ex);

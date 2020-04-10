@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package HighScoreView;
+package PreviousScore;
 
 import LoginRegister.Login;
 import SQL.SQLHandler;
@@ -13,7 +13,6 @@ import UserHomePage.drawerController;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 import ip2.HighScore;
 import ip2.LeaderBoardScore;
 import ip2.SwitchWindow;
@@ -50,7 +49,7 @@ import javafx.stage.StageStyle;
  *
  * @author Patrick
  */
-public class HighScoreViewController implements Initializable {
+public class PreviousScoreController implements Initializable {
 
     @FXML
     private JFXHamburger hamburger;
@@ -65,7 +64,7 @@ public class HighScoreViewController implements Initializable {
     @FXML
     private TableColumn<LeaderBoardScore, String> name;
     @FXML
-    private TableColumn<LeaderBoardScore, Integer> name1;
+    private TableColumn<LeaderBoardScore, String> name1;
     ObservableList<LeaderBoardScore> data = FXCollections.observableArrayList();
 
     @FXML
@@ -86,10 +85,10 @@ public class HighScoreViewController implements Initializable {
                 String sql = "select Username,UserScore from Users where isAdmin = \"" + "false" + "\"";
                 ResultSet rs = conn.createStatement().executeQuery(sql);
                 while (rs.next()) {
-                    data.add(new LeaderBoardScore(rs.getString("Username"), rs.getInt("UserScore")));
+                    data.add(new LeaderBoardScore(rs.getString("Username"), rs.getString("UserScore")));
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(HighScoreViewController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(PreviousScoreController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             name.setCellValueFactory(new PropertyValueFactory<>("name"));

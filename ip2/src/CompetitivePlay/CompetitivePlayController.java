@@ -42,7 +42,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -79,18 +78,14 @@ public class CompetitivePlayController implements Initializable {
 
     @FXML
     private Button home;
-    
-    @FXML
-    private Line line;
 
-   
+    @FXML
+    private HBox scorebox;
 
     @FXML
     private Circle circle1, circle2, circle3, circle4, circle5, circle6, circle7, circle8, circle9, circle10;
 
     int questionno = 0;
-
-    String username;
 
     /**
      * Initializes the controller class.
@@ -103,7 +98,6 @@ public class CompetitivePlayController implements Initializable {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                username = currentUser.getUsername();
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserHomePage/pullout.fxml"));
                     VBox box = loader.load();
@@ -135,7 +129,7 @@ public class CompetitivePlayController implements Initializable {
 
         });
         startButton.setVisible(true);
-
+        
         finishButton.setVisible(false);
         option1.setVisible(false);
         option2.setVisible(false);
@@ -144,7 +138,7 @@ public class CompetitivePlayController implements Initializable {
 
         highscore.setVisible(false);
         scoreDisplay.setVisible(false);
-        line.setVisible(false);
+        scorebox.setVisible(false);
         label3.setVisible(false);
         label2.setVisible(false);
         label1.setVisible(false);
@@ -269,6 +263,8 @@ public class CompetitivePlayController implements Initializable {
 
     }
 
+    
+    
     @FXML
     private void answer(ActionEvent event) throws SQLException {
 
@@ -361,7 +357,6 @@ public class CompetitivePlayController implements Initializable {
 
         sql.addCompScore(currentUser.getCompetitiveBankID(), ++quizNo, score);
         sql.updateTotalCompScore(currentUser.getCompetitiveBankID(), score);
-       
 
     }
 
@@ -373,7 +368,7 @@ public class CompetitivePlayController implements Initializable {
 
         highscore.setVisible(true);
         scoreDisplay.setVisible(true);
-        line.setVisible(true);
+        scorebox.setVisible(true);
         label3.setVisible(true);
         label2.setVisible(true);
         label1.setVisible(true);
@@ -384,9 +379,8 @@ public class CompetitivePlayController implements Initializable {
     }
 
     @FXML
-    private void returnHome(ActionEvent event) throws IOException, SQLException {
-         User currentUser = new User(username);
-        SwitchWindow.switchWindow((Stage) returnhome.getScene().getWindow(), new UserHome(this.currentUser));
+    private void returnHome(ActionEvent event) throws IOException {
+        SwitchWindow.switchWindow((Stage) returnhome.getScene().getWindow(), new UserHome(currentUser));
     }
 
     @FXML

@@ -13,12 +13,11 @@ import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import CompetitivePlay.CompetitivePlay;
 
 import LoginRegister.Login;
-import HighScoreView.HighScoreView;
+import PreviousScore.PreviousScore;
 import SQL.SQLHandler;
 import ScoreHistory.ScoreHistory;
 import ip2.SwitchWindow;
 import ip2.User;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -35,8 +34,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -50,12 +47,8 @@ import javafx.stage.Stage;
 public class UserHomeController implements Initializable {
 
     User currentUser;
-
+    
     int bankid;
-
-    @FXML
-    private ImageView imageRank;
-
     @FXML
     private JFXHamburger hamburger;
 
@@ -67,7 +60,7 @@ public class UserHomeController implements Initializable {
     @FXML
     private JFXButton competitivePlayButton;
     @FXML
-    private JFXButton casualPlayButton;
+    private JFXButton casualPlayButton, leaderboard, previousScoreButton;
     @FXML
     private Label casuallabel1;
 
@@ -95,16 +88,31 @@ public class UserHomeController implements Initializable {
 
     private Stage myStage;
 
-    int rankScore = 0;
-
     @FXML
     public void setStage(Stage stage) {
         myStage = stage;
     }
 
-   
+    @FXML
+    public void previousScore(ActionEvent event) throws IOException {
+        SwitchWindow.switchWindow((Stage) leaderboard.getScene().getWindow(), new PreviousScore(currentUser));
+    }
 
+    @FXML
+    public void scoreHistory(ActionEvent event) throws IOException {
+        SwitchWindow.switchWindow((Stage) previousScoreButton.getScene().getWindow(), new ScoreHistory(currentUser));
+    }
 
+//    @FXML
+//    private Button highScoreButton;
+//
+//    @FXML
+//    public void highscoreButton(ActionEvent event) throws IOException {     
+//        //System.out.println(currentUser);
+//
+//         SwitchWindow.switchWindow((Stage) leaderboard.getScene().getWindow(), new PreviousScore(currentUser));
+//
+//    }
     @FXML
     public void casualPlay(ActionEvent event) throws IOException {
         SwitchWindow.switchWindow((Stage) casualPlayButton.getScene().getWindow(), new CasualGameSelector(currentUser));
@@ -117,6 +125,8 @@ public class UserHomeController implements Initializable {
 
     }
 
+
+
     /**
      * Initializes the controller class.
      *
@@ -125,57 +135,13 @@ public class UserHomeController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+       
 
         Platform.runLater(new Runnable() {
 
             @Override
             public void run() {
-                rankScore = Integer.parseInt(currentUser.getUserScore());
-
-                if (rankScore < 50) {
-
-                    File file = new File("src/Resources/new.png");
-                    Image image = new Image(file.toURI().toString());
-                    imageRank.setImage(image);
-                }
-
-                if (rankScore >= 50 && rankScore < 100) {
-
-                    File file = new File("src/Resources/bronze.png");
-                    Image image = new Image(file.toURI().toString());
-                    imageRank.setImage(image);
-                }
-
-                if (rankScore >= 100 && rankScore < 150) {
-
-                    File file = new File("src/Resources/silver.png");
-                    Image image = new Image(file.toURI().toString());
-                    imageRank.setImage(image);
-                }
-
-                if (rankScore >= 150 && rankScore < 500) {
-
-                    File file = new File("src/Resources/gold.png");
-                    Image image = new Image(file.toURI().toString());
-                    imageRank.setImage(image);
-
-                }
-
-                if (rankScore >= 500 && rankScore < 1000) {
-
-                    File file = new File("src/Resources/diamond.png");
-                    Image image = new Image(file.toURI().toString());
-                    imageRank.setImage(image);
-                }
-
-                if (rankScore >= 1000) {
-
-                    File file = new File("src/Resources/phoenix.png");
-                    Image image = new Image(file.toURI().toString());
-                    imageRank.setImage(image);
-                }
-
-                System.out.println(currentUser.getUserScore());
+             System.out.println(currentUser.getUserScore());
                 userLabel.setText(currentUser.getFirstname());
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserHomePage/pullout.fxml"));

@@ -13,9 +13,9 @@ import java.sql.SQLException;
  */
 public class LeaderBoardScore {
      private  String name;
-    private  int score;
+    private  String score;
         
-        public LeaderBoardScore(String name,int score) throws SQLException{
+        public LeaderBoardScore(String name,String score) throws SQLException{
             this.name=name;
         this.score=score;
         }
@@ -25,7 +25,7 @@ public class LeaderBoardScore {
      }
        
         
-       public int getScore(){
+       public String getScore(){
          return this.score;
      }
        

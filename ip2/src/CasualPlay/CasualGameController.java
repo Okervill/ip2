@@ -26,7 +26,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -196,11 +195,6 @@ public class CasualGameController implements Initializable {
                 SQLHandler sql2 = new SQLHandler();
 
                 sql2.deleteAnQuestions(catID, currentUser.getCasualBankID());
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Finished Category");
-                alert.setHeaderText("Congratulations! You have finished this category. It will now be reset for you to practice again.");
-                alert.showAndWait();
-                return;
             }
         }
     }

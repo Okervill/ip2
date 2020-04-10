@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="418.0" prefWidth="600.0" stylesheets="@../Resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HighScoreView.HighScoreViewController">
+<AnchorPane id="AnchorPane" prefHeight="418.0" prefWidth="600.0" stylesheets="@../Resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PreviousScore.PreviousScoreController">
    <children>
         <TableView fx:id="highScoreTable" layoutX="85.0" layoutY="60.0" prefHeight="298.0" prefWidth="430.0">
         <columns>
