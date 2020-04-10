@@ -30,8 +30,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -39,12 +37,10 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -219,52 +215,78 @@ public class CompetitivePlayController implements Initializable {
 
     @FXML
     private void changeCircleGreen() {
-        if (questionno == 0) {
-            circle1.setFill(javafx.scene.paint.Color.GREEN);
-        } else if (questionno == 1) {
-            circle2.setFill(javafx.scene.paint.Color.GREEN);
-        } else if (questionno == 2) {
-            circle3.setFill(javafx.scene.paint.Color.GREEN);
-        } else if (questionno == 3) {
-            circle4.setFill(javafx.scene.paint.Color.GREEN);
-        } else if (questionno == 4) {
-            circle5.setFill(javafx.scene.paint.Color.GREEN);
-        } else if (questionno == 5) {
-            circle6.setFill(javafx.scene.paint.Color.GREEN);
-        } else if (questionno == 6) {
-            circle7.setFill(javafx.scene.paint.Color.GREEN);
-        } else if (questionno == 7) {
-            circle8.setFill(javafx.scene.paint.Color.GREEN);
-        } else if (questionno == 8) {
-            circle9.setFill(javafx.scene.paint.Color.GREEN);
-        } else if (questionno == 9) {
-            circle10.setFill(javafx.scene.paint.Color.GREEN);
+        switch (questionno) {
+            case 0:
+                circle1.setFill(javafx.scene.paint.Color.GREEN);
+                break;
+            case 1:
+                circle2.setFill(javafx.scene.paint.Color.GREEN);
+                break;
+            case 2:
+                circle3.setFill(javafx.scene.paint.Color.GREEN);
+                break;
+            case 3:
+                circle4.setFill(javafx.scene.paint.Color.GREEN);
+                break;
+            case 4:
+                circle5.setFill(javafx.scene.paint.Color.GREEN);
+                break;
+            case 5:
+                circle6.setFill(javafx.scene.paint.Color.GREEN);
+                break;
+            case 6:
+                circle7.setFill(javafx.scene.paint.Color.GREEN);
+                break;
+            case 7:
+                circle8.setFill(javafx.scene.paint.Color.GREEN);
+                break;
+            case 8:
+                circle9.setFill(javafx.scene.paint.Color.GREEN);
+                break;
+            case 9:
+                circle10.setFill(javafx.scene.paint.Color.GREEN);
+                break;
+            default:
+                break;
         }
 
     }
 
     @FXML
     private void changeCircleRed() {
-        if (questionno == 0) {
-            circle1.setFill(javafx.scene.paint.Color.RED);
-        } else if (questionno == 1) {
-            circle2.setFill(javafx.scene.paint.Color.RED);
-        } else if (questionno == 2) {
-            circle3.setFill(javafx.scene.paint.Color.RED);
-        } else if (questionno == 3) {
-            circle4.setFill(javafx.scene.paint.Color.RED);
-        } else if (questionno == 4) {
-            circle5.setFill(javafx.scene.paint.Color.RED);
-        } else if (questionno == 5) {
-            circle6.setFill(javafx.scene.paint.Color.RED);
-        } else if (questionno == 6) {
-            circle7.setFill(javafx.scene.paint.Color.RED);
-        } else if (questionno == 7) {
-            circle8.setFill(javafx.scene.paint.Color.RED);
-        } else if (questionno == 8) {
-            circle9.setFill(javafx.scene.paint.Color.RED);
-        } else if (questionno == 9) {
-            circle10.setFill(javafx.scene.paint.Color.RED);
+        switch (questionno) {
+            case 0:
+                circle1.setFill(javafx.scene.paint.Color.RED);
+                break;
+            case 1:
+                circle2.setFill(javafx.scene.paint.Color.RED);
+                break;
+            case 2:
+                circle3.setFill(javafx.scene.paint.Color.RED);
+                break;
+            case 3:
+                circle4.setFill(javafx.scene.paint.Color.RED);
+                break;
+            case 4:
+                circle5.setFill(javafx.scene.paint.Color.RED);
+                break;
+            case 5:
+                circle6.setFill(javafx.scene.paint.Color.RED);
+                break;
+            case 6:
+                circle7.setFill(javafx.scene.paint.Color.RED);
+                break;
+            case 7:
+                circle8.setFill(javafx.scene.paint.Color.RED);
+                break;
+            case 8:
+                circle9.setFill(javafx.scene.paint.Color.RED);
+                break;
+            case 9:
+                circle10.setFill(javafx.scene.paint.Color.RED);
+                break;
+            default:
+                break;
         }
 
     }
@@ -313,7 +335,6 @@ public class CompetitivePlayController implements Initializable {
     @FXML
     private void nextQuestion() throws SQLException {
         Question q = questions.get(qNo);
-        System.out.println(qNo);
         questionDisplay.setText(q.getUserQuestion());
         String[] answers = {q.getCorrectAnswer(), q.getWrongAnswer1(), q.getWrongAnswer2(), q.getWrongAnswer3()};
         ArrayList num = new ArrayList<>();
@@ -338,8 +359,6 @@ public class CompetitivePlayController implements Initializable {
 
     @FXML
     private void endQuiz() throws SQLException {
-        System.out.println(score);
-
         countdown.cancel();
 
         option1.setVisible(false);
@@ -360,6 +379,7 @@ public class CompetitivePlayController implements Initializable {
         int quizNo = sql.getCompQuizNo(currentUser.getCompetitiveBankID());
 
         sql.addCompScore(currentUser.getCompetitiveBankID(), ++quizNo, score);
+        currentUser.setUserScore(Integer.valueOf(currentUser.getUserScore()) + score);
         sql.updateTotalCompScore(currentUser.getCompetitiveBankID(), score);
        
 
@@ -385,14 +405,13 @@ public class CompetitivePlayController implements Initializable {
 
     @FXML
     private void returnHome(ActionEvent event) throws IOException, SQLException {
-         User currentUser = new User(username);
-        SwitchWindow.switchWindow((Stage) returnhome.getScene().getWindow(), new UserHome(this.currentUser));
+        SwitchWindow.switchWindow((Stage) returnhome.getScene().getWindow(), new UserHome(currentUser));
     }
 
     @FXML
     private void home(ActionEvent event) throws IOException {
 
-        Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure u wish to return home? Your score will not be counted.", ButtonType.YES, ButtonType.CANCEL);
+        Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure you wish to return home? Your score will not be counted.", ButtonType.YES, ButtonType.CANCEL);
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.YES) {

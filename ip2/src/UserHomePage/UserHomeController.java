@@ -13,16 +13,11 @@ import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import CompetitivePlay.CompetitivePlay;
 
 import LoginRegister.Login;
-import HighScoreView.HighScoreView;
-import SQL.SQLHandler;
-import ScoreHistory.ScoreHistory;
 import ip2.SwitchWindow;
 import ip2.User;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,7 +33,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -174,8 +168,7 @@ public class UserHomeController implements Initializable {
                     Image image = new Image(file.toURI().toString());
                     imageRank.setImage(image);
                 }
-
-                System.out.println(currentUser.getUserScore());
+                
                 userLabel.setText(currentUser.getFirstname());
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserHomePage/pullout.fxml"));
