@@ -5,7 +5,6 @@
  */
 package UserHomePage;
 
-import CategoryPage.EditCategory;
 import LoginRegister.Login;
 import SQL.SQLHandler;
 import com.jfoenix.controls.JFXDrawer;
@@ -172,16 +171,9 @@ public class AccountController implements Initializable {
     @FXML
     private void deleteAccount(ActionEvent event) throws SQLException, IOException {
 
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure u wish to delete account?", ButtonType.YES, ButtonType.CANCEL);
-        alert.showAndWait();
-            SQLHandler sql = new SQLHandler();
-            int userId=currentUser.getUserID();
-        if (alert.getResult() == ButtonType.YES) {
-            sql.deleteAccount(userId);
-            SwitchWindow.switchWindow((Stage) deleteAccount.getScene().getWindow(), new Login());
+            SwitchWindow.switchWindow((Stage) deleteAccount.getScene().getWindow(), new DeleteAccount(currentUser));
         }
 
-}
     
     @FXML
     private void changeUsername(ActionEvent event){
