@@ -52,7 +52,7 @@ public class Question {
         this.wrongAns3 = wrong3;
     }
 
-    public Question(int tempid, int catID, String quest, String correct, String wrong1, String wrong2, String wrong3) throws SQLException {
+    public Question(int tempid, int catID, String quest, String correct, String wrong1, String wrong2, String wrong3) {
 
         this.QuestionID = tempid;
         this.CategoryID = catID;

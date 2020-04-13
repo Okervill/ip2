@@ -26,10 +26,7 @@ public class User {
 
     public User(String first, String sur, String user, String pass, String isAdmin, String usrscore) throws SQLException {
 
-        SQLHandler sql = new SQLHandler();
-        int usercount = sql.getAllUsers().size();
-
-        userid = Integer.valueOf(++usercount);
+        userid=0;
         firstname = first;
         surname = sur;
         username = user;
@@ -63,7 +60,7 @@ public class User {
 
     public void createUser(User user) throws SQLException {
         SQLHandler sql = new SQLHandler();
-        sql.createUser(user.getUserID(), user.getFirstname(), user.getSurname(), user.getUsername(), user.getPassword(), user.getUserType(), user.getUserScore());
+        sql.createUser(user.getFirstname(), user.getSurname(), user.getUsername(), user.getPassword(), user.getUserType(), user.getUserScore());
     }
 
     public int getUserID() {

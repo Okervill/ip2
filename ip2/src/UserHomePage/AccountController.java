@@ -145,7 +145,7 @@ public class AccountController implements Initializable {
                     transition.setRate(-1);
                     hamburger.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
                         transition.setRate(transition.getRate() * -1);
-                        transition.play();
+                        transition.play(); 
 
                         if (drawer.isOpened()) {
                             drawer.close();

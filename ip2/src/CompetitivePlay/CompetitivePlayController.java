@@ -380,9 +380,7 @@ public class CompetitivePlayController implements Initializable {
 
         sql.addCompScore(currentUser.getUserID(), ++quizNo, score);
         sql.updateTotalCompScore(currentUser.getUserID(), score);
-        sql.addCompScore(currentUser.getUserID(), ++quizNo, score);
         currentUser.setUserScore(Integer.valueOf(currentUser.getUserScore()) + score);
-        sql.updateTotalCompScore(currentUser.getUserID(), score);
 
 
     }

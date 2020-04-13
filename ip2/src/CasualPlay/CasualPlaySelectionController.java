@@ -209,6 +209,7 @@ public class CasualPlaySelectionController implements Initializable {
             sortedData.comparatorProperty().bind(table.comparatorProperty());
             table.setItems(sortedData);
         });
+        
 
     }
 
