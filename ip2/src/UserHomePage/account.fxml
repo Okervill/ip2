@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="418.0" prefWidth="415.0" stylesheets="@../Resources/stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserHomePage.AccountController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="418.0" prefWidth="415.0" stylesheets="@../Resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserHomePage.AccountController">
    <children>
       <Button fx:id="home" layoutX="351.0" layoutY="1.0" mnemonicParsing="false" onAction="#home" prefHeight="39.0" prefWidth="42.0" style="-fx-border-color: transparent;" stylesheets="@../Resources/stylesheet.css">
          <graphic>
