@@ -21,7 +21,7 @@ import javafx.fxml.FXML;
 public class Category {
 
     private final int categoryId;
-    private final String categoryName;
+    private String categoryName;
     private static final SQLHandler sql = new SQLHandler();
 
     public Category(String categoryName) throws SQLException {
@@ -56,6 +56,10 @@ public class Category {
      * @param category
      * @throws SQLException
      */
+    
+    public void setCategoryName(String name){
+        this.categoryName=name;
+    }
     public static int fetchCatInfo(String tempcat) throws SQLException {
         List categoryInfo = sql.searchCategoriesTable(tempcat);
 
@@ -92,3 +96,4 @@ public class Category {
     }
 
 }
+ 

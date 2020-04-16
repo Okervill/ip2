@@ -113,12 +113,8 @@ public class ViewCategoryController implements Initializable {
     @FXML
     private void editCategoryButton(ActionEvent event) throws IOException, SQLException {
         try {
-            ArrayList<String> allCategories = new ArrayList<>();
+            
             String catName = getTablePos();
-
-            SQLHandler sql = new SQLHandler();
-            allCategories = sql.getAllCategories();
-
             Category currentCategory = new Category(catName);
             currentCategory = Category.search(catName);
 
