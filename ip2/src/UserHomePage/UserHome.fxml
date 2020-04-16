@@ -49,22 +49,22 @@
       </JFXButton>
       <Label fx:id="casuallabel1" layoutX="416.0" layoutY="271.0" text="Practice questions " textFill="#999999">
          <font>
-            <Font size="16.0" />
+            <Font size="13.0" />
          </font>
       </Label>
       <Label fx:id="casualLabel3" layoutX="417.0" layoutY="297.0" text="your choosing!" textFill="#999999">
          <font>
-            <Font size="16.0" />
+            <Font size="13.0" />
          </font>
       </Label>
       <Label fx:id="compLabel1" layoutX="415.0" layoutY="159.0" text="Play random" textFill="#999999" wrapText="true">
          <font>
-            <Font size="16.0" />
+            <Font size="13.0" />
          </font>
       </Label>
       <Label fx:id="compLabel3" layoutX="416.0" layoutY="186.0" text="against a timer!" textFill="#999999">
          <font>
-            <Font size="16.0" />
+            <Font size="13.0" />
          </font>
       </Label>
       <Button fx:id="casualInfo" layoutX="404.0" layoutY="223.0" mnemonicParsing="false" style="-fx-border-color: transparent;" styleClass="quest-button">
@@ -87,12 +87,12 @@
       </Button>
       <Label fx:id="compLabel2" layoutX="415.0" layoutY="172.0" text="questions against" textFill="#999999" wrapText="true">
          <font>
-            <Font size="16.0" />
+            <Font size="13.0" />
          </font>
       </Label>
       <Label fx:id="casualLabel2" layoutX="416.0" layoutY="284.0" text="from a category of" textFill="#999999">
          <font>
-            <Font size="16.0" />
+            <Font size="13.0" />
          </font>
       </Label>
       <Button fx:id="logout" layoutX="460.0" layoutY="5.0" mnemonicParsing="false" onAction="#logoutButton" style="-fx-background-color: transparent; -fx-border-color: transparent;" text="Sign Out" textFill="WHITE" underline="true">
