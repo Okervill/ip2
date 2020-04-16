@@ -48,6 +48,7 @@ public class EditCategoryController implements Initializable {
 
     @FXML
     private JFXButton cancel;
+    public static SQLHandler sql = new SQLHandler();
 
     @FXML
     public void editnewCategory(ActionEvent event) throws IOException {
@@ -63,11 +64,7 @@ public class EditCategoryController implements Initializable {
     public void editNewCategory(ActionEvent event) throws IOException, SQLException {
         String name = getCategoryName.getText();
         ArrayList<String> allCategories = new ArrayList<>();
-        SQLHandler sql = new SQLHandler();
         allCategories = sql.getAllCategories();
-        Pattern pattern = Pattern.compile("[^A-Za-z]");
-        Matcher match = pattern.matcher(name);
-        boolean val = match.find();
 
         if (allCategories.contains(name)) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -80,7 +77,7 @@ public class EditCategoryController implements Initializable {
 
             addCategoryFailed();
             }
-        if (val==true)
+        if (Category.match(name)==true)
         {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Category Error");

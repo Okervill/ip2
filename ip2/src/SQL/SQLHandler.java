@@ -8,6 +8,7 @@ package SQL;
 import ip2.Category;
 import ip2.HighScore;
 import ip2.Question;
+import ip2.User;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -556,5 +557,15 @@ public class SQLHandler {
         query.executeUpdate();
         query.close();
 
+    }
+    public ObservableList<HighScore> getPreviousResult(User currentUser) throws SQLException{
+        ObservableList<HighScore> data = FXCollections.observableArrayList();
+        String sql = "select quizNo,score from comp_" + currentUser.getUserID() + "";
+                System.out.println(sql);
+                ResultSet rs = conn.createStatement().executeQuery(sql);
+                while (rs.next()) {
+                    data.add(new HighScore(rs.getInt("quizNo"), rs.getString("score")));
+                }
+                return data;
     }
 }

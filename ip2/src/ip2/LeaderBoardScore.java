@@ -12,8 +12,8 @@ import java.sql.SQLException;
  * @author user
  */
 public class LeaderBoardScore {
-     private  String name;
-    private  int score;
+     private final  String name;
+    private final  int score;
         
         public LeaderBoardScore(String name,int score) throws SQLException{
             this.name=name;

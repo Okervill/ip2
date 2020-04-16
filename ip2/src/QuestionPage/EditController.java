@@ -9,6 +9,7 @@ import SQL.SQLHandler;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import ip2.Category;
 import ip2.Question;
 import ip2.Shaker;
 import ip2.SwitchWindow;
@@ -84,7 +85,7 @@ public class EditController implements Initializable {
             questionArea.end();
 
             try {
-                String categoryName = fetchCatName(tempcat);
+                String categoryName = Category.fetchCatName(tempcat);
 
                 categoryCombo.getSelectionModel().select(categoryName);
 
@@ -107,27 +108,6 @@ public class EditController implements Initializable {
 
     }
 
-    private String fetchCatName(int tempcat) throws SQLException {
-        SQLHandler sql = new SQLHandler();
-        ArrayList<String> categoryInfo = sql.searchIDCategoriesTable(tempcat);
-
-        String categoryName = categoryInfo.get(0);
-
-        return categoryName;
-
-    }
-
-    private int fetchCatId(String catId) throws SQLException {
-
-        SQLHandler sql = new SQLHandler();
-        List categoryInfo = sql.searchCategoriesTable(catId);
-
-        int tempcategoryId = (int) categoryInfo.get(0);
-
-        return tempcategoryId;
-
-    }
-
     public void setData(Question question) {
         currentQuestion = question;
 
@@ -143,7 +123,7 @@ public class EditController implements Initializable {
 
         String tempcat = categoryCombo.getSelectionModel().getSelectedItem();
 
-        int catId = fetchCatId(tempcat);
+        int catId = Category.fetchCatInfo(tempcat);
 
         if (answer.isEmpty() || question.isEmpty() || wrong1.isEmpty() || wrong2.isEmpty() || wrong3.isEmpty() || categoryCombo.getSelectionModel().isEmpty()) {
 

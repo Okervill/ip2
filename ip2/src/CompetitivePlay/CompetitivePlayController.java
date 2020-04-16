@@ -14,6 +14,7 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import ip2.Question;
+import ip2.Quiz;
 import ip2.SwitchWindow;
 import ip2.User;
 import java.io.IOException;
@@ -64,8 +65,9 @@ public class CompetitivePlayController implements Initializable {
     private TextArea questionDisplay;
 
     private int qNo = 0;
-    ArrayList<Question> questions = new ArrayList<>();
+
     int score;
+    Quiz q = new Quiz();
 
     @FXML
     Timer countdown = new Timer();
@@ -87,7 +89,8 @@ public class CompetitivePlayController implements Initializable {
     int questionno = 0;
 
     String username;
-
+    Quiz quiz = new Quiz();
+    ArrayList<Question> questions = new ArrayList<>();
     /**
      * Initializes the controller class.
      *
@@ -131,13 +134,11 @@ public class CompetitivePlayController implements Initializable {
 
         });
         startButton.setVisible(true);
-
         finishButton.setVisible(false);
         option1.setVisible(false);
         option2.setVisible(false);
         option3.setVisible(false);
         option4.setVisible(false);
-
         highscore.setVisible(false);
         scoreDisplay.setVisible(false);
         line.setVisible(false);
@@ -168,7 +169,7 @@ public class CompetitivePlayController implements Initializable {
             }
         }
         countdown.schedule(new CountdownTimer(), 30000, 60000);
-        ArrayList<Question> questions = getQuestions();
+        questions = quiz.getQuestions();
         if (questions.isEmpty()) {
             return;
         }
@@ -182,35 +183,6 @@ public class CompetitivePlayController implements Initializable {
         option4.setVisible(true);
         nextQuestion();
 
-    }
-
-    @FXML
-    private ArrayList<Question> getQuestions() throws SQLException {
-
-        SQLHandler sql = new SQLHandler();
-        ArrayList<Question> allq = sql.getAllQandA();
-
-        if (allq.size() < 10) {
-            System.out.println("Less than 10 questions found");
-            return null;
-        }
-
-        for (int i = 0; i < 11; i++) {
-            int x = getRandom(allq.size());
-            if (questions.contains(allq.get(x))) {
-                i = i - 1;
-            } else {
-                questions.add(allq.get(x));
-            }
-        }
-
-        return questions;
-    }
-
-    @FXML
-    private int getRandom(int max) {
-        int rnd = (int) (Math.random() * max);
-        return rnd;
     }
 
     @FXML
@@ -334,24 +306,16 @@ public class CompetitivePlayController implements Initializable {
 
     @FXML
     private void nextQuestion() throws SQLException {
+        if (qNo<10){
         Question q = questions.get(qNo);
         questionDisplay.setText(q.getUserQuestion());
-        String[] answers = {q.getCorrectAnswer(), q.getWrongAnswer1(), q.getWrongAnswer2(), q.getWrongAnswer3()};
-        ArrayList num = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            int x = getRandom(4);
-            if (num.contains(x)) {
-                i = i - 1;
-            } else {
-                num.add(x);
-            }
-        }
+        String[] answers=q.getAnswers(q);        
+        ArrayList num = quiz.nextQuestion();  
         option1.setText(answers[(int) num.get(0)]);
         option2.setText(answers[(int) num.get(1)]);
         option3.setText(answers[(int) num.get(2)]);
         option4.setText(answers[(int) num.get(3)]);
-        if (qNo < 10) {
-            qNo++;
+        qNo++;
         } else {
             endQuiz();
         }
@@ -365,24 +329,10 @@ public class CompetitivePlayController implements Initializable {
         option2.setVisible(false);
         option3.setVisible(false);
         option4.setVisible(false);
-
         finishButton.setVisible(true);
         finishButton.requestFocus();
-
         questionDisplay.clear();
-
-        SQLHandler sql = new SQLHandler();
-
-        //Create comp table if it doesnt exist
-        sql.createCompTables(currentUser.getUserID());
-
-        int quizNo = sql.getCompQuizNo(currentUser.getUserID());
-
-        sql.addCompScore(currentUser.getUserID(), ++quizNo, score);
-        sql.updateTotalCompScore(currentUser.getUserID(), score);
-        currentUser.setUserScore(Integer.valueOf(currentUser.getUserScore()) + score);
-
-
+        quiz.endCompQuiz(currentUser, score);
     }
 
     @FXML
@@ -390,7 +340,6 @@ public class CompetitivePlayController implements Initializable {
         questionDisplay.setVisible(false);
         finishButton.setVisible(false);
         home.setVisible(false);
-
         highscore.setVisible(true);
         scoreDisplay.setVisible(true);
         line.setVisible(true);

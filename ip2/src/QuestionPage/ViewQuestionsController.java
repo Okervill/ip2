@@ -67,13 +67,13 @@ public class ViewQuestionsController implements Initializable {
 
     @FXML
     private Button home;
+    private static final SQLHandler sql = new SQLHandler();
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        SQLHandler sql = new SQLHandler();
         ArrayList<String> getQuestions = new ArrayList<>();
         ArrayList<Question> allQuestions = new ArrayList<>();
 
@@ -137,10 +137,9 @@ public class ViewQuestionsController implements Initializable {
 
             String quest = getTablePos();
 
-            SQLHandler sql = new SQLHandler();
             allQuestions = sql.getAllQuestions();
 
-            Question currentQuestion = search(quest);
+            Question currentQuestion = Question.search(quest);
             currentQuestion.deleteQuestion(currentQuestion);
 
             SwitchWindow.switchWindow((Stage) deleteQuest.getScene().getWindow(), new QuestionPage(currentUser));
@@ -157,12 +156,10 @@ public class ViewQuestionsController implements Initializable {
     private void editQuestion(ActionEvent event) throws IOException, SQLException {
         try {
             String quest = getTablePos();
-
-            SQLHandler sql = new SQLHandler();
             allQuestions = sql.getAllQuestions();
 
             Question currentQuestion = new Question(quest);
-            currentQuestion = search(quest);
+            currentQuestion = Question.search(quest);
 
             SwitchWindow.switchWindow((Stage) editQuest.getScene().getWindow(), new EditPage(currentQuestion));
             
@@ -175,24 +172,7 @@ public class ViewQuestionsController implements Initializable {
         }
     }
 
-    @FXML
-    public Question search(String userquest) throws SQLException, IOException {
-        SQLHandler sql = new SQLHandler();
-        List questionInfo = sql.searchQuestionTable(userquest);
-
-        int QuestionID = (int) questionInfo.get(0);
-        int CategoryID = (int) questionInfo.get(1);
-        String quest = (String) questionInfo.get(2);
-        String answer = (String) questionInfo.get(3);
-        String wrongAns1 = (String) questionInfo.get(4);
-        String wrongAns2 = (String) questionInfo.get(5);
-        String wrongAns3 = (String) questionInfo.get(6);
-
-        Question currentQuestion = new Question(QuestionID, CategoryID, quest, answer, wrongAns1, wrongAns2, wrongAns3);
-
-        return currentQuestion;
-
-    }
+ 
 
     @FXML
     private void addQuestion(ActionEvent event) throws IOException, SQLException {

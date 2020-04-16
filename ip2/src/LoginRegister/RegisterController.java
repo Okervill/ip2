@@ -17,8 +17,6 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -70,11 +68,6 @@ public class RegisterController implements Initializable {
         ArrayList<String> allUsers = new ArrayList<>();
         SQLHandler sql = new SQLHandler();
         allUsers = sql.getAllUsers();
-        Pattern pattern = Pattern.compile("[^A-Za-z0-9]");
-        Matcher match = pattern.matcher(username);
-        Matcher match2 = pattern.matcher(password);
-        boolean valUser = match.find();
-        boolean valPass = match2.find();
 
         if (allUsers.contains(username)) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -84,14 +77,14 @@ public class RegisterController implements Initializable {
             return;
         }
 
-        if (valUser == true) {
+        if (User.match(username) == true) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Username Error");
             alert.setHeaderText("Username cannot contain special characters, please choose another");
             alert.showAndWait();
             return;
         }
-        if (valPass == true) {
+        if (User.match(password) == true) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Password Error");
             alert.setHeaderText("Password cannot contain special characters, please choose another");
@@ -111,7 +104,7 @@ public class RegisterController implements Initializable {
             alert.showAndWait();
         }
 
-        if (allUsers.contains(username) || valUser == true || valPass == true || (password.length() < 8 || password.length() > 32) || username.length() < 4 || firstname.isEmpty() || surname.isEmpty() || username.isEmpty() || password.isEmpty() || !check13.isSelected()) {
+        if (allUsers.contains(username) || User.match(password) == true || User.match(username) == true || (password.length() < 8 || password.length() > 32) || username.length() < 4 || firstname.isEmpty() || surname.isEmpty() || username.isEmpty() || password.isEmpty() || !check13.isSelected()) {
             registerFailed();
 
         } else {

@@ -48,6 +48,7 @@ public class AddCategoryController implements Initializable {
     @FXML
     private JFXButton addNewCategoryButton, cancel;
 
+    public static SQLHandler sql = new SQLHandler();
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
@@ -57,15 +58,10 @@ public class AddCategoryController implements Initializable {
 
     @FXML
     private void addNewCategory(ActionEvent event) throws SQLException, IOException {
-        String categoryName;
-        categoryName = getCategoryName.getText();
-
+        String categoryName=getCategoryName.getText();
         ArrayList<String> allCategories = new ArrayList<>();
-        SQLHandler sql = new SQLHandler();
         allCategories = sql.getAllCategories();
-        Pattern pattern = Pattern.compile("[^A-Za-z]");
-        Matcher match = pattern.matcher(categoryName);
-        boolean val = match.find();
+ 
         
         if (allCategories.contains(categoryName)) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -78,7 +74,7 @@ public class AddCategoryController implements Initializable {
         if (categoryName.isEmpty()) {
             addCategoryFailed();
         } 
-        if (val==true)
+        if (Category.match(categoryName)==true)
         {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Category Error");
