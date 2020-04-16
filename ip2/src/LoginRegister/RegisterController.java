@@ -58,17 +58,22 @@ public class RegisterController implements Initializable {
     private void register(ActionEvent event) throws SQLException {
         String firstname, surname, username, password;
         firstname = getFirstname.getText();
-       
 
         surname = getSurname.getText();
-       
+
         username = getUsername.getText();
         password = getPassword.getText();
 
         ArrayList<String> allUsers = new ArrayList<>();
         SQLHandler sql = new SQLHandler();
         allUsers = sql.getAllUsers();
-
+        if (!check13.isSelected()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Age Restriction");
+            alert.setHeaderText("Please confirm that you are 13 or over");
+            alert.showAndWait();
+            return;
+        }
         if (allUsers.contains(username)) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Username Error");
@@ -108,13 +113,13 @@ public class RegisterController implements Initializable {
             registerFailed();
 
         } else {
-             surname = surname.substring(0, 1).toUpperCase() + surname.substring(1).toLowerCase();
-              firstname = firstname.substring(0, 1).toUpperCase() + firstname.substring(1).toLowerCase();
+            surname = surname.substring(0, 1).toUpperCase() + surname.substring(1).toLowerCase();
+            firstname = firstname.substring(0, 1).toUpperCase() + firstname.substring(1).toLowerCase();
             Hash h = new Hash();
             password = h.hash(password);
             User newUser = new User(firstname, surname, username, password, "false", "0");
             newUser.createUser(newUser);
-           
+
             SwitchWindow.switchWindow((Stage) registerButton.getScene().getWindow(), new Login());
         }
     }
