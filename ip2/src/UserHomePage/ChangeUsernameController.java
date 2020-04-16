@@ -58,9 +58,6 @@ public class ChangeUsernameController implements Initializable {
         ArrayList<String> allUsers = new ArrayList<>();
         SQLHandler sql = new SQLHandler();
         allUsers = sql.getAllUsers();
-        Pattern pattern = Pattern.compile("[^A-Za-z0-9]");
-        Matcher match = pattern.matcher(name);
-        boolean val = match.find();
 
         if (allUsers.contains(name)) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

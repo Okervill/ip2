@@ -87,8 +87,8 @@ public class EditCategoryController implements Initializable {
         }
          else {
 
-            Category newcategory = new Category(catid, name);
-            newcategory.editCategory(newcategory);
+            currentCategory.setCategoryName(name);
+            currentCategory.editCategory(currentCategory);
 
                SwitchWindow.switchWindow((Stage) addNewCategoryButton.getScene().getWindow(), new ViewCategory(currentUser));
 

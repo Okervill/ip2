@@ -42,7 +42,6 @@ public class User {
     
     public User(String user) throws SQLException {
         ArrayList<String> userInfo = sql.searchUsersTable(user);
-
         userid = parseInt(userInfo.get(0));
         firstname = userInfo.get(1);
         surname = userInfo.get(2);
