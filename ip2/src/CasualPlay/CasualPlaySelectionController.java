@@ -97,8 +97,7 @@ public class CasualPlaySelectionController implements Initializable {
             int index = pos.getRow();
             Category item = table.getItems().get(index);
 
-            System.out.println("You have selected " + item.getCategoryName());
-
+   
             tempSelection = (String) item.getCategoryName();
 
             CasualGame.setUserSelection(tempSelection);

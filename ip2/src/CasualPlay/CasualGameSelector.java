@@ -26,7 +26,7 @@ public class CasualGameSelector extends Application {
         Scene scene = new Scene(root);
 
         stage.setScene(scene);
-        stage.setTitle("Home");
+        stage.setTitle("Casual Selection");
 
         stage.show();
         stage.centerOnScreen();
