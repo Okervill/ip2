@@ -8,7 +8,9 @@ package CasualPlay;
 import SQL.SQLHandler;
 import UserHomePage.UserHome;
 import com.jfoenix.controls.JFXButton;
+import ip2.Category;
 import ip2.Question;
+import ip2.Quiz;
 import ip2.SwitchWindow;
 import ip2.User;
 import java.io.IOException;
@@ -28,6 +30,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
@@ -43,9 +46,8 @@ public class CasualGameController implements Initializable {
     ArrayList<Question> questions = new ArrayList<>();
     ArrayList<Question> answQuestions = new ArrayList<>();
     private int qNo = 0;
-
     int score = 0;
-
+    Quiz quiz = new Quiz();
     @FXML
     private JFXButton option1, option2, option3, option4;
 
@@ -62,51 +64,9 @@ public class CasualGameController implements Initializable {
 
     @FXML
     private HBox scorebox;
-    int qsize;
-
-    ArrayList<Question> allq;
-
-    private ArrayList<Question> getQuestions(int catID, int userId) throws SQLException {
-
-        SQLHandler sql = new SQLHandler();
-
-        allq = sql.getQnAFromCategory(catID, currentUser.getUserID());
-
-        if (allq.size() < 1) {
-
-            System.out.println("No questions found");
-            return null;
-        }
-        qsize = allq.size();
-
-        for (int i = 0; i < allq.size(); i++) {
-            int x = getRandom(allq.size());
-            if (questions.contains(allq.get(x))) {
-                i = i - 1;
-
-            } else {
-                questions.add(allq.get(x));
-            }
-        }
-
-        return questions;
-    }
-
-    private int getRandom(int max) {
-        int rnd = (int) (Math.random() * max);
-        return rnd;
-    }
-
-    private int fetchCatInfo(String tempcat) throws SQLException {
-        SQLHandler sql = new SQLHandler();
-        List categoryInfo = sql.searchCategoriesTable(tempcat);
-
-        int tempcategoryId = (int) categoryInfo.get(0);
-
-        return tempcategoryId;
-
-    }
-
+    @FXML
+    private Button returnHome;
+ 
     @FXML
     private void answer(ActionEvent event) throws SQLException {
         if (event.getSource().equals(option1)) {
@@ -141,19 +101,12 @@ public class CasualGameController implements Initializable {
     }
 
     private void nextQuestion() throws SQLException {
-        if (qNo < qsize) {
+        if (qNo < questions.size()) {
             Question q = questions.get(qNo);
             questionDisplay.setText(q.getUserQuestion());
-            String[] answers = {q.getCorrectAnswer(), q.getWrongAnswer1(), q.getWrongAnswer2(), q.getWrongAnswer3()};
-            ArrayList num = new ArrayList<>();
-            for (int i = 0; i < 4; i++) {
-                int x = getRandom(4);
-                if (num.contains(x)) {
-                    i = i - 1;
-                } else {
-                    num.add(x);
-                }
-            }
+            String[] answers=q.getAnswers(q);
+            ArrayList num = quiz.nextQuestion();
+            
             option1.setText(answers[(int) num.get(0)]);
             option2.setText(answers[(int) num.get(1)]);
             option3.setText(answers[(int) num.get(2)]);
@@ -181,21 +134,9 @@ public class CasualGameController implements Initializable {
         previousScoreButton.setVisible(true);
         home.setVisible(true);
         scoreDisplay.setText("" + score);
-        outOf.setText("" + qsize);
-
-        int catID = fetchCatInfo(categorySelected);
-
-        SQLHandler sql3 = new SQLHandler();
-        for (Question q : answQuestions) {
-            sql3.addAnsweredQuestions(currentUser.getUserID(), q.getQuestionId(), q.getCategoryId());
-
-            SQLHandler sql = new SQLHandler();
-            ArrayList<Question> allquest = sql.getQnAFromCategory(catID, currentUser.getUserID());
-
-            if (allquest.size() < 1) {
-                SQLHandler sql2 = new SQLHandler();
-
-                sql2.deleteAnQuestions(catID, currentUser.getUserID());
+        outOf.setText("" + questions.size());
+        boolean end = quiz.endCasualQuiz(categorySelected, currentUser, answQuestions);
+            if (end==true) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Finished Category");
                 alert.setHeaderText("Congratulations! You have finished this category. It will now be reset for you to practice again.");
@@ -203,7 +144,6 @@ public class CasualGameController implements Initializable {
                 return;
             }
         }
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -219,9 +159,9 @@ public class CasualGameController implements Initializable {
                     previousScoreButton.setVisible(false);
                     home.setVisible(false);
 
-                    int catID = fetchCatInfo(categorySelected);
+                   //int catID = Category.fetchCatInfo(categorySelected);
 
-                    questions = getQuestions(catID, currentUser.getUserID());
+                    questions = quiz.getQuestions(categorySelected, currentUser);
                     if (questions.isEmpty()) {
                         return;
                     }
@@ -250,6 +190,17 @@ public class CasualGameController implements Initializable {
     @FXML
     public void home(ActionEvent event) throws IOException {
         SwitchWindow.switchWindow((Stage) home.getScene().getWindow(), new UserHome(currentUser));
+
+    }
+    @FXML
+    private void returnHome(ActionEvent event) throws IOException {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you wish to return home? Your score will not be counted.", ButtonType.YES, ButtonType.CANCEL);
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.YES) {
+            SwitchWindow.switchWindow((Stage) home.getScene().getWindow(), new UserHome(currentUser));
+        }
 
     }
 

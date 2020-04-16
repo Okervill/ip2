@@ -75,18 +75,9 @@ public class ScoreHistoryController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
             try {
-                //  System.out.println(currentUser.getCompetitiveBankID());
-                Connection conn = SQLHandler.getConn();
-                String sql = "select quizNo,score from comp_" + currentUser.getUserID() + "";
-                System.out.println(sql);
-                ResultSet rs = conn.createStatement().executeQuery(sql);
-                while (rs.next()) {
-                    data.add(new HighScore(rs.getInt("quizNo"), rs.getString("score")));
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(ScoreHistoryController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
+                SQLHandler sql=new SQLHandler();
+                data=sql.getPreviousResult(currentUser);
+          
             n.setCellValueFactory(new PropertyValueFactory<>("quizNo"));
             n1.setCellValueFactory(new PropertyValueFactory<>("score"));
           
@@ -122,9 +113,15 @@ public class ScoreHistoryController implements Initializable {
                 Logger.getLogger(UserHomeController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        });
-
+        }   catch (SQLException ex) {
+                Logger.getLogger(ScoreHistoryController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+);
     }
+       
+
+    
 
     public void setData(User user) {
         currentUser = user;

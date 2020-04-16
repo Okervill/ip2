@@ -8,6 +8,7 @@ package SQL;
 import ip2.Category;
 import ip2.HighScore;
 import ip2.Question;
+import ip2.User;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -55,20 +56,20 @@ public class SQLHandler {
     }
 
     //-----------------------------//
-    // ADD NEW DATA TO LOGIN TABLE //
+    // ADD NEW DATA TO USERS TABLE //
     //-----------------------------//
-    public void createUser(int userid,String firstname, String surname, String username, String password, String admin, String userscore) throws SQLException {
+    public void createUser(String firstname, String surname, String username, String password, String admin, String userscore) throws SQLException {
 
-        String sql = "INSERT INTO Users (UserID, FirstName, Surname, Username, Password, isAdmin, UserScore) VALUES(?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Users ( FirstName, Surname, Username, Password, isAdmin, UserScore) VALUES(?,?,?,?,?,?)";
         query = conn.prepareStatement(sql);
 
-        query.setInt(1, userid);
-        query.setString(2, firstname);
-        query.setString(3, surname);
-        query.setString(4, username);
-        query.setString(5, password);
-        query.setString(6, admin);
-        query.setString(7, userscore);
+;
+        query.setString(1, firstname);
+        query.setString(2, surname);
+        query.setString(3, username);
+        query.setString(4, password);
+        query.setString(5, admin);
+        query.setString(6, userscore);
 
         query.executeUpdate();
         query.close();
@@ -112,6 +113,9 @@ public class SQLHandler {
         query.close();
     }
 
+    //-----------------------------//
+    // EDIT DATA IN QUESTION TABLE //
+    //-----------------------------//
     public void editQuestion(int QuestionId, int CategoryId, String question, String answer, String wrongAns1, String wrongAns2, String wrongAns3) throws SQLException {
 
         String sql = "UPDATE Questions SET CategoryId = ? , Question = ?, Answer = ?, wrongAns1 = ?, wrongAns2 = ?, wrongAns3 = ? WHERE QuestionId = \"" + QuestionId + "\"";
@@ -130,7 +134,7 @@ public class SQLHandler {
     }
 
     //------------------------------------//
-    // GET ALL QUESTIONS FROM QUESTION TABLE //
+    // GET ALL QUESTION TEXT FROM QUESTION TABLE //
     //------------------------------------//
     public ArrayList getAllQuestions() throws SQLException {
 
@@ -146,7 +150,9 @@ public class SQLHandler {
         query.close();
         return output;
     }
-
+    //------------------------------------//
+    // GET ALL QUESTION IDS FROM QUESTION TABLE //
+    //------------------------------------//
     public Stack getAllQuestionIDs() throws SQLException {
 
         Stack stack = new Stack();
@@ -161,7 +167,9 @@ public class SQLHandler {
         query.close();
         return stack;
     }
-
+    //------------------------------------//
+    // GET ALL QUESTIONS FROM QUESTION TABLE //
+    //------------------------------------//
     public ArrayList<Question> getAllQandA() throws SQLException {
         ArrayList<Question> output = new ArrayList<>();
         String sql = "SELECT * FROM Questions";
@@ -212,7 +220,9 @@ public class SQLHandler {
         query.close();
         return output;
     }
-
+    //------------------------------------//
+    // GET ALL QUESTIONS FROM QUESTION TABLE //
+    //------------------------------------//
     public ObservableList showQuestionsTable() throws SQLException {
 
         ObservableList<Question> output = FXCollections.observableArrayList();
@@ -238,7 +248,9 @@ public class SQLHandler {
         query.close();
         return output;
     }
-
+    //------------------------------------//
+    // GET ALL CATEGORIES FROM CATEGORIES TABLE //
+    //------------------------------------//
     public ObservableList showCategoriesTable() throws SQLException {
 
         ObservableList<Category> output = FXCollections.observableArrayList();
@@ -259,7 +271,10 @@ public class SQLHandler {
         query.close();
         return output;
     }
-
+    
+    //------------------------------------//
+    // GET A SPECIFIC QUESTION FROM QUESTION TABLE //
+    //------------------------------------//
     public List searchQuestionTable(String searchQuery) throws SQLException {
 
         List output = new ArrayList<>();
@@ -279,6 +294,9 @@ public class SQLHandler {
         return output;
     }
 
+    //------------------------------------//
+    // GET A SPECIFIC USER FROM USERS TABLE //
+    //------------------------------------//
     public ArrayList searchUsersTable(String searchQuery) throws SQLException {
 
         ArrayList<String> output = new ArrayList<>();
@@ -324,6 +342,9 @@ public class SQLHandler {
         return output;
     }
 
+    //------------------------------------//
+    // GET ALL CATEGORY IDS FROM CATEGORIES TABLE //
+    //------------------------------------//
     public Stack getAllCategoryIDs() throws SQLException {
 
         Stack stack = new Stack();
@@ -338,7 +359,10 @@ public class SQLHandler {
         query.close();
         return stack;
     }
-
+    
+    //------------------------------------//
+    // GET A CATEGORY WITH SPECIFIC NAME//
+    //------------------------------------//
     public List searchCategoriesTable(String searchQuery) throws SQLException {
 
         List output = new ArrayList<>();
@@ -352,7 +376,9 @@ public class SQLHandler {
         }
         return output;
     }
-
+    //------------------------------------//
+    // GET A CATEGORY WITH A SPECIFIC ID//
+    //------------------------------------//
     public ArrayList searchIDCategoriesTable(int searchQuery) throws SQLException {
 
         ArrayList<String> output = new ArrayList<>();
@@ -367,6 +393,9 @@ public class SQLHandler {
         return output;
     }
 
+    //------------------------------------//
+    // DELETE A CATEOGORY FROM CATEGORIES TABLE AND THE RELATED QUESTIONS //
+    //------------------------------------//
     public void deleteCategory(int categoryId) throws SQLException {
         String sql1 = " DELETE FROM Categories WHERE CategoryID=?";
         query = conn.prepareStatement(sql1);
@@ -528,5 +557,15 @@ public class SQLHandler {
         query.executeUpdate();
         query.close();
 
+    }
+    public ObservableList<HighScore> getPreviousResult(User currentUser) throws SQLException{
+        ObservableList<HighScore> data = FXCollections.observableArrayList();
+        String sql = "select quizNo,score from comp_" + currentUser.getUserID() + "";
+                System.out.println(sql);
+                ResultSet rs = conn.createStatement().executeQuery(sql);
+                while (rs.next()) {
+                    data.add(new HighScore(rs.getInt("quizNo"), rs.getString("score")));
+                }
+                return data;
     }
 }

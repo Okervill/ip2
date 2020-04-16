@@ -64,9 +64,6 @@ public class ChangePasswordController implements Initializable {
         ArrayList<String> allUsers = new ArrayList<>();
         Hash h = new Hash();
         SQLHandler sql = new SQLHandler();
-        Pattern pattern = Pattern.compile("[^A-Za-z0-9]");
-        Matcher match = pattern.matcher(newPass);
-        boolean valPass = match.find();
         if (!h.verifyHash(oldPass, currentUser.getPassword())) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Password Error");
@@ -80,7 +77,7 @@ public class ChangePasswordController implements Initializable {
 
             changePasswordFailed();
             }
-       if (valPass == true) {
+       if (User.match(newPass) == true) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Password Error");
             alert.setHeaderText("Password cannot contain special characters, please choose another");

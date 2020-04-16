@@ -101,6 +101,7 @@ public class UserHomeController implements Initializable {
 
     @FXML
     public void casualPlay(ActionEvent event) throws IOException {
+
         SwitchWindow.switchWindow((Stage) casualPlayButton.getScene().getWindow(), new CasualGameSelector(currentUser));
 
     }

@@ -9,6 +9,8 @@ import SQL.SQLHandler;
 import static java.lang.Integer.parseInt;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -23,13 +25,11 @@ public class User {
     private String password;
     private final String admin;
     private String userscore;
+    private final SQLHandler sql = new SQLHandler();
 
     public User(String first, String sur, String user, String pass, String isAdmin, String usrscore) throws SQLException {
 
-        SQLHandler sql = new SQLHandler();
-        int usercount = sql.getAllUsers().size();
-
-        userid = Integer.valueOf(++usercount);
+        userid=0;
         firstname = first;
         surname = sur;
         username = user;
@@ -38,18 +38,9 @@ public class User {
         userscore = usrscore;
     }
 
-    public User(int userid,String first,String sur, String user, String pass, String isAdmin, String usrscore){
-        this.userid=userid;
-        this.firstname=first;
-        this.surname=sur;
-        this.username=user;
-        this.password=pass;
-        this.admin=isAdmin;
-        this.userscore=usrscore;        
-    }
+   
     
     public User(String user) throws SQLException {
-        SQLHandler sql = new SQLHandler();
         ArrayList<String> userInfo = sql.searchUsersTable(user);
 
         userid = parseInt(userInfo.get(0));
@@ -62,8 +53,8 @@ public class User {
     }
 
     public void createUser(User user) throws SQLException {
-        SQLHandler sql = new SQLHandler();
-        sql.createUser(user.getUserID(), user.getFirstname(), user.getSurname(), user.getUsername(), user.getPassword(), user.getUserType(), user.getUserScore());
+        
+        sql.createUser(user.getFirstname(), user.getSurname(), user.getUsername(), user.getPassword(), user.getUserType(), user.getUserScore());
     }
 
     public int getUserID() {
@@ -97,18 +88,40 @@ public class User {
     public void setUserScore(int score){
         this.userscore = String.valueOf(score);
     }
+    
     public void setUsername(String username){
         this.username=username;
     }
+    
     public void setPassword(String password){
         this.password=password;
     }
+    
     public void editUsername(User user) throws SQLException {
-        SQLHandler sql = new SQLHandler();
         sql.editUsername(user.getUserID(), user.getUsername());
     }
+    
     public void editPassword(User user) throws SQLException {
-        SQLHandler sql = new SQLHandler();
         sql.editPassword(user.getUserID(), user.getPassword());
+    }
+    
+    public static boolean match(String val){
+        Pattern pattern = Pattern.compile("[^A-Za-z0-9]");
+        Matcher match = pattern.matcher(val);
+        boolean valUser = match.find();
+        return valUser;
+
+    }
+
+    public void resetCasual(String categorySelected, User currentUser) throws SQLException {
+         int catID = Category.fetchCatInfo(categorySelected);
+         sql.deleteAnQuestions(catID, currentUser.getUserID());
+    }
+   
+    public void updateTotalScore(User currentUser, int score) throws SQLException{
+        int quizNo = sql.getCompQuizNo(currentUser.getUserID());
+        sql.addCompScore(currentUser.getUserID(), ++quizNo, score);
+        sql.updateTotalCompScore(currentUser.getUserID(), score);
+        currentUser.setUserScore(Integer.valueOf(currentUser.getUserScore()) + score);
     }
 }

@@ -9,6 +9,7 @@ import SQL.SQLHandler;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import ip2.Category;
 import ip2.Question;
 import ip2.Shaker;
 import ip2.SwitchWindow;
@@ -77,25 +78,17 @@ public class AddQuestionController implements Initializable {
         } else {
             String tempcat = categoryCombo.getSelectionModel().getSelectedItem();
 
-            int categoryId = fetchCatInfo(tempcat);
+            int categoryId = Category.fetchCatInfo(tempcat);
 
             Question newQuestion = new Question(categoryId, question, answer, wrong1, wrong2, wrong3);
             newQuestion.createQuestion(newQuestion);
-           SwitchWindow.switchWindow((Stage) addQuest.getScene().getWindow(), new AddQuestion());
+            SwitchWindow.switchWindow((Stage) addQuest.getScene().getWindow(), new AddQuestion());
 
         }
     }
 
 
-    private int fetchCatInfo(String tempcat) throws SQLException {
-        SQLHandler sql = new SQLHandler();
-        List categoryInfo = sql.searchCategoriesTable(tempcat);
-
-        int tempcategoryId = (int) categoryInfo.get(0);
-
-        return tempcategoryId;
-
-    }
+   
 
     private void addQuestionFailed() {
         Shaker shake = new Shaker(addQuest);
