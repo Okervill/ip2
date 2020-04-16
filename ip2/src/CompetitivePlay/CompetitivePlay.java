@@ -5,6 +5,7 @@
  */
 package CompetitivePlay;
 
+import SQL.SQLHandler;
 import ip2.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -24,13 +25,15 @@ public class CompetitivePlay extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage.getIcons().add(new Image("/Resources/quiz.png"));
+        SQLHandler sql=new SQLHandler();
+        sql.createCompTables(currentUser.getUserID());
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/CompetitivePlay/Competitive.fxml"));
         Parent root = (Parent) loader.load();
 
         CompetitivePlayController controller = loader.getController();
 
         controller.setData(currentUser);
-
+            
         Scene scene = new Scene(root);
 
         stage.setScene(scene);
