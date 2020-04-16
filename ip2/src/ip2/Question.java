@@ -6,12 +6,10 @@
 package ip2;
 
 import SQL.SQLHandler;
+import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 
 /**
  *
@@ -26,24 +24,11 @@ public class Question {
     private final String wrongAns1;
     private final String wrongAns2;
     private final String wrongAns3;
-    private int tempid = 0;
+    private final static SQLHandler sql = new SQLHandler();
 
-    
-    
     
     public Question(int catID, String quest, String correct, String wrong1, String wrong2, String wrong3) throws SQLException {
-        Stack stack = new Stack();
-        SQLHandler sql = new SQLHandler();
-        stack = sql.getAllQuestionIDs();
-
-      
-       tempid =  (int) stack.pop();
-
-        tempid++;
-
-        
-
-        this.QuestionID = tempid;
+        this.QuestionID = 0;
         this.CategoryID = catID;
         this.question = quest;
         this.answer = correct;
@@ -52,7 +37,7 @@ public class Question {
         this.wrongAns3 = wrong3;
     }
 
-    public Question(int tempid, int catID, String quest, String correct, String wrong1, String wrong2, String wrong3) throws SQLException {
+    public Question(int tempid, int catID, String quest, String correct, String wrong1, String wrong2, String wrong3) {
 
         this.QuestionID = tempid;
         this.CategoryID = catID;
@@ -65,10 +50,7 @@ public class Question {
     }
 
     public Question(String quest) throws SQLException {
-        SQLHandler sql = new SQLHandler();
-
         List questioninfo = sql.searchQuestionTable(quest);
-
         QuestionID = (int) questioninfo.get(0);
         CategoryID = (int) questioninfo.get(1);
         question = (String) questioninfo.get(2);
@@ -80,17 +62,14 @@ public class Question {
     }
 
     public void createQuestion(Question question) throws SQLException {
-        SQLHandler sql = new SQLHandler();
         sql.createQuestion(question.getQuestionId(), question.getCategoryId(), question.getUserQuestion(), question.getCorrectAnswer(), question.getWrongAnswer1(), question.getWrongAnswer2(), question.getWrongAnswer3());
     }
 
     public void deleteQuestion(Question question) throws SQLException {
-        SQLHandler sql = new SQLHandler();
         sql.deleteQuestion(question.getUserQuestion());
     }
 
     public void editQuestion(Question question) throws SQLException {
-        SQLHandler sql = new SQLHandler();
         sql.editQuestion(question.getQuestionId(), question.getCategoryId(), question.getUserQuestion(), question.getCorrectAnswer(), question.getWrongAnswer1(), question.getWrongAnswer2(), question.getWrongAnswer3());
     }
 
@@ -121,5 +100,25 @@ public class Question {
     public String getWrongAnswer3() {
         return this.wrongAns3;
     }
+    public static Question search(String userquest) throws SQLException, IOException {
+        List questionInfo = sql.searchQuestionTable(userquest);
+        int QuestionID = (int) questionInfo.get(0);
+        int CategoryID = (int) questionInfo.get(1);
+        String quest = (String) questionInfo.get(2);
+        String answer = (String) questionInfo.get(3);
+        String wrongAns1 = (String) questionInfo.get(4);
+        String wrongAns2 = (String) questionInfo.get(5);
+        String wrongAns3 = (String) questionInfo.get(6);
 
+        Question currentQuestion = new Question(QuestionID, CategoryID, quest, answer, wrongAns1, wrongAns2, wrongAns3);
+
+        return currentQuestion;
+    }
+    
+    public String[] getAnswers(Question q){
+        String[] answers = {q.getCorrectAnswer(), q.getWrongAnswer1(), q.getWrongAnswer2(), q.getWrongAnswer3()};
+        return answers;
+    }
+    
+  
 }

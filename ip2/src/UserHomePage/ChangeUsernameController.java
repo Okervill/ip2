@@ -73,7 +73,7 @@ public class ChangeUsernameController implements Initializable {
 
             addUsernameFailed();
             }
-        if (val==true)
+        if (User.match(name)==true)
         {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Username Error");

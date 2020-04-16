@@ -70,16 +70,8 @@ public class ViewCategoryController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         try {
-
-            Connection conn = SQLHandler.getConn();
-            ResultSet rs = conn.createStatement().executeQuery("Select * from Categories");
-            while (rs.next()) {
-                data.add(new Category(rs.getInt("CategoryID"), rs.getString("CategoryName")));
-
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ViewCategoryController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            SQLHandler sql = new SQLHandler();
+           data=sql.showCategoriesTable();
 
         name.setCellValueFactory(new PropertyValueFactory<>("CategoryName"));
         categoryTable.setItems(data);
@@ -103,6 +95,9 @@ public class ViewCategoryController implements Initializable {
             sortedData.comparatorProperty().bind(categoryTable.comparatorProperty());
             categoryTable.setItems(sortedData);
         });
+    }   catch (SQLException ex) {
+            Logger.getLogger(ViewCategoryController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
@@ -125,7 +120,7 @@ public class ViewCategoryController implements Initializable {
             allCategories = sql.getAllCategories();
 
             Category currentCategory = new Category(catName);
-            currentCategory = search(catName);
+            currentCategory = Category.search(catName);
 
             SwitchWindow.switchWindow((Stage) editCat.getScene().getWindow(), new EditCategory(currentCategory));
         } catch (Exception e) {
@@ -145,7 +140,7 @@ public class ViewCategoryController implements Initializable {
             SQLHandler sql = new SQLHandler();
             allCategories = sql.getAllCategories();
 
-            Category currentCategory = search(catname);
+            Category currentCategory = Category.search(catname);
             currentCategory.deleteCategory(currentCategory);
             SwitchWindow.switchWindow((Stage) deleteButton.getScene().getWindow(), new ViewCategory(currentUser));
            
@@ -164,18 +159,7 @@ public class ViewCategoryController implements Initializable {
 
     }
 
-    @FXML
-    public Category search(String name) throws SQLException, IOException {
-        SQLHandler sql = new SQLHandler();
-        List categoryInfo = sql.searchCategoriesTable(name);
-
-        int categoryId = (int) categoryInfo.get(0);
-        String categoryName = (String) categoryInfo.get(1);
-        Category currentCategory = new Category(categoryId, categoryName);
-
-        return currentCategory;
-
-    }
+   
 
     @FXML
     public void homeButton(ActionEvent event) throws IOException {

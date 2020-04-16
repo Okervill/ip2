@@ -1,5 +1,6 @@
 package CasualPlay;
 
+import SQL.SQLHandler;
 import ip2.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -18,11 +19,12 @@ public class CasualGameSelector extends Application {
         stage.getIcons().add(new Image("/Resources/quiz.png"));
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/CasualPlay/CasualPlaySelect.fxml"));
         Parent root = (Parent) loader.load();
-
+        
         CasualPlaySelectionController controller = loader.getController();
 
         controller.setData(currentUser);
-
+        SQLHandler sql=new SQLHandler();
+        sql.createCasualTables(currentUser.getUserID());
         Scene scene = new Scene(root);
 
         stage.setScene(scene);

@@ -19,13 +19,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Cursor;
 import javafx.scene.control.Button;
-import javafx.scene.control.SplitPane;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**

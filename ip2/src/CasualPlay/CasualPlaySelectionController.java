@@ -76,17 +76,7 @@ public class CasualPlaySelectionController implements Initializable {
     @FXML
     private TextField search;
 
-    @FXML
-    private int fetchCatId(String catId) throws SQLException {
-
-        SQLHandler sql = new SQLHandler();
-        List categoryInfo = sql.searchCategoriesTable(catId);
-
-        int tempcategoryId = (int) categoryInfo.get(0);
-
-        return tempcategoryId;
-
-    }
+   
 
     @FXML
     public void playGame(ActionEvent event) throws IOException, SQLException {
@@ -110,7 +100,7 @@ public class CasualPlaySelectionController implements Initializable {
             alert.showAndWait();
             return;
         }
-       int catID = fetchCatId(tempSelection);
+       int catID = Category.fetchCatInfo(tempSelection);
         SQLHandler sql = new SQLHandler();
         ArrayList<Question> allq = sql.getQnAFromCategory(catID, currentUser.getUserID());
 
@@ -177,16 +167,13 @@ public class CasualPlaySelectionController implements Initializable {
         });
         try {
 
-            Connection conn = SQLHandler.getConn();
-            ResultSet rs = conn.createStatement().executeQuery("Select * from Categories");
-            while (rs.next()) {
-                data.add(new Category(rs.getInt("CategoryID"), rs.getString("CategoryName")));
+            SQLHandler sql = new SQLHandler();
+            data=sql.showCategoriesTable();
 
-            }
-        } catch (SQLException ex) {
+            } catch (SQLException ex) {
             Logger.getLogger(CasualPlaySelectionController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+    
         col_name.setCellValueFactory(new PropertyValueFactory<>("CategoryName"));
         table.setItems(data);
 
@@ -209,8 +196,8 @@ public class CasualPlaySelectionController implements Initializable {
             sortedData.comparatorProperty().bind(table.comparatorProperty());
             table.setItems(sortedData);
         });
-
-    }
+        }
+        
 
     public void setData(User user) {
         currentUser = user;
