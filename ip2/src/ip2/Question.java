@@ -49,28 +49,19 @@ public class Question {
 
     }
 
-    public Question(String quest) throws SQLException {
-        List questioninfo = sql.searchQuestionTable(quest);
-        QuestionID = (int) questioninfo.get(0);
-        CategoryID = (int) questioninfo.get(1);
-        question = (String) questioninfo.get(2);
-        answer = (String) questioninfo.get(3);
-        wrongAns1 = (String) questioninfo.get(4);
-        wrongAns2 = (String) questioninfo.get(5);
-        wrongAns3 = (String) questioninfo.get(6);
+   
 
-    }
-
-    public void createQuestion(Question question) throws SQLException {
-        sql.createQuestion(question.getQuestionId(), question.getCategoryId(), question.getUserQuestion(), question.getCorrectAnswer(), question.getWrongAnswer1(), question.getWrongAnswer2(), question.getWrongAnswer3());
+    public static void createQuestion(int categoryId,String question,String answer, String wrong1, String wrong2, String wrong3) throws SQLException {
+        sql.createQuestion(categoryId, question, answer, wrong1, wrong2, wrong3);
     }
 
     public void deleteQuestion(Question question) throws SQLException {
-        sql.deleteQuestion(question.getUserQuestion());
+        sql.deleteQuestion(question.getQuestionId());
     }
 
     public void editQuestion(Question question) throws SQLException {
-        sql.editQuestion(question.getQuestionId(), question.getCategoryId(), question.getUserQuestion(), question.getCorrectAnswer(), question.getWrongAnswer1(), question.getWrongAnswer2(), question.getWrongAnswer3());
+        sql.editQuestion(question.getQuestionId(), question.getCategoryId(), question.getUserQuestion(), 
+                         question.getCorrectAnswer(), question.getWrongAnswer1(), question.getWrongAnswer2(), question.getWrongAnswer3());
     }
 
     public int getQuestionId() {

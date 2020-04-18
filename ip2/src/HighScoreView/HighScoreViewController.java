@@ -67,7 +67,7 @@ public class HighScoreViewController implements Initializable {
     @FXML
     private TableColumn<LeaderBoardScore, Integer> name1;
     ObservableList<LeaderBoardScore> data = FXCollections.observableArrayList();
-
+    SQLHandler sql = new SQLHandler();
     @FXML
     public void homeButton(ActionEvent event) throws IOException {
         SwitchWindow.switchWindow((Stage) home.getScene().getWindow(), new UserHome(currentUser));
@@ -81,16 +81,11 @@ public class HighScoreViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
             try {
-                //System.out.println(currentUser+"ddddd");
-                Connection conn = SQLHandler.getConn();
-                String sql = "select Username,UserScore from Users where isAdmin = \"" + "false" + "\"";
-                ResultSet rs = conn.createStatement().executeQuery(sql);
-                while (rs.next()) {
-                    data.add(new LeaderBoardScore(rs.getString("Username"), rs.getInt("UserScore")));
-                }
-            } catch (SQLException ex) {
+                data=sql.getHighScores();
+                } catch (SQLException ex) {
                 Logger.getLogger(HighScoreViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
 
             name.setCellValueFactory(new PropertyValueFactory<>("name"));
             name1.setCellValueFactory(new PropertyValueFactory<>("score"));

@@ -7,6 +7,7 @@ package CategoryPage;
 
 import AdminHomePage.AdminHome;
 import SQL.SQLHandler;
+import UserHomePage.UserHome;
 import com.jfoenix.controls.JFXButton;
 import ip2.Category;
 import ip2.Shaker;
@@ -32,6 +33,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
@@ -115,8 +117,7 @@ public class ViewCategoryController implements Initializable {
         try {
             
             String catName = getTablePos();
-            Category currentCategory = new Category(catName);
-            currentCategory = Category.search(catName);
+            Category currentCategory = Category.search(catName);
 
             SwitchWindow.switchWindow((Stage) editCat.getScene().getWindow(), new EditCategory(currentCategory));
         } catch (Exception e) {
@@ -132,13 +133,16 @@ public class ViewCategoryController implements Initializable {
     private void deleteCategory(ActionEvent event) throws SQLException, IOException {
         try {
             String catname = getTablePos();
-            ArrayList<String> allCategories = new ArrayList<>();
-            SQLHandler sql = new SQLHandler();
-            allCategories = sql.getAllCategories();
-
             Category currentCategory = Category.search(catname);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you wish to remove the category " +catname + "?" , ButtonType.YES, ButtonType.CANCEL);
+             alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.YES) {
+             
             currentCategory.deleteCategory(currentCategory);
             SwitchWindow.switchWindow((Stage) deleteButton.getScene().getWindow(), new ViewCategory(currentUser));
+        }
+           
            
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

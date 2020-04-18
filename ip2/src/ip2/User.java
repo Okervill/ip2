@@ -28,7 +28,6 @@ public class User {
     private final SQLHandler sql = new SQLHandler();
 
     public User(String first, String sur, String user, String pass, String isAdmin, String usrscore) throws SQLException {
-
         userid=0;
         firstname = first;
         surname = sur;

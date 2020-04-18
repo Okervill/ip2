@@ -33,6 +33,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
@@ -57,7 +58,7 @@ public class ViewQuestionsController implements Initializable {
     private TableColumn<Question, String> col_quest;
     @FXML
     private TableColumn<Question, String> col_answer;
-    ArrayList<String> allQuestions = new ArrayList<>();
+    ObservableList<Question> data = FXCollections.observableArrayList();
     String quest;
     @FXML
     private JFXButton editQuest, addQuest, deleteQuest;
@@ -74,31 +75,19 @@ public class ViewQuestionsController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ArrayList<String> getQuestions = new ArrayList<>();
-        ArrayList<Question> allQuestions = new ArrayList<>();
+        
 
         try {
-            getQuestions = sql.getAllQuestions();
+            data = sql.showQuestionsTable();
         } catch (SQLException ex) {
             Logger.getLogger(ViewQuestionsController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        for (String q : getQuestions) {
-            try {
-                allQuestions.add(new Question(q));
-            } catch (SQLException ex) {
-                Logger.getLogger(ViewQuestionsController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        allQuestions.forEach((q) -> {
-            table.getItems().add(q);
-        });
+          table.setItems(data);
 
         col_quest.setCellValueFactory(new PropertyValueFactory<>("UserQuestion"));
         col_answer.setCellValueFactory(new PropertyValueFactory<>("CorrectAnswer"));
 
-        ObservableList<Question> data = FXCollections.observableArrayList(allQuestions);
+     
         FilteredList<Question> filtQuest = new FilteredList<>(data, e -> true);
         search.setOnKeyReleased(e -> {
             search.textProperty().addListener((observableValue, oldValue, newValue) -> {
@@ -134,15 +123,18 @@ public class ViewQuestionsController implements Initializable {
     @FXML
     private void deleteQuestion(ActionEvent event) throws IOException, SQLException {
         try {
+            Question currentQuestion = Question.search(getTablePos());
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you wish to remove the question '' " +getTablePos() + "''?" , ButtonType.YES, ButtonType.CANCEL);
+            alert.showAndWait();
 
-            String quest = getTablePos();
-
-            allQuestions = sql.getAllQuestions();
-
-            Question currentQuestion = Question.search(quest);
-            currentQuestion.deleteQuestion(currentQuestion);
-
+        if (alert.getResult() == ButtonType.YES) {
+             
+          currentQuestion.deleteQuestion(currentQuestion);
+      
             SwitchWindow.switchWindow((Stage) deleteQuest.getScene().getWindow(), new QuestionPage(currentUser));
+           
+        }
+            
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Delete");
@@ -155,12 +147,7 @@ public class ViewQuestionsController implements Initializable {
     @FXML
     private void editQuestion(ActionEvent event) throws IOException, SQLException {
         try {
-            String quest = getTablePos();
-            allQuestions = sql.getAllQuestions();
-
-            Question currentQuestion = new Question(quest);
-            currentQuestion = Question.search(quest);
-
+            Question currentQuestion = Question.search(getTablePos());
             SwitchWindow.switchWindow((Stage) editQuest.getScene().getWindow(), new EditPage(currentQuestion));
             
         } catch (Exception e) {
