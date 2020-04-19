@@ -58,6 +58,10 @@ public class ViewQuestionsController implements Initializable {
     private TableColumn<Question, String> col_quest;
     @FXML
     private TableColumn<Question, String> col_answer;
+
+    @FXML
+    private TableColumn<Question, Integer> col_cat;
+
     ObservableList<Question> data = FXCollections.observableArrayList();
     String quest;
     @FXML
@@ -75,19 +79,18 @@ public class ViewQuestionsController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
 
         try {
             data = sql.showQuestionsTable();
         } catch (SQLException ex) {
             Logger.getLogger(ViewQuestionsController.class.getName()).log(Level.SEVERE, null, ex);
         }
-          table.setItems(data);
+        
 
+        col_cat.setCellValueFactory(new PropertyValueFactory<>("CategoryId"));
         col_quest.setCellValueFactory(new PropertyValueFactory<>("UserQuestion"));
         col_answer.setCellValueFactory(new PropertyValueFactory<>("CorrectAnswer"));
-
-     
+table.setItems(data);
         FilteredList<Question> filtQuest = new FilteredList<>(data, e -> true);
         search.setOnKeyReleased(e -> {
             search.textProperty().addListener((observableValue, oldValue, newValue) -> {
@@ -124,17 +127,17 @@ public class ViewQuestionsController implements Initializable {
     private void deleteQuestion(ActionEvent event) throws IOException, SQLException {
         try {
             Question currentQuestion = Question.search(getTablePos());
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you wish to remove the question '' " +getTablePos() + "''?" , ButtonType.YES, ButtonType.CANCEL);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you wish to remove the question '' " + getTablePos() + "''?", ButtonType.YES, ButtonType.CANCEL);
             alert.showAndWait();
 
-        if (alert.getResult() == ButtonType.YES) {
-             
-          currentQuestion.deleteQuestion(currentQuestion);
-      
-            SwitchWindow.switchWindow((Stage) deleteQuest.getScene().getWindow(), new QuestionPage(currentUser));
-           
-        }
-            
+            if (alert.getResult() == ButtonType.YES) {
+
+                currentQuestion.deleteQuestion(currentQuestion);
+
+                SwitchWindow.switchWindow((Stage) deleteQuest.getScene().getWindow(), new QuestionPage(currentUser));
+
+            }
+
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Delete");
@@ -149,7 +152,7 @@ public class ViewQuestionsController implements Initializable {
         try {
             Question currentQuestion = Question.search(getTablePos());
             SwitchWindow.switchWindow((Stage) editQuest.getScene().getWindow(), new EditPage(currentQuestion));
-            
+
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Edit");
@@ -158,8 +161,6 @@ public class ViewQuestionsController implements Initializable {
             return;
         }
     }
-
- 
 
     @FXML
     private void addQuestion(ActionEvent event) throws IOException, SQLException {

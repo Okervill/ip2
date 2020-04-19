@@ -55,6 +55,9 @@ public class ViewCategoryController implements Initializable {
     @FXML
     private TableColumn<Category, String> name;
 
+    @FXML
+    private TableColumn<Category, String> number;
+
     ObservableList<Category> data = FXCollections.observableArrayList();
     @FXML
     private Button deleteButton, home;
@@ -73,31 +76,32 @@ public class ViewCategoryController implements Initializable {
 
         try {
             SQLHandler sql = new SQLHandler();
-           data=sql.showCategoriesTable();
+            data = sql.showCategoriesTable();
 
-        name.setCellValueFactory(new PropertyValueFactory<>("CategoryName"));
-        categoryTable.setItems(data);
+            number.setCellValueFactory(new PropertyValueFactory<>("CategoryId"));
+            name.setCellValueFactory(new PropertyValueFactory<>("CategoryName"));
+            categoryTable.setItems(data);
 
-        FilteredList<Category> filtCat = new FilteredList<>(data, e -> true);
-        search.setOnKeyReleased(e -> {
-            search.textProperty().addListener((observableValue, oldValue, newValue) -> {
-                filtCat.setPredicate((Predicate<? super Category>) category -> {
-                    if (newValue == null || newValue.isEmpty()) {
-                        return true;
-                    }
-                    String lowerCaseFilter = newValue.toLowerCase();
-                    if (category.getCategoryName().toLowerCase().contains(lowerCaseFilter)) {
-                        return true;
-                    }
+            FilteredList<Category> filtCat = new FilteredList<>(data, e -> true);
+            search.setOnKeyReleased(e -> {
+                search.textProperty().addListener((observableValue, oldValue, newValue) -> {
+                    filtCat.setPredicate((Predicate<? super Category>) category -> {
+                        if (newValue == null || newValue.isEmpty()) {
+                            return true;
+                        }
+                        String lowerCaseFilter = newValue.toLowerCase();
+                        if (category.getCategoryName().toLowerCase().contains(lowerCaseFilter)) {
+                            return true;
+                        }
 
-                    return false;
+                        return false;
+                    });
                 });
+                SortedList<Category> sortedData = new SortedList<>(filtCat);
+                sortedData.comparatorProperty().bind(categoryTable.comparatorProperty());
+                categoryTable.setItems(sortedData);
             });
-            SortedList<Category> sortedData = new SortedList<>(filtCat);
-            sortedData.comparatorProperty().bind(categoryTable.comparatorProperty());
-            categoryTable.setItems(sortedData);
-        });
-    }   catch (SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(ViewCategoryController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -115,7 +119,7 @@ public class ViewCategoryController implements Initializable {
     @FXML
     private void editCategoryButton(ActionEvent event) throws IOException, SQLException {
         try {
-            
+
             String catName = getTablePos();
             Category currentCategory = Category.search(catName);
 
@@ -134,16 +138,15 @@ public class ViewCategoryController implements Initializable {
         try {
             String catname = getTablePos();
             Category currentCategory = Category.search(catname);
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you wish to remove the category " +catname + "?" , ButtonType.YES, ButtonType.CANCEL);
-             alert.showAndWait();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you wish to remove the category " + catname + "?", ButtonType.YES, ButtonType.CANCEL);
+            alert.showAndWait();
 
-        if (alert.getResult() == ButtonType.YES) {
-             
-            currentCategory.deleteCategory(currentCategory);
-            SwitchWindow.switchWindow((Stage) deleteButton.getScene().getWindow(), new ViewCategory(currentUser));
-        }
-           
-           
+            if (alert.getResult() == ButtonType.YES) {
+
+                currentCategory.deleteCategory(currentCategory);
+                SwitchWindow.switchWindow((Stage) deleteButton.getScene().getWindow(), new ViewCategory(currentUser));
+            }
+
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Delete Error");
@@ -159,13 +162,10 @@ public class ViewCategoryController implements Initializable {
 
     }
 
-   
-
     @FXML
     public void homeButton(ActionEvent event) throws IOException {
-     
 
-                   SwitchWindow.switchWindow((Stage) home.getScene().getWindow(), new AdminHome(currentUser));
+        SwitchWindow.switchWindow((Stage) home.getScene().getWindow(), new AdminHome(currentUser));
 
     }
 

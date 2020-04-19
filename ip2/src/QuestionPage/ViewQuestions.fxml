@@ -13,8 +13,9 @@
     <children>
         <TableView fx:id="table" layoutX="35.0" layoutY="69.0" prefHeight="200.0" prefWidth="532.0">
             <columns>
-                <TableColumn fx:id="col_quest" prefWidth="420.0" text="Question" />
-                <TableColumn fx:id="col_answer" prefWidth="120.0" text="Answer" />
+            <TableColumn fx:id="col_cat" prefWidth="97.5" text="Category" />
+                <TableColumn fx:id="col_quest" prefWidth="331.5" text="Question" />
+                <TableColumn fx:id="col_answer" prefWidth="103.0" text="Answer" />
             </columns>
         </TableView>
         <JFXButton fx:id="addQuest" layoutX="42.0" layoutY="308.0" onAction="#addQuestion" prefHeight="44.0" prefWidth="97.0" text="Add" />
