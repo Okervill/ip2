@@ -77,11 +77,8 @@ public class AddQuestionController implements Initializable {
 
         } else {
             String tempcat = categoryCombo.getSelectionModel().getSelectedItem();
-
-            int categoryId = Category.fetchCatInfo(tempcat);
-
-            Question newQuestion = new Question(categoryId, question, answer, wrong1, wrong2, wrong3);
-            newQuestion.createQuestion(newQuestion);
+            int categoryId = Category.fetchCatInfo(tempcat);   
+            Question.createQuestion(categoryId, question, answer, wrong1, wrong2, wrong3);
             SwitchWindow.switchWindow((Stage) addQuest.getScene().getWindow(), new AddQuestion());
 
         }

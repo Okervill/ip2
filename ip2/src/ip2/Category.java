@@ -24,10 +24,7 @@ public class Category {
     private String categoryName;
     private static final SQLHandler sql = new SQLHandler();
 
-    public Category(String categoryName) throws SQLException {
-        this.categoryId = 0;
-        this.categoryName = categoryName;
-    }
+    
 
     public Category(int categoryId, String categoryName) {
         this.categoryId = categoryId;
@@ -43,8 +40,8 @@ public class Category {
         return this.categoryName;
     }
 
-    public void createCategory(Category category) throws SQLException {
-        sql.createCategory(category.getCategoryId(), category.getCategoryName());
+    public static void createCategory(String name) throws SQLException {
+        sql.createCategory(name);
     }
 
     public void editCategory(Category category) throws SQLException {

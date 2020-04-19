@@ -83,9 +83,7 @@ public class AddCategoryController implements Initializable {
             return;
         }
         else {
-
-            Category newCategory = new Category(categoryName);
-            newCategory.createCategory(newCategory);
+            Category.createCategory(categoryName);
             SwitchWindow.switchWindow((Stage) addNewCategoryButton.getScene().getWindow(), new ViewCategory(currentUser));
             
            
