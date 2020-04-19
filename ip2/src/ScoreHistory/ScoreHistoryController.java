@@ -12,6 +12,7 @@ import UserHomePage.drawerController;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import ip2.Drawer;
 import ip2.HighScore;
 import ip2.SwitchWindow;
 import ip2.User;
@@ -75,53 +76,25 @@ public class ScoreHistoryController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
             try {
-                SQLHandler sql=new SQLHandler();
-                data=sql.getPreviousResult(currentUser);
-          
-            n.setCellValueFactory(new PropertyValueFactory<>("quizNo"));
-            n1.setCellValueFactory(new PropertyValueFactory<>("score"));
-          
-           highScoreTable1.setItems(data);
-            n.setSortType(SortType.DESCENDING);
-            highScoreTable1.getSortOrder().add(n);
+                SQLHandler sql = new SQLHandler();
+                data = sql.getPreviousResult(currentUser);
 
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserHomePage/pullout.fxml"));
-                VBox box = loader.load();
-                drawer.setSidePane(box);
-                drawerController controller = loader.getController();
+                n.setCellValueFactory(new PropertyValueFactory<>("quizNo"));
+                n1.setCellValueFactory(new PropertyValueFactory<>("score"));
 
-                controller.setData(currentUser);
+                highScoreTable1.setItems(data);
+                n.setSortType(SortType.DESCENDING);
+                highScoreTable1.getSortOrder().add(n);
 
-                HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
-                transition.setRate(-1);
-                hamburger.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
-                    transition.setRate(transition.getRate() * -1);
-                    transition.play();
+                Drawer newdrawer = new Drawer();
+                newdrawer.drawerPullout(drawer, currentUser, hamburger);
 
-                    if (drawer.isOpened()) {
-                        drawer.close();
-                        drawer.setDisable(true);
-                    } else {
-                        drawer.open();
-                        drawer.setDisable(false);
-
-                    }
-                }
-                );
-            } catch (IOException ex) {
-                Logger.getLogger(UserHomeController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }   catch (SQLException ex) {
+            } catch (SQLException ex) {
                 Logger.getLogger(ScoreHistoryController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-);
+        );
     }
-       
-
-    
 
     public void setData(User user) {
         currentUser = user;

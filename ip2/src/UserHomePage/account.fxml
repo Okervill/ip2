@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="418.0" prefWidth="415.0" stylesheets="@../Resources/stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserHomePage.AccountController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="418.0" prefWidth="415.0" stylesheets="@../Resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserHomePage.AccountController">
    <children>
       <Button fx:id="home" layoutX="351.0" layoutY="1.0" mnemonicParsing="false" onAction="#home" prefHeight="39.0" prefWidth="42.0" style="-fx-border-color: transparent;" stylesheets="@../Resources/stylesheet.css">
          <graphic>
@@ -24,7 +24,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <HBox alignment="CENTER" layoutX="87.0" layoutY="75.0" prefHeight="47.0" prefWidth="256.0" spacing="5.0">
+      <HBox alignment="CENTER" layoutX="3.0" layoutY="76.0" prefHeight="47.0" prefWidth="207.0" spacing="5.0">
          <children>
             <Label text="First Name:" textFill="WHITE">
                <font>
@@ -41,7 +41,7 @@
             </Label>
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutX="87.0" layoutY="122.0" prefHeight="47.0" prefWidth="256.0" spacing="5.0">
+      <HBox alignment="CENTER" layoutX="209.0" layoutY="76.0" prefHeight="47.0" prefWidth="207.0" spacing="5.0">
          <children>
             <Label text="Second Name:" textFill="WHITE">
                <font>
@@ -58,7 +58,7 @@
             </Label>
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutX="87.0" layoutY="169.0" prefHeight="47.0" prefWidth="256.0" spacing="5.0">
+      <HBox alignment="CENTER" layoutX="3.0" layoutY="123.0" prefHeight="47.0" prefWidth="207.0" spacing="5.0">
          <children>
             <Label text="UserName:" textFill="WHITE">
                <font>
@@ -75,7 +75,7 @@
             </Label>
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutX="87.0" layoutY="216.0" prefHeight="47.0" prefWidth="256.0" spacing="5.0">
+      <HBox alignment="CENTER" layoutX="209.0" layoutY="123.0" prefHeight="47.0" prefWidth="207.0" spacing="5.0">
          <children>
             <Label text="HighScore:" textFill="WHITE">
                <font>
@@ -92,7 +92,7 @@
             </Label>
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutX="106.0" layoutY="277.0" prefHeight="47.0" prefWidth="218.0" spacing="5.0">
+      <HBox alignment="CENTER" layoutX="103.0" layoutY="170.0" prefHeight="47.0" prefWidth="218.0" spacing="5.0">
          <children>
             <Label text="Rank:" textFill="WHITE">
                <font>
@@ -116,10 +116,10 @@
       </Label>
       <Line endX="35.350006103515625" layoutX="293.0" layoutY="52.0" startX="-206.5" stroke="#a8d6c9" strokeWidth="1.3" />
       <JFXHamburger fx:id="hamburger" layoutX="315.0" layoutY="16.0" />
-      <ImageView fx:id="imageRank" fitHeight="47.0" fitWidth="56.0" layoutX="187.0" layoutY="324.0" pickOnBounds="true" preserveRatio="true" />
-      <JFXDrawer fx:id="drawer" defaultDrawerSize="250.0" prefHeight="418.0" prefWidth="250.0" />
-      <JFXButton fx:id="deleteAccount" layoutX="298.0" layoutY="257.0" onAction="#deleteAccount" prefHeight="67.0" prefWidth="105.0" text="Delete account" textAlignment="CENTER" wrapText="true" />
-      <JFXButton fx:id="changeUsername" layoutX="298.0" layoutY="65.0" onAction="#changeUsername" prefHeight="67.0" prefWidth="105.0" text="Change username" textAlignment="CENTER" wrapText="true" />
-      <JFXButton fx:id="changePassword" layoutX="298.0" layoutY="159.0" onAction="#changePassword" prefHeight="67.0" prefWidth="105.0" text="Change password" textAlignment="CENTER" wrapText="true" />
+      <ImageView fx:id="imageRank" fitHeight="47.0" fitWidth="56.0" layoutX="184.0" layoutY="217.0" pickOnBounds="true" preserveRatio="true" />
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="250.0" layoutX="-250.0" layoutY="-110.0" prefHeight="418.0" prefWidth="250.0" />
+      <JFXButton fx:id="deleteAccount" layoutX="143.0" layoutY="350.0" onAction="#deleteAccount" prefHeight="39.0" prefWidth="139.0" text="Delete account" textAlignment="CENTER" wrapText="true" />
+      <JFXButton fx:id="changeUsername" layoutX="213.0" layoutY="289.0" onAction="#changeUsername" prefHeight="36.0" prefWidth="165.0" text="Change username" textAlignment="CENTER" wrapText="true" />
+      <JFXButton fx:id="changePassword" layoutX="42.0" layoutY="289.0" onAction="#changePassword" prefHeight="39.0" prefWidth="165.0" text="Change password" textAlignment="CENTER" wrapText="true" />
    </children>
 </Pane>

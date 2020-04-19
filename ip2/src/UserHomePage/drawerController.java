@@ -59,7 +59,7 @@ public class drawerController implements Initializable {
     @FXML
     public void previousScore(ActionEvent event) throws IOException {
 
-        SwitchWindow.switchWindow((Stage) highscore.getScene().getWindow(), new ScoreHistory(currentUser));
+        SwitchWindow.switchWindow((Stage) previousscore.getScene().getWindow(), new ScoreHistory(currentUser));
     }
 
     @Override

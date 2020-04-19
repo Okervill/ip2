@@ -12,11 +12,8 @@
     -fx-background-color: -fx-primary;
 }
 
-.wrong{
-    -jfx-unfocus-color: red;
-    -jfx-focus-color: red;
 
-}
+
 
 .split-pane *.split-pane-divider {
     -fx-padding: 0 1 0 1;

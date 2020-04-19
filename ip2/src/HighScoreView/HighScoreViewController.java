@@ -14,6 +14,7 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
+import ip2.Drawer;
 import ip2.HighScore;
 import ip2.LeaderBoardScore;
 import ip2.SwitchWindow;
@@ -97,33 +98,8 @@ public class HighScoreViewController implements Initializable {
             highScoreTable.setItems(data);
             name1.setSortType(TableColumn.SortType.DESCENDING);
             highScoreTable.getSortOrder().add(name1);
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserHomePage/pullout.fxml"));
-                VBox box = loader.load();
-                drawer.setSidePane(box);
-                drawerController controller = loader.getController();
-
-                controller.setData(currentUser);
-
-                HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
-                transition.setRate(-1);
-                hamburger.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
-                    transition.setRate(transition.getRate() * -1);
-                    transition.play();
-
-                    if (drawer.isOpened()) {
-                        drawer.close();
-                        drawer.setDisable(true);
-                    } else {
-                        drawer.open();
-                        drawer.setDisable(false);
-
-                    }
-                }
-                );
-            } catch (IOException ex) {
-                Logger.getLogger(UserHomeController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            Drawer newdrawer = new Drawer();
+            newdrawer.drawerPullout(drawer, currentUser, hamburger);
         });
 
     }

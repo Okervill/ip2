@@ -5,14 +5,13 @@
  */
 package CompetitivePlay;
 
-import SQL.SQLHandler;
+import HighScoreView.HighScoreView;
+import ScoreHistory.ScoreHistory;
 import UserHomePage.UserHome;
-import UserHomePage.UserHomeController;
-import UserHomePage.drawerController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
-import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import ip2.Drawer;
 import ip2.Question;
 import ip2.Quiz;
 import ip2.SwitchWindow;
@@ -29,7 +28,6 @@ import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -37,10 +35,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 /**
@@ -59,7 +54,7 @@ public class CompetitivePlayController implements Initializable {
     private JFXDrawer drawer;
 
     @FXML
-    private JFXButton option1, option2, option3, option4, startButton, returnhome, previousScoreButton, finishButton, highscore;
+    private JFXButton option1, option2, option3, option4, startButton, returnhome,  finishButton;
 
     @FXML
     private TextArea questionDisplay;
@@ -76,12 +71,7 @@ public class CompetitivePlayController implements Initializable {
     private Label label1, label2, label3, scoreDisplay;
 
     @FXML
-    private Button home;
-    
-    @FXML
-    private Line line;
-
-   
+    private Button home,previousScoreButton, highscore;
 
     @FXML
     private Circle circle1, circle2, circle3, circle4, circle5, circle6, circle7, circle8, circle9, circle10;
@@ -91,6 +81,7 @@ public class CompetitivePlayController implements Initializable {
     String username;
     Quiz quiz = new Quiz();
     ArrayList<Question> questions = new ArrayList<>();
+
     /**
      * Initializes the controller class.
      *
@@ -103,33 +94,8 @@ public class CompetitivePlayController implements Initializable {
             @Override
             public void run() {
                 username = currentUser.getUsername();
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserHomePage/pullout.fxml"));
-                    VBox box = loader.load();
-                    drawer.setSidePane(box);
-                    drawerController controller = loader.getController();
-
-                    controller.setData(currentUser);
-
-                    HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
-                    transition.setRate(-1);
-                    hamburger.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
-                        transition.setRate(transition.getRate() * -1);
-                        transition.play();
-
-                        if (drawer.isOpened()) {
-                            drawer.close();
-                            drawer.setDisable(true);
-                        } else {
-                            drawer.open();
-                            drawer.setDisable(false);
-
-                        }
-                    }
-                    );
-                } catch (IOException ex) {
-                    Logger.getLogger(UserHomeController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                Drawer newdrawer = new Drawer();
+                newdrawer.drawerPullout(drawer, currentUser, hamburger);
             }
 
         });
@@ -141,7 +107,7 @@ public class CompetitivePlayController implements Initializable {
         option4.setVisible(false);
         highscore.setVisible(false);
         scoreDisplay.setVisible(false);
-        line.setVisible(false);
+
         label3.setVisible(false);
         label2.setVisible(false);
         label1.setVisible(false);
@@ -173,9 +139,10 @@ public class CompetitivePlayController implements Initializable {
         if (questions.isEmpty()) {
             return;
         }
+
         drawer.setDisable(true);
-        drawer.close();
         hamburger.setVisible(false);
+        drawer.close();
         startButton.setVisible(false);
         option1.setVisible(true);
         option2.setVisible(true);
@@ -306,16 +273,16 @@ public class CompetitivePlayController implements Initializable {
 
     @FXML
     private void nextQuestion() throws SQLException {
-        if (qNo<10){
-        Question q = questions.get(qNo);
-        questionDisplay.setText(q.getUserQuestion());
-        String[] answers=q.getAnswers(q);        
-        ArrayList num = quiz.nextQuestion();  
-        option1.setText(answers[(int) num.get(0)]);
-        option2.setText(answers[(int) num.get(1)]);
-        option3.setText(answers[(int) num.get(2)]);
-        option4.setText(answers[(int) num.get(3)]);
-        qNo++;
+        if (qNo < 10) {
+            Question q = questions.get(qNo);
+            questionDisplay.setText(q.getUserQuestion());
+            String[] answers = q.getAnswers(q);
+            ArrayList num = quiz.nextQuestion();
+            option1.setText(answers[(int) num.get(0)]);
+            option2.setText(answers[(int) num.get(1)]);
+            option3.setText(answers[(int) num.get(2)]);
+            option4.setText(answers[(int) num.get(3)]);
+            qNo++;
         } else {
             endQuiz();
         }
@@ -324,7 +291,7 @@ public class CompetitivePlayController implements Initializable {
     @FXML
     private void endQuiz() throws SQLException {
         countdown.cancel();
-
+        home.setVisible(false);
         option1.setVisible(false);
         option2.setVisible(false);
         option3.setVisible(false);
@@ -337,12 +304,16 @@ public class CompetitivePlayController implements Initializable {
 
     @FXML
     private void finish(ActionEvent event) {
+
         questionDisplay.setVisible(false);
         finishButton.setVisible(false);
-        home.setVisible(false);
+
+        drawer.setDisable(false);
+        drawer.close();
+        hamburger.setVisible(true);
         highscore.setVisible(true);
         scoreDisplay.setVisible(true);
-        line.setVisible(true);
+
         label3.setVisible(true);
         label2.setVisible(true);
         label1.setVisible(true);
@@ -350,6 +321,16 @@ public class CompetitivePlayController implements Initializable {
         returnhome.setVisible(true);
         scoreDisplay.setText("" + score);
 
+    }
+
+    @FXML
+    void viewHighScore(ActionEvent event) {
+        SwitchWindow.switchWindow((Stage) highscore.getScene().getWindow(), new HighScoreView(currentUser));
+    }
+
+    @FXML
+    void viewPrevious(ActionEvent event) {
+        SwitchWindow.switchWindow((Stage) previousScoreButton.getScene().getWindow(), new ScoreHistory(currentUser));
     }
 
     @FXML

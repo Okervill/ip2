@@ -8,7 +8,10 @@ package CasualPlay;
 import SQL.SQLHandler;
 import UserHomePage.UserHome;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
 import ip2.Category;
+import ip2.Drawer;
 import ip2.Question;
 import ip2.Quiz;
 import ip2.SwitchWindow;
@@ -47,17 +50,22 @@ public class CasualGameController implements Initializable {
     ArrayList<Question> answQuestions = new ArrayList<>();
     private int qNo = 0;
     int score = 0;
+    int currentQSize = 0;
     Quiz quiz = new Quiz();
+
     @FXML
-    private JFXButton option1, option2, option3, option4;
+    private JFXHamburger hamburger;
+
+    @FXML
+    private JFXDrawer drawer;
+
+    @FXML
+    private JFXButton option1, option2, option3, option4, finish;
 
     @FXML
     private TextArea questionDisplay;
     @FXML
-    private Label scoreDisplay, label1, label2, label3, outOf, correct;
-
-    @FXML
-    private JFXButton previousScoreButton;
+    private Label scoreDisplay, label1, label2, label3, outOf, correct, qleft, labelquestions;
 
     @FXML
     private Button home;
@@ -66,7 +74,7 @@ public class CasualGameController implements Initializable {
     private HBox scorebox;
     @FXML
     private Button returnHome;
- 
+
     @FXML
     private void answer(ActionEvent event) throws SQLException {
         if (event.getSource().equals(option1)) {
@@ -104,14 +112,16 @@ public class CasualGameController implements Initializable {
         if (qNo < questions.size()) {
             Question q = questions.get(qNo);
             questionDisplay.setText(q.getUserQuestion());
-            String[] answers=q.getAnswers(q);
+            String[] answers = q.getAnswers(q);
             ArrayList num = quiz.nextQuestion();
-            
+
             option1.setText(answers[(int) num.get(0)]);
             option2.setText(answers[(int) num.get(1)]);
             option3.setText(answers[(int) num.get(2)]);
             option4.setText(answers[(int) num.get(3)]);
             qNo++;
+            currentQSize = currentQSize - 1;
+            qleft.setText("" + currentQSize);
 
         } else {
             endQuiz();
@@ -126,24 +136,30 @@ public class CasualGameController implements Initializable {
         option4.setVisible(false);
         questionDisplay.setVisible(false);
 
+        labelquestions.setVisible(false);
+        qleft.setVisible(false);
+        returnHome.setVisible(false);
+        finish.setVisible(false);
+        drawer.setDisable(false);
+        hamburger.setVisible(true);
         scoreDisplay.setVisible(true);
         scorebox.setVisible(true);
         label3.setVisible(true);
         label2.setVisible(true);
         label1.setVisible(true);
-        previousScoreButton.setVisible(true);
+
         home.setVisible(true);
         scoreDisplay.setText("" + score);
         outOf.setText("" + questions.size());
         boolean end = quiz.endCasualQuiz(categorySelected, currentUser, answQuestions);
-            if (end==true) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Finished Category");
-                alert.setHeaderText("Congratulations! You have finished this category. It will now be reset for you to practice again.");
-                alert.showAndWait();
-                return;
-            }
+        if (end == true) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Finished Category");
+            alert.setHeaderText("Congratulations! You have finished this category. It will now be reset for you to practice again.");
+            alert.showAndWait();
+            return;
         }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -151,28 +167,37 @@ public class CasualGameController implements Initializable {
             @Override
             public void run() {
                 try {
+
+                    Drawer newdrawer = new Drawer();
+                    newdrawer.drawerPullout(drawer, currentUser, hamburger);
                     scoreDisplay.setVisible(false);
                     scorebox.setVisible(false);
                     label3.setVisible(false);
                     label2.setVisible(false);
                     label1.setVisible(false);
-                    previousScoreButton.setVisible(false);
+
                     home.setVisible(false);
 
-                   //int catID = Category.fetchCatInfo(categorySelected);
-
+                    //int catID = Category.fetchCatInfo(categorySelected);
                     questions = quiz.getQuestions(categorySelected, currentUser);
                     if (questions.isEmpty()) {
                         return;
                     }
-
+                    correct.setText("" + score);
+                    labelquestions.setVisible(true);
+                    returnHome.setVisible(true);
+                    finish.setVisible(true);
+                    drawer.setDisable(true);
+                    hamburger.setVisible(false);
                     option1.setVisible(true);
                     option2.setVisible(true);
                     option3.setVisible(true);
                     option4.setVisible(true);
                     questionDisplay.setVisible(true);
                     correct.setVisible(true);
-
+                    currentQSize = questions.size();
+                    currentQSize = currentQSize + 1;
+                    qleft.setText("" + currentQSize);
                     nextQuestion();
                 } catch (SQLException ex) {
                     Logger.getLogger(CasualGameController.class.getName()).log(Level.SEVERE, null, ex);
@@ -188,10 +213,17 @@ public class CasualGameController implements Initializable {
     }
 
     @FXML
+    public void finish(ActionEvent event) throws IOException, SQLException {
+        endQuiz();
+
+    }
+
+    @FXML
     public void home(ActionEvent event) throws IOException {
         SwitchWindow.switchWindow((Stage) home.getScene().getWindow(), new UserHome(currentUser));
 
     }
+
     @FXML
     private void returnHome(ActionEvent event) throws IOException {
 
