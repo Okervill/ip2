@@ -6,12 +6,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="221.0" prefWidth="338.0" stylesheets="@../Resources/stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserHomePage.ChangeUsernameController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="221.0" prefWidth="338.0" stylesheets="@../Resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserHomePage.ChangeUsernameController">
    <children>
       <JFXTextField fx:id="getUsername" alignment="CENTER" labelFloat="true" layoutX="81.0" layoutY="68.0" />
       <JFXButton fx:id="updateUsername" layoutX="67.0" layoutY="156.0" onAction="#updateUsernameButton" prefHeight="39.0" prefWidth="85.0" text="Update" />
-      <Label layoutX="91.0" layoutY="14.0" text="Change username" textFill="WHITE">
+      <Label layoutX="78.0" layoutY="14.0" styleClass="heading" text="Change username" textFill="WHITE">
          <font>
             <Font name="System Bold" size="19.0" />
          </font>

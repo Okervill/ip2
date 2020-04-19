@@ -6,15 +6,15 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="221.0" prefWidth="338.0" stylesheets="@../Resources/stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserHomePage.DeleteAccountController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="221.0" prefWidth="338.0" stylesheets="@../Resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserHomePage.DeleteAccountController">
    <children>
-      <Label layoutX="58.0" prefHeight="66.0" prefWidth="219.0" text="Are you sure you want to delete your account?" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <Label layoutX="45.0" prefHeight="66.0" prefWidth="252.0" styleClass="heading" text="Are you sure you want to delete your account?" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font name="System Bold" size="19.0" />
          </font>
       </Label>
       <JFXButton fx:id="cancel" layoutX="128.0" layoutY="175.0" onAction="#cancelButton" prefHeight="39.0" prefWidth="85.0" text="Cancel" />
       <JFXPasswordField fx:id="getPassword" labelFloat="true" layoutX="66.0" layoutY="80.0" prefHeight="37.0" prefWidth="207.0" promptText="Enter password" stylesheets="@../stylesheet.css" />
-      <JFXButton fx:id="deleteAccount" layoutX="67.0" layoutY="132.0" onAction="#deleteAccountButton" prefHeight="39.0" prefWidth="207.0" text="Delete account" textAlignment="CENTER" />
+      <JFXButton fx:id="deleteAccount" layoutX="86.0" layoutY="130.0" onAction="#deleteAccountButton" prefHeight="39.0" prefWidth="171.0" text="Delete account" textAlignment="CENTER" />
    </children>
 </Pane>

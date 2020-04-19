@@ -9,6 +9,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="418.0" prefWidth="600.0" stylesheets="@../Resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ScoreHistory.ScoreHistoryController">
@@ -19,7 +20,7 @@
             <TableColumn fx:id="n1" prefWidth="214.5" text=" Score" />
         </columns>
       </TableView>
-      <Label layoutX="245.0" layoutY="15.0" text="Score History" textFill="WHITE">
+      <Label layoutX="231.0" layoutY="13.0" styleClass="heading" text="Score History" textFill="WHITE">
          <font>
             <Font name="SansSerif Bold" size="19.0" />
          </font>
@@ -33,7 +34,8 @@
             </ImageView>
          </graphic>
       </Button>
-      <JFXHamburger fx:id="hamburger" layoutX="500.0" layoutY="16.0" />
       <JFXDrawer fx:id="drawer" defaultDrawerSize="250.0" prefHeight="418.0" prefWidth="250.0" />
+      <Line endX="35.350006103515625" layoutX="386.0" layoutY="49.0" startX="-206.5" stroke="#a8d6c9" strokeWidth="1.3" />
+      <JFXHamburger fx:id="hamburger" layoutX="500.0" layoutY="16.0" />
    </children>
 </AnchorPane>

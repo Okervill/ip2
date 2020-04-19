@@ -519,7 +519,6 @@ public class SQLHandler {
     public ObservableList<HighScore> getPreviousResult(User currentUser) throws SQLException{
         ObservableList<HighScore> data = FXCollections.observableArrayList();
         String sql = "select quizNo,score from comp_" + currentUser.getUserID() + "";
-                System.out.println(sql);
                 ResultSet rs = conn.createStatement().executeQuery(sql);
                 while (rs.next()) {
                     data.add(new HighScore(rs.getInt("quizNo"), rs.getString("score")));

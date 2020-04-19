@@ -19,34 +19,34 @@
       <JFXButton fx:id="option3" layoutX="71.0" layoutY="323.0" onAction="#answer" prefHeight="66.0" prefWidth="214.0" styleClass="compbutton" stylesheets="@../Resources/stylesheet.css" />
       <JFXButton fx:id="option4" layoutX="338.0" layoutY="323.0" onAction="#answer" prefHeight="66.0" prefWidth="214.0" styleClass="compbutton" stylesheets="@../Resources/stylesheet.css" />
       <TextArea fx:id="questionDisplay" editable="false" layoutX="69.0" layoutY="64.0" prefHeight="131.0" prefWidth="486.0" wrapText="true" />
-      <Label fx:id="label1" layoutX="218.0" layoutY="101.0" text="Congratulations! " textFill="WHITE">
+      <Label fx:id="label1" layoutX="230.0" layoutY="117.0" styleClass="heading" text="Congratulations! " textFill="WHITE">
          <font>
             <Font name="System Bold" size="23.0" />
          </font>
       </Label>
-      <Label fx:id="label2" layoutX="160.0" layoutY="150.0" text="You answered this many questions" textFill="WHITE" wrapText="true">
+      <Label fx:id="label2" layoutX="160.0" layoutY="150.0" styleClass="heading" text="You answered this many questions" textFill="WHITE" wrapText="true">
          <font>
             <Font name="System Bold" size="19.0" />
          </font>
       </Label>
-      <Label fx:id="label3" layoutX="270.0" layoutY="181.0" text="correctly:" textFill="WHITE">
+      <Label fx:id="label3" layoutX="270.0" layoutY="181.0" styleClass="heading" text="correctly:" textFill="WHITE">
          <font>
             <Font name="System Bold" size="19.0" />
          </font>
       </Label>
       <HBox fx:id="scorebox" alignment="CENTER" layoutX="265.0" layoutY="213.0" prefHeight="45.0" prefWidth="96.0" style="-fx-background-color: #a8d6c9;">
          <children>
-            <Label fx:id="scoreDisplay" textFill="WHITE">
+            <Label fx:id="scoreDisplay" styleClass="heading" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
             </Label>
-            <Label fx:id="scoreDisplay1" text="/" textFill="WHITE">
+            <Label fx:id="scoreDisplay1" styleClass="heading" text="/" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
             </Label>
-            <Label fx:id="outOf" textFill="WHITE">
+            <Label fx:id="outOf" styleClass="heading" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
@@ -54,12 +54,12 @@
          </children>
       </HBox>
       <JFXButton fx:id="home" layoutX="252.0" layoutY="337.0" onAction="#home" text="Return Home" />
-      <Label fx:id="label11" layoutX="14.0" layoutY="14.0" text="Correct:" textFill="WHITE">
+      <Label fx:id="label11" layoutX="14.0" layoutY="14.0" styleClass="heading" text="Correct:" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="correct" layoutX="95.0" layoutY="14.0" textFill="WHITE">
+      <Label fx:id="correct" layoutX="96.0" layoutY="15.0" styleClass="heading" textFill="WHITE">
          <font>
             <Font name="System Bold" size="19.0" />
          </font>
@@ -73,13 +73,13 @@
             </ImageView>
          </graphic>
       </Button>
-      <JFXButton fx:id="finish" layoutX="487.0" layoutY="18.0" onAction="#finish" text="Finish" />
-      <Label fx:id="labelquestions" layoutX="178.0" layoutY="15.0" text="Questions left:" textFill="WHITE">
+      <JFXButton fx:id="finish" layoutX="481.0" layoutY="18.0" onAction="#finish" prefHeight="33.0" prefWidth="75.0" text="Finish" />
+      <Label fx:id="labelquestions" layoutX="178.0" layoutY="15.0" styleClass="heading" text="Questions left:" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="qleft" layoutX="311.0" layoutY="14.0" textFill="WHITE">
+      <Label fx:id="qleft" layoutX="325.0" layoutY="15.0" styleClass="heading" textFill="WHITE">
          <font>
             <Font name="System Bold" size="19.0" />
          </font>

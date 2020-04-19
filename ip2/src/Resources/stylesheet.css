@@ -12,6 +12,15 @@
     -fx-background-color: -fx-primary;
 }
 
+.label{
+    -fx-font-family: Georgia;
+    -fx-font-size: 16px;
+}
+
+.heading{
+    -fx-font-family: Georgia;
+    -fx-font-size: 23px;
+}
 
 
 
@@ -21,7 +30,7 @@
 
 .button{
 
-
+    -fx-font-family: Georgia;
     -fx-text-fill: -fx-primarytext;
     -fx-background-color: transparent;
     -fx-border-color:  -fx-secondary;

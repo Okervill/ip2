@@ -5,24 +5,16 @@
  */
 package HighScoreView;
 
-import LoginRegister.Login;
 import SQL.SQLHandler;
 import UserHomePage.UserHome;
-import UserHomePage.UserHomeController;
-import UserHomePage.drawerController;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
-import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 import ip2.Drawer;
-import ip2.HighScore;
 import ip2.LeaderBoardScore;
 import ip2.SwitchWindow;
 import ip2.User;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -32,19 +24,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -88,7 +73,7 @@ public class HighScoreViewController implements Initializable {
             }
             
 
-            name.setCellValueFactory(new PropertyValueFactory<>("name"));
+            name.setCellValueFactory(new PropertyValueFactory<>("nasyme"));
             name1.setCellValueFactory(new PropertyValueFactory<>("score"));
             highScoreTable.setItems(data);
             name1.setSortType(TableColumn.SortType.DESCENDING);

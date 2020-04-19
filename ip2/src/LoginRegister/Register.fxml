@@ -15,7 +15,7 @@
   <items>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="486.0" prefWidth="420.0" style="-fx-background-color: e8a87c;" SplitPane.resizableWithParent="false">
          <children>
-            <Label layoutX="159.0" layoutY="35.0" prefHeight="36.0" prefWidth="97.0" text="Register" textFill="WHITE">
+            <Label layoutX="168.0" layoutY="36.0" prefHeight="36.0" prefWidth="87.0" styleClass="heading" text="Register" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
@@ -39,12 +39,12 @@
       </AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="463.0" prefWidth="254.0" style="-fx-background-color: white;" SplitPane.resizableWithParent="false">
          <children>
-            <Label layoutX="63.0" layoutY="208.0" text="Already a member?" textFill="#605959">
+            <Label layoutX="64.0" layoutY="208.0" text="Already a member?" textFill="#605959">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Button fx:id="loginButton" layoutX="69.0" layoutY="245.0" mnemonicParsing="false" onAction="#loadLoginPage" prefHeight="42.0" prefWidth="116.0" style="-fx-background-radius: 100; -fx-background-color: a8d6c9;" text="Login" textFill="WHITE">
+            <Button fx:id="loginButton" layoutX="75.0" layoutY="244.0" mnemonicParsing="false" onAction="#loadLoginPage" prefHeight="42.0" prefWidth="116.0" style="-fx-background-radius: 100; -fx-background-color: a8d6c9;" text="Login" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
