@@ -25,19 +25,8 @@ public class User {
     private String password;
     private final String admin;
     private String userscore;
-    private final SQLHandler sql = new SQLHandler();
+    private static SQLHandler sql = new SQLHandler();
 
-    public User(String first, String sur, String user, String pass, String isAdmin, String usrscore) throws SQLException {
-        userid=0;
-        firstname = first;
-        surname = sur;
-        username = user;
-        password = pass;
-        admin = isAdmin;
-        userscore = usrscore;
-    }
-
-   
     
     public User(String user) throws SQLException {
         ArrayList<String> userInfo = sql.searchUsersTable(user);
@@ -50,9 +39,9 @@ public class User {
         userscore = userInfo.get(6);
     }
 
-    public void createUser(User user) throws SQLException {
+    public static void createUser(String firstname, String surname, String username, String password, String isAdmin, String userscore) throws SQLException {
         
-        sql.createUser(user.getFirstname(), user.getSurname(), user.getUsername(), user.getPassword(), user.getUserType(), user.getUserScore());
+        sql.createUser(firstname, surname, username, password, isAdmin, userscore);
     }
 
     public int getUserID() {
