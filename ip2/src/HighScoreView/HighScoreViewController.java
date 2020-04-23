@@ -73,7 +73,7 @@ public class HighScoreViewController implements Initializable {
             }
             
 
-            name.setCellValueFactory(new PropertyValueFactory<>("nasyme"));
+            name.setCellValueFactory(new PropertyValueFactory<>("name"));
             name1.setCellValueFactory(new PropertyValueFactory<>("score"));
             highScoreTable.setItems(data);
             name1.setSortType(TableColumn.SortType.DESCENDING);

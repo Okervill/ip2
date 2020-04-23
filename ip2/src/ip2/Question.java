@@ -27,15 +27,7 @@ public class Question {
     private final static SQLHandler sql = new SQLHandler();
 
     
-    public Question(int catID, String quest, String correct, String wrong1, String wrong2, String wrong3) throws SQLException {
-        this.QuestionID = 0;
-        this.CategoryID = catID;
-        this.question = quest;
-        this.answer = correct;
-        this.wrongAns1 = wrong1;
-        this.wrongAns2 = wrong2;
-        this.wrongAns3 = wrong3;
-    }
+
 
     public Question(int tempid, int catID, String quest, String correct, String wrong1, String wrong2, String wrong3) {
 

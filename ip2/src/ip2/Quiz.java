@@ -33,7 +33,7 @@ public class Quiz {
         else {
             return false;
         }
-        
+            
 }
 
     public ArrayList<Question> getQuestions() throws SQLException {

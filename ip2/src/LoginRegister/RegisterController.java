@@ -109,7 +109,8 @@ public class RegisterController implements Initializable {
             alert.showAndWait();
         }
 
-        if (allUsers.contains(username) || User.match(password) == true || User.match(username) == true || (password.length() < 8 || password.length() > 32) || username.length() < 4 || firstname.isEmpty() || surname.isEmpty() || username.isEmpty() || password.isEmpty() || !check13.isSelected()) {
+        if (allUsers.contains(username) || User.match(password) == true || User.match(username) == true || (password.length() < 8 || password.length() > 32) || 
+                username.length() < 4 || firstname.isEmpty() || surname.isEmpty() || username.isEmpty() || password.isEmpty() || !check13.isSelected()) {
             registerFailed();
 
         } else {
@@ -117,8 +118,8 @@ public class RegisterController implements Initializable {
             firstname = firstname.substring(0, 1).toUpperCase() + firstname.substring(1).toLowerCase();
             Hash h = new Hash();
             password = h.hash(password);
-            User newUser = new User(firstname, surname, username, password, "false", "0");
-            newUser.createUser(newUser);
+            
+            User.createUser(firstname, surname, username, password, "false", "0");
 
             SwitchWindow.switchWindow((Stage) registerButton.getScene().getWindow(), new Login());
         }
